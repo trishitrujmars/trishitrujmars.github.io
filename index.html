@@ -1,146 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Astrogeology and Surface Simulation Laboratory</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f7f7f7;
-      color: #333;
+      background-color: #fdfdfd;
+      color: #2c2c2c;
     }
-    header {
-      background-color: #1d1d1d;
-      color: white;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .navbar {
+      background-color: #2b3d4f;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.2em;
+    .navbar-brand, .nav-link {
+      color: #fff !important;
     }
-    header img {
-      height: 60px;
-    }
-    nav {
-      margin-top: 10px;
-    }
-    nav a {
-      color: #ccc;
-      margin-right: 20px;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    nav a:hover {
-      color: #fff;
-    }
-    main {
-      padding: 40px;
-      max-width: 960px;
-      margin: auto;
-      background-color: white;
-      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    section {
-      margin-bottom: 40px;
-    }
-    h2 {
-      color: #1d1d1d;
-      border-bottom: 2px solid #e2e2e2;
+    .section-title {
+      border-bottom: 2px solid #e6edf3;
+      margin-bottom: 20px;
       padding-bottom: 10px;
+      color: #2b3d4f;
+    }
+    .card {
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      margin-bottom: 30px;
     }
     footer {
-      background-color: #1d1d1d;
+      background-color: #2b3d4f;
       color: white;
+      padding: 20px 0;
       text-align: center;
-      padding: 20px;
     }
-    .photo {
-      max-width: 150px;
-      border-radius: 75px;
-    }
-    .planet-3d {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
+    .rounded-img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
     }
     .planet-3d iframe {
       width: 100%;
-      height: 500px;
+      height: 400px;
       border: none;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Astrogeology and Surface Simulation Laboratory</h1>
-    <img src="lab_logo.png" alt="Lab Logo" />
-  </header>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#research">Research</a>
-    <a href="#team">Team</a>
-    <a href="#publications">Publications</a>
-    <a href="#contact">Contact</a>
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="#">ASSL</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#research">Research</a></li>
+          <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="#publications">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
-  <main>
-    <section id="about">
-  <h2>About</h2>
-  <p>
-    <strong>The Astrogeology and Surface Simulation Laboratory (ASSL)</strong>, led by Dr. Trishit Ruj at the Institute for Planetary Materials, Okayama University, is dedicated to investigating the surface evolution and habitability of planetary bodies—particularly Mars.
-  </p>
-  <p>
-    Our interdisciplinary research bridges planetary geology, geomorphology, remote sensing, machine learning, and analog experiments. We recreate Martian surface conditions using custom-built environmental simulation chambers, analyze terrain using satellite data, and interpret landform histories through both lab-based and field analog studies.
-  </p>
-  <p>
-    With active collaborations across Japan, India, and Europe, the lab contributes to mission planning, data interpretation, and the broader understanding of planetary surface processes and their implications for past water activity and life.
-  </p>
-</section>
 
-    <section id="research">
-      <h2>Research</h2>
-      <p>Our work spans Mars analog studies, planetary geomorphology, environmental chamber experiments, and AI-assisted surface classification. We aim to better understand the geological history and potential habitability of Mars and other planetary bodies.</p>
-      <div class="planet-3d">
-        <iframe src="https://solarsystem.nasa.gov/gltf_embed/2370" title="3D Mars"></iframe>
+  <header class="container text-center py-5">
+    <img src="lab_logo.png" alt="Lab Logo" height="80">
+    <h1 class="mt-3">Astrogeology and Surface Simulation Laboratory</h1>
+    <p class="text-muted">“Reconstructing planetary landscapes, one simulation at a time.”</p>
+  </header>
+
+  <main class="container">
+    <section id="about" class="mb-5">
+      <h2 class="section-title">About</h2>
+      <p>The <strong>Astrogeology and Surface Simulation Laboratory (ASSL)</strong>, led by Dr. Trishit Ruj at the Institute for Planetary Materials, Okayama University, is dedicated to investigating the surface evolution and habitability of planetary bodies—particularly Mars.</p>
+      <p>Our interdisciplinary research bridges planetary geology, geomorphology, remote sensing, machine learning, and analog experiments. We recreate Martian surface conditions using custom-built environmental simulation chambers, analyze terrain using satellite data, and interpret landform histories through both lab-based and field analog studies.</p>
+      <p>With active collaborations across Japan, India, and Europe, the lab contributes to mission planning, data interpretation, and the broader understanding of planetary surface processes and their implications for past water activity and life.</p>
+    </section>
+
+    <section id="research" class="mb-5">
+      <h2 class="section-title">Research</h2>
+      <div class="card p-4">
+        <p>Our work spans Mars analog studies, planetary geomorphology, environmental chamber experiments, and AI-assisted surface classification. We aim to better understand the geological history and potential habitability of Mars and other planetary bodies.</p>
+        <div class="planet-3d">
+          <iframe src="https://solarsystem.nasa.gov/gltf_embed/2370" title="3D Mars"></iframe>
+          <iframe src="https://solarsystem.nasa.gov/gltf_embed/2343" title="3D Moon"></iframe>
+        </div>
       </div>
-      <div class="planet-3d">
-        <iframe src="https://solarsystem.nasa.gov/gltf_embed/2343" title="3D Moon"></iframe>
+    </section>
+
+    <section id="team" class="mb-5">
+      <h2 class="section-title">Team</h2>
+      <div class="card p-4 text-center">
+        <img src="trishit_ruj.jpg" alt="Dr. Trishit Ruj" class="rounded-img mb-3">
+        <h5>Dr. Trishit Ruj</h5>
+        <p class="text-muted">Associate Professor, Planetary Geoscience</p>
+        <p>Postdocs, graduate students, and collaborators can be listed here.</p>
       </div>
     </section>
 
-    <section id="team">
-      <h2>Team</h2>
-      <p><strong>Dr. Trishit Ruj</strong><br />Associate Professor, Planetary Geoscience</p>
-      <img src="trishit_ruj.jpg" alt="Dr. Trishit Ruj" class="photo" />
-      <p>Postdocs, graduate students, and collaborators can be listed here.</p>
+    <section id="publications" class="mb-5">
+      <h2 class="section-title">Publications</h2>
+      <div class="card p-4">
+        <ul>
+          <li>Author1, Author2, <strong>Ruj, T.</strong> (2025). Delta morphology reveals global ocean regression. <em>Nature Communications</em>.</li>
+          <li><strong>Ruj, T.</strong>, et al. (2024). Crater-fill glaciation in Mars' mid-latitudes. <em>Geology</em>.</li>
+          <li>[Add more...]</li>
+        </ul>
+      </div>
     </section>
 
-    <section id="publications">
-      <h2>Publications</h2>
-      <ul>
-        <li>Author1, Author2, <strong>Ruj, T.</strong> (2025). Delta morphology reveals global ocean regression. <em>Nature Communications</em>.</li>
-        <li><strong>Ruj, T.</strong>, et al. (2024). Crater-fill glaciation in Mars' mid-latitudes. <em>Geology</em>.</li>
-        <li>[Add more...]</li>
-      </ul>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Email: trishitruj@okayama-u.ac.jp / trishitruj@gmail.com<br />
-      Institute for Planetary Materials, Okayama University<br />
-      Misasa, Tottori, Japan</p>
+    <section id="contact" class="mb-5">
+      <h2 class="section-title">Contact</h2>
+      <div class="card p-4">
+        <p>Email: trishitruj@okayama-u.ac.jp / trishitruj@gmail.com</p>
+        <p>Institute for Planetary Materials, Okayama University<br>Misasa, Tottori, Japan</p>
+      </div>
     </section>
   </main>
+
   <footer>
     <p>&copy; 2025 Astrogeology and Surface Simulation Laboratory. Site independently maintained by Dr. Trishit Ruj.</p>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
