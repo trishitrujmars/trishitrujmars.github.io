@@ -17,10 +17,16 @@
       background-color: #1d1d1d;
       color: white;
       padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     header h1 {
       margin: 0;
       font-size: 2.2em;
+    }
+    header img {
+      height: 60px;
     }
     nav {
       margin-top: 10px;
@@ -75,14 +81,15 @@
 <body>
   <header>
     <h1>Astrogeology and Surface Simulation Laboratory</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#research">Research</a>
-      <a href="#team">Team</a>
-      <a href="#publications">Publications</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <img src="lab_logo.png" alt="Lab Logo" />
   </header>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#team">Team</a>
+    <a href="#publications">Publications</a>
+    <a href="#contact">Contact</a>
+  </nav>
   <main>
     <section id="about">
       <h2>About</h2>
@@ -102,8 +109,8 @@
 
     <section id="team">
       <h2>Team</h2>
-      <p><strong>Dr. Trishit Ruj</strong></p><p><br />Associate Professor, Planetary Geoscience</p>
-      <img src="your_photo.jpg" alt="Dr. Trishit Ruj" class="photo" />
+      <p><strong>Dr. Trishit Ruj</strong><br />Associate Professor, Planetary Geoscience</p>
+      <img src="trishit_ruj.jpg" alt="Dr. Trishit Ruj" class="photo" />
       <p>Postdocs, graduate students, and collaborators can be listed here.</p>
     </section>
 
@@ -128,3 +135,4 @@
   </footer>
 </body>
 </html>
+
