@@ -4,229 +4,164 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Astrogeology and Surface Simulation Laboratory</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #f5f7fa;
-      color: #212529;
+      background-color: #f9fafb;
+      color: #2c3e50;
     }
     .navbar {
-      background: rgba(33, 37, 41, 0.9);
-      backdrop-filter: blur(10px);
+      background-color: #34495e;
     }
-    .navbar-brand {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+    .navbar-brand, .nav-link {
+      color: #ecf0f1 !important;
     }
-    .nav-link {
-      color: #fff !important;
-      font-weight: 500;
-    }
-    .hero {
+    .hero-section {
+      background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+      color: #fff;
+      padding: 80px 0;
       text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: white;
     }
-    .hero h1 {
-      font-size: 2.8rem;
+    .hero-section h1 {
       font-family: 'Playfair Display', serif;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      margin-top: 15px;
-      opacity: 0.9;
-    }
-    .hero img.logo {
-      max-height: 150px;
-      margin-bottom: 20px;
+      font-size: 3rem;
     }
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      color: #2b3d4f;
+      color: #34495e;
       margin-bottom: 30px;
-      border-bottom: 2px solid #dee2e6;
-      padding-bottom: 10px;
     }
     .card {
       border: none;
-      border-radius: 16px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-      transition: transform 0.2s ease-in-out;
-    }
-    .card:hover {
-      transform: translateY(-5px);
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     }
     .rounded-img {
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      width: 160px;
-      height: 160px;
       object-fit: cover;
-      margin-bottom: 15px;
-      object-position: center;
-      border: 4px solid #dee2e6;
-    }
-    .planet-3d iframe {
-      width: 100%;
-      height: 400px;
-      border: none;
-      margin-top: 20px;
-      border-radius: 12px;
+      border: 4px solid #ecf0f1;
     }
     footer {
-      background-color: #2b3d4f;
-      color: white;
-      padding: 30px 0;
+      background-color: #34495e;
+      color: #ecf0f1;
       text-align: center;
-      font-size: 0.95rem;
+      padding: 20px;
+    }
+    .planet-3d iframe {
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container-fluid px-4">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
       <a class="navbar-brand" href="#">ASSL</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        
-          <li class="nav-item"><a class="nav-link" href="#fieldtrip">Field Trips</a></li>
-          <li class="nav-item"><a class="nav-link" href="#interns">Interns</a></li>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav gap-3">
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#research">Research</a></li>
           <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
           <li class="nav-item"><a class="nav-link" href="#publications">Publications</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#fieldtrip">Field Trips</a></li>
+          
+<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <header class="hero">
-    <img src="lab_logo.png" alt="Lab Logo" class="logo">
-    <h1 class="mt-4">Astrogeology and Surface Simulation Laboratory</h1>
+  <header class="hero-section">
+    <img src="lab_logo.png" alt="Lab Logo" class="mb-4" height="150">
+    <h1>Astrogeology and Surface Simulation Laboratory</h1>
     <p>“Reconstructing planetary landscapes, one simulation at a time.”</p>
   </header>
 
   <main class="container py-5">
     <section id="about" class="mb-5">
       <h2 class="section-title">About</h2>
-      <p>The <strong>Astrogeology and Surface Simulation Laboratory (ASSL)</strong>, led by Dr. Trishit Ruj at the Institute for Planetary Materials, Okayama University, is dedicated to investigating the surface evolution and habitability of planetary bodies—particularly Mars.</p>
-      <p>Our interdisciplinary research bridges planetary geology, geomorphology, remote sensing, machine learning, and analog experiments. We recreate Martian surface conditions using custom-built environmental simulation chambers, analyze terrain using satellite data, and interpret landform histories through both lab-based and field analog studies.</p>
-      <p>With active collaborations across Japan, India, and Europe, the lab contributes to mission planning, data interpretation, and the broader understanding of planetary surface processes and their implications for past water activity and life.</p>
+      <p>The Astrogeology and Surface Simulation Laboratory (ASSL), led by Dr. Trishit Ruj at the Institute for Planetary Materials, Okayama University, investigates planetary surface evolution, habitability, and analog studies through simulations, remote sensing, and field work.</p>
     </section>
 
     <section id="research" class="mb-5">
       <h2 class="section-title">Research</h2>
-      <div class="card p-4">
-        <p>Our work spans Mars analog studies, planetary geomorphology, environmental chamber experiments, and AI-assisted surface classification. We aim to better understand the geological history and potential habitability of Mars and other planetary bodies.</p>
-        <div class="planet-3d">
-          <iframe src="https://solarsystem.nasa.gov/gltf_embed/2370" title="3D Mars"></iframe>
-          <iframe src="https://solarsystem.nasa.gov/gltf_embed/2343" title="3D Moon"></iframe>
-        </div>
+      <div class="planet-3d mb-4">
+        <iframe src="https://solarsystem.nasa.gov/gltf_embed/2370" height="400"></iframe>
+      </div>
+      <div class="planet-3d">
+        <iframe src="https://solarsystem.nasa.gov/gltf_embed/2343" height="400"></iframe>
       </div>
     </section>
 
     <section id="team" class="mb-5">
   <h2 class="section-title">Team</h2>
-  <div class="row g-4">
-    <div class="col-md-6">
-  <div class="card p-4 text-center">
-    <img src="trishit_ruj.jpg" alt="Dr. Trishit Ruj" class="rounded-img mx-auto">
-    <h5>Dr. Trishit Ruj</h5>
-    <p class="text-muted">Associate Professor, Planetary Geoscience</p>
-  </div>
-</div>
-
-<div class="col-md-6">
-  <div class="row g-4">
-    <div class="col-sm-6">
-      <div class="card p-3 text-center">
-        <img src="/mnt/data/Ren.jpg" alt="Ren Kito" class="rounded-img mx-auto">
-        <h6>Ren Kito</h6>
-        <p class="mb-1"><em>M.Sc 2nd Year (M2)</em></p>
-        <p style="font-size: 0.9em;">Delta Morphology and Reconstruction of Martian Global Ocean Regression</p>
-      </div>
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <img src="trishit_ruj.jpg" class="rounded-img mb-2">
+      <h5>Dr. Trishit Ruj</h5>
+      <p class="text-muted">Associate Professor, Planetary Geoscience</p>
     </div>
-    <div class="col-sm-6">
-      <div class="card p-3 text-center">
-        <img src="/mnt/data/Taka.jpg" alt="Takaki Sako" class="rounded-img mx-auto">
-        <h6>Takaki Sako</h6>
-        <p class="mb-1"><em>M.Sc 2nd Year (M2)</em></p>
-        <p style="font-size: 0.9em;">Identification of Water Ice Distribution on Mars</p>
-      </div>
+    <div class="col-md-4 mb-4">
+      <img src="Ren.jpg" class="rounded-img mb-2">
+      <h5>Ren Kito</h5>
+      <p class="text-muted">M.Sc 2nd Year (M2)<br>Delta Morphology & Martian Ocean Regression</p>
     </div>
-    <div class="col-sm-6">
-      <div class="card p-3 text-center">
-        <img src="/mnt/data/Chijiiwa.jpg" alt="Takamu Chijiiwa" class="rounded-img mx-auto">
-        <h6>Takamu Chijiiwa</h6>
-        <p class="mb-1"><em>M.Sc 2nd Year (M2)</em></p>
-        <p style="font-size: 0.9em;">Identification of Present-day Water Activity on the High-Latitudes of Mars</p>
-      </div>
+    <div class="col-md-4 mb-4">
+      <img src="Taka.jpg" class="rounded-img mb-2">
+      <h5>Takaki Sako</h5>
+      <p class="text-muted">M.Sc 2nd Year (M2)<br>Water Ice Distribution on Mars</p>
     </div>
-    <div class="col-sm-6">
-      <div class="card p-3 text-center">
-        <img src="/mnt/data/Hiral.jpg" alt="Hiral PB" class="rounded-img mx-auto">
-        <h6>Hiral PB</h6>
-        <p class="mb-1"><em>M.Sc 1st Year (M1)</em></p>
-        <p style="font-size: 0.9em;">Water Ice Distribution on Mars</p>
-      </div>
+    <div class="col-md-4 mb-4">
+      <img src="Chijiiwa.jpg" class="rounded-img mb-2">
+      <h5>Takamu Chijiiwa</h5>
+      <p class="text-muted">M.Sc 2nd Year (M2)<br>Present-day Water Activity on Mars</p>
     </div>
-  </div>
-</div>
+    <div class="col-md-4 mb-4">
+      <img src="Hiral.jpg" class="rounded-img mb-2">
+      <h5>Hiral PB</h5>
+      <p class="text-muted">M.Sc 1st Year (M1)<br>Water Ice Distribution on Mars</p>
+    </div>
+        <div class="col-md-4 mb-4">
+          <img src="trishit_ruj.jpg" class="rounded-img mb-2">
+          <h5>Dr. Trishit Ruj</h5>
+          <p class="text-muted">Associate Professor</p>
+        </div>
+      </div>
+    </section>
 
-    
-  </div>
-</section>
-
-<section id="fieldtrip" class="mb-5">
-  <h2 class="section-title">Field Trips</h2>
-  <div class="card p-4">
-    <h5>United States</h5>
-    <p>Details about field expeditions, analog site investigations, or conference trips conducted in the U.S.</p>
-    <h5>Mongolia</h5>
-    <p>Fieldwork carried out in Mongolia focusing on planetary analogs and geomorphological studies.</p>
-    <h5>Japan</h5>
-    <p>Domestic field campaigns including dune studies, volcanic analogs, and collaborative observations within Japan.</p>
-  </div>
-</section>
-
-<section id="interns" class="mb-5">
-  <h2 class="section-title">Internship Students</h2>
-  <div class="card p-4">
-    <h5>2024</h5>
-    <p>List of internship students and projects from the 2024 program.</p>
-    <h5>2025</h5>
-    <p>Upcoming or confirmed internship students and expected research activities for 2025.</p>
-  </div>
-</section>
-
-<section id="publications" class="mb-5">
+    <section id="publications" class="mb-5">
       <h2 class="section-title">Publications</h2>
-      <div class="card p-4">
-        <ul>
-          <li>Author1, Author2, <strong>Ruj, T.</strong> (2025). Delta morphology reveals global ocean regression. <em>Nature Communications</em>.</li>
-          <li><strong>Ruj, T.</strong>, et al. (2024). Crater-fill glaciation in Mars' mid-latitudes. <em>Geology</em>.</li>
-          <li>[Add more...]</li>
-        </ul>
-      </div>
+      <ul>
+        <li>Delta morphology reveals global ocean regression (Nature Communications, 2025)</li>
+        <li>Crater-fill glaciation in Mars' mid-latitudes (Geology, 2024)</li>
+      </ul>
     </section>
 
-    <section id="contact" class="mb-5">
-      <h2 class="section-title">Contact</h2>
-      <div class="card p-4">
-        <p>Email: trishitruj@okayama-u.ac.jp / trishitruj@gmail.com</p>
-        <p>Institute for Planetary Materials, Okayama University<br>Misasa, Tottori, Japan</p>
-      </div>
+    <section id="fieldtrip" class="mb-5">
+      <h2 class="section-title">Field Trips</h2>
+      <p>Field expeditions conducted in the US, Mongolia, and Japan exploring planetary analog environments.</p>
     </section>
+
+    
+
+<section id="contact" class="mb-5">
+  <h2 class="section-title">Contact</h2>
+  <div class="card p-4">
+    <p><strong>Email:</strong> trishitruj@okayama-u.ac.jp / trishitruj@gmail.com</p>
+    <p><strong>Address:</strong> Institute for Planetary Materials, Okayama University, Misasa, Tottori, Japan</p>
+  </div>
+</section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Astrogeology and Surface Simulation Laboratory. Site independently maintained by Dr. Trishit Ruj.</p>
+    &copy; 2025 ASSL. Site independently maintained by Dr. Trishit Ruj.
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
