@@ -16,6 +16,10 @@
       background-repeat: no-repeat;
       height: 100vh;
       transition: background-image 1.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
     .animate-fade-up {
       animation: fade-up 1s ease-out forwards;
@@ -49,7 +53,7 @@
   </nav>
 </header>
 
-<section id="hero" class="hero flex items-center justify-center text-white text-center">
+<section id="hero" class="hero text-white">
   <div class="animate-fade-up">
     <h1 class="text-5xl font-bold">Astrogeology & Surface Simulation</h1>
     <p class="mt-4 text-xl">Exploring planetary surfaces through geology, simulation, and exploration</p>
@@ -139,22 +143,24 @@
 <script>
   const hero = document.getElementById('hero');
   const images = [
-    '/assets/images/Mars.png',
-    '/assets/images/Solar system.png',
-    '/assets/images/Titan.png',
-    '/assets/images/venus.png',
-    '/assets/images/mars_road.jpg',
-    '/assets/images/mars_rover.jpg',
-    '/assets/images/Ryugu.png',
-    '/assets/images/enceledas.png'
+    'Mars.png',
+    'Solar system.png',
+    'Titan.png',
+    'venus.png',
+    'mars_road.jpg',
+    'mars_rover.jpg',
+    'Ryugu.png',
+    'enceledas.png'
   ];
   let current = 0;
   function changeBackground() {
     hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${images[current]}')`;
+    hero.style.backgroundSize = 'cover';
+    hero.style.backgroundPosition = 'center';
     current = (current + 1) % images.length;
   }
   changeBackground();
-  setInterval(changeBackground, 3000);
+  setInterval(changeBackground, 4000);
 </script>
 
 </body>
