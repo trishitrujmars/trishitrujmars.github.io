@@ -21,6 +21,14 @@
       justify-content: center;
       text-align: center;
     }
+    .fade-in {
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+    .fade-out {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
     .animate-fade-up {
       animation: fade-up 1s ease-out forwards;
     }
@@ -53,7 +61,7 @@
   </nav>
 </header>
 
-<section id="hero" class="hero text-white">
+<section id="hero" class="hero text-white fade-in">
   <div class="animate-fade-up">
     <h1 class="text-5xl font-bold">Astrogeology & Surface Simulation</h1>
     <p class="mt-4 text-xl">Exploring planetary surfaces through geology, simulation, and exploration</p>
@@ -155,13 +163,19 @@
   let current = 0;
 
   function changeBackground() {
-    hero.style.backgroundImage =
-      `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${images[current]}')`;
-    current = (current + 1) % images.length;
+    hero.classList.remove('fade-in');
+    hero.classList.add('fade-out');
+
+    setTimeout(() => {
+      hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${images[current]}')`;
+      hero.classList.remove('fade-out');
+      hero.classList.add('fade-in');
+      current = (current + 1) % images.length;
+    }, 1000);
   }
 
   changeBackground();
-  setInterval(changeBackground, 4000);
+  setInterval(changeBackground, 5000);
 </script>
 
 </body>
