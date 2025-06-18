@@ -14,7 +14,13 @@
 
   <style>
     html { scroll-behavior: smooth; }
-    .hero { background-size: cover; background-position: center; transition: background-image 1s ease-in-out; }
+    .hero {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #000;
+      transition: background-image 1s ease-in-out;
+    }
     .animate-fade-up { animation: fade-up 1s ease-out forwards; }
     @keyframes fade-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .team-photo { width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: 0.5rem; }
@@ -36,7 +42,7 @@
   </nav>
 </header>
 
-<section class="hero h-screen flex items-center justify-center text-white text-center" id="hero">
+<section class="hero h-screen flex items-center justify-center text-white text-center" id="hero" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://mars.nasa.gov/system/news_items/main_images/9430_PIA24547-FigureA-web.jpg');">
   <div class="animate-fade-up">
     <h1 class="text-5xl font-bold">Astrogeology & Surface Simulation</h1>
     <p class="mt-4 text-xl">Exploring planetary surface processes through geology, simulation, and exploration</p>
