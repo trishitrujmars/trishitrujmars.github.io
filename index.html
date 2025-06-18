@@ -86,6 +86,46 @@
       margin-bottom: 1rem;
       color: #c39b77;
     }
+    .team-grid, .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .team-member, .gallery-item {
+      background: #fff6ee;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.3s, background 0.3s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .team-member:hover, .gallery-item:hover {
+      transform: translateY(-8px);
+    }
+    .team-member img, .gallery-item img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 0.5rem;
+    }
+    .gallery-caption {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    .publication-list {
+      list-style: none;
+      padding-left: 1rem;
+    }
+    .publication-list li {
+      margin-bottom: 0.75rem;
+    }
+    .news-item {
+      margin-bottom: 1.5rem;
+      background: #fff6ee;
+      padding: 1rem;
+      border-left: 4px solid #c39b77;
+    }
     footer {
       background: #f5ded0;
       text-align: center;
@@ -101,6 +141,11 @@
     <h1>ASSL — Astrogeology & Surface Simulation Lab</h1>
     <nav>
       <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#team">Team</a>
+      <a href="#projects">Projects</a>
+      <a href="#news">News</a>
     </nav>
   </header>
 
@@ -111,40 +156,127 @@
 
   <section id="about" data-aos="fade-up">
     <h2>About</h2>
-    <p>
-      The Astrogeology and Surface Simulation Laboratory (ASSL), led by <strong>Dr. Trishit Ruj</strong> at the Institute for Planetary Materials, Okayama University, focuses on the exploration and analysis of planetary surfaces, particularly Mars, to unravel their geological history, environmental conditions, and potential habitability.
-    </p>
-    <p>
-      At ASSL, we employ cutting-edge interdisciplinary methods, integrating planetary geology, remote sensing, geomorphology, and experimental simulations. Our laboratory is equipped with custom-built Martian environmental simulation chambers, enabling precise replication of planetary surface processes to better interpret remote observations and analog studies.
-    </p>
-    <p>
-      We are dedicated to advancing planetary science by bridging laboratory experiments, field analog research, and computational modeling. Our international collaborations span Japan, India, Europe, and beyond, contributing valuable insights to ongoing and future planetary exploration missions.
-    </p>
-    <p>
-      Our team is committed to fostering an inclusive and dynamic research environment, encouraging innovative approaches, and preparing the next generation of scientists to tackle key questions about planetary evolution, climate dynamics, and astrobiology.
-    </p>
+    <p>The Astrogeology and Surface Simulation Laboratory (ASSL), led by <strong>Dr. Trishit Ruj</strong> at the Institute for Planetary Materials, Okayama University, focuses on the exploration and analysis of planetary surfaces, particularly Mars, to unravel their geological history, environmental conditions, and potential habitability.</p>
+    <p>At ASSL, we employ cutting-edge interdisciplinary methods, integrating planetary geology, remote sensing, geomorphology, and experimental simulations. Our laboratory is equipped with custom-built Martian environmental simulation chambers, enabling precise replication of planetary surface processes to better interpret remote observations and analog studies.</p>
+    <p>We are dedicated to advancing planetary science by bridging laboratory experiments, field analog research, and computational modeling. Our international collaborations span Japan, India, Europe, and beyond, contributing valuable insights to ongoing and future planetary exploration missions.</p>
+    <p>Our team is committed to fostering an inclusive and dynamic research environment, encouraging innovative approaches, and preparing the next generation of scientists to tackle key questions about planetary evolution, climate dynamics, and astrobiology.</p>
   </section>
+
+  <section id="research" data-aos="fade-up">
+  <h2>Research</h2>
+  <p>Our team works on Martian periglacial processes, brine stability, lunar tectonism, ancient fluvial geomorphology, and AI-driven terrain mapping. We combine lab experiments, field analogs, and remote sensing.</p>
+</section>
+
+<section id="publications" data-aos="fade-up">
+  <h2>Key Publications</h2>
+  <ul class="publication-list">
+    <li>Ruj, T. et al. (2024). Planetary geological maps of Amazonian Mars. <em>JGR: Planets</em>.</li>
+    <li>Ruj, T. et al. (2023). Lobate scarps near Chandrayaan‑3 landing site. <em>Icarus</em>.</li>
+    <li>Ruj, T. et al. (2023). Structural control of mare volcanism. <em>Nature Communications</em>.</li>
+    <li>Ruj, T. et al. (2022). Tectonism in the Late Noachian. <em>Remote Sensing</em>.</li>
+  </ul>
+</section>
+
+<section id="team" data-aos="fade-up">
+  <h2>Team</h2>
+  <div class="team-grid">
+    <div class="team-member">
+      <img src="trishit_ruj.jpg" alt="Trishit Ruj">
+      <h3>Trishit Ruj</h3>
+      <p>Principal Investigator</p>
+      <p>Associate Professor, IPM, Okayama University</p>
+    </div>
+    <div class="team-member">
+      <img src="Ren.jpg" alt="Ren Kito">
+      <h3>Ren Kito</h3>
+      <p>M.Sc Student (M2)</p>
+      <p>Research Topic: Delta Morphology and reconstructing Martian global regression</p>
+    </div>
+    <div class="team-member">
+      <img src="Taka.jpg" alt="Taka Kondo">
+      <h3>Takaki Sako</h3>
+      <p>M.Sc Student (M2)</p>
+      <p>Research Topic: Polygon morphology and identification of near-surface ice</p>
+    </div>
+    <div class="team-member">
+      <img src="Chijiiwa.jpg" alt="Takamu Taguchi">
+      <h3>Takumu Chijiiwa</h3>
+      <p>M.Sc Student (M2)</p>
+      <p>Research Topic: Present-day water activity on Martian high-latitudes</p>
+    </div>
+    <div class="team-member">
+      <img src="Hiral.jpg" alt="Hiral Bhatt">
+      <h3>Hiral PB</h3>
+      <p>M.Sc Student (M2)</p>
+      <p>Research Topic: Water-ice distribution on Martian subsurface</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects" data-aos="fade-up">
+  <h2>Project Gallery</h2>
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="project1.jpg" alt="Martian Delta Tank Experiment">
+      <div class="gallery-caption">Delta formation under simulated Martian flow conditions</div>
+    </div>
+    <div class="gallery-item">
+      <img src="project2.jpg" alt="Fieldwork in Tottori Sand Dunes">
+      <div class="gallery-caption">Analog dune research at Tottori, Japan</div>
+    </div>
+    <div class="gallery-item">
+      <img src="project3.jpg" alt="Martian Chamber Setup">
+      <div class="gallery-caption">Environmental simulation chamber under construction</div>
+    </div>
+  </div>
+</section>
+
+<section id="news" data-aos="fade-up">
+  <h2>News & Updates</h2>
+  <div class="news-item">
+    <strong>June 2025:</strong> New paper accepted in <em>Geology</em> on Martian crater-filled glacial landforms.
+  </div>
+  <div class="news-item">
+    <strong>May 2025:</strong> Field campaign completed in Tottori Sand Dunes. Collaboration with Hokkaido team expanded.
+  </div>
+  <div class="news-item">
+    <strong>April 2025:</strong> Intern applications open for summer MISIP 2025.
+  </div>
+</section>
 
   <footer>
     &copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University
-  </footer>
+  <div style="text-align:center; margin-top: 2rem;">
+  <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank" style="margin: 0 10px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" alt="ResearchGate" width="30" height="30">
+  </a>
+  <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank" style="margin: 0 10px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" alt="Google Scholar" width="30" height="30">
+  </a>
+  <a href="https://orcid.org/0000-0002-7953-4085" target="_blank" style="margin: 0 10px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID" width="30" height="30">
+  </a>
+</div>
+
+</footer>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init();</script>
 
   <script>
-    const hero = document.getElementById('hero');
-    const images = [
-      'https://mars.nasa.gov/system/news_items/main_images/9430_PIA24547-FigureA-web.jpg',
-      'https://mars.nasa.gov/system/news_items/main_images/9213_PIA23764-web.jpg',
-      'https://mars.nasa.gov/system/resources/detail_files/25608_PIA23513-FigureA-web.jpg'
-    ];
-    let current = 0;
-    setInterval(() => {
-      current = (current + 1) % images.length;
-      hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${images[current]}')`;
-    }, 2000);
+    window.onload = function () {
+      const hero = document.getElementById('hero');
+      const images = [
+        'https://mars.nasa.gov/system/news_items/main_images/9430_PIA24547-FigureA-web.jpg',
+        'https://mars.nasa.gov/system/news_items/main_images/9213_PIA23764-web.jpg',
+        'https://mars.nasa.gov/system/resources/detail_files/25608_PIA23513-FigureA-web.jpg'
+      ];
+      let current = 0;
+      setInterval(() => {
+        current = (current + 1) % images.length;
+        hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${images[current]}')`;
+      }, 2000);
+    };
   </script>
-
 </body>
 </html>
