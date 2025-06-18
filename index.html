@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astrogeology & Surface Simulation Lab | Trishit Ruj</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fdf6f0;
+      color: #000;
+      margin: 0;
+    }
+    header {
+      background: #f8e5da;
+      padding: 1.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    nav a {
+      margin-left: 2rem;
+      color: #5c5c5c;
+      font-weight: 500;
+      text-decoration: none;
+      position: relative;
+    }
+    nav a:hover::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #c39b77;
+      transform: scaleX(1);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .hero {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: opacity 1s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+    .fade-in {
+      opacity: 1;
+    }
+    .fade-out {
+      opacity: 0;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      animation: fadeUp 1.5s ease-out forwards;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #c39b77;
+    }
+    h3 {
+      margin-top: 1.5rem;
+      font-size: 1.4rem;
+      color: #7d5c43;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .team-member {
+      background: #fff6ee;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .team-member:hover {
+      transform: translateY(-8px);
+    }
+    .team-member img {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 0.5rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      background: #fff6ee;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-8px);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .gallery-caption {
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+    .news-item {
+      margin-bottom: 1.5rem;
+      background: #fff6ee;
+      padding: 1rem;
+      border-left: 4px solid #c39b77;
+    }
+    footer {
+      background: #f5ded0;
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #5c5c5c;
+    }
+    footer img {
+      margin: 0 10px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ASSL — Astrogeology & Surface Simulation Lab</h1>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="publications.html">Publications</a>
+    <a href="#team">Team</a>
+    <a href="#projects">Projects</a>
+    <a href="#news">News</a>
+  </nav>
+</header>
+
+<section id="hero" class="hero fade-in">
+  <div>
+    <h1>Astrogeology & Surface Simulation</h1>
+    <p>Exploring planetary surface processes through geology, simulation & exploration</p>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About</h2>
+  <p>The Astrogeology and Surface Simulation Laboratory (ASSL), led by <strong>Dr. Trishit Ruj</strong> at the Institute for Planetary Materials, Okayama University, focuses on the exploration and analysis of planetary surfaces, particularly Mars, to unravel their geological history, environmental conditions, and potential habitability.</p>
+  <p>At ASSL, we employ interdisciplinary methods, integrating planetary geology, remote sensing, geomorphology, and experimental simulations. Our laboratory is equipped with custom-built Martian environmental simulation chambers, enabling precise replication of planetary surface processes.</p>
+  <p>We are dedicated to advancing planetary science by bridging laboratory experiments, field analog research, and computational modeling. Our international collaborations span Japan, India, Europe, and beyond.</p>
+</section>
+
+<section id="research">
+  <h2>Research</h2>
+  <h3>Current Research</h3>
+  <p>We investigate Martian periglacial processes, present-day brine stability, delta morphodynamics, lunar tectonics, and machine learning for terrain classification.</p>
+  <h3>Past Research</h3>
+  <p>We have explored cryosalt-driven flows, Amazonian glaciation, deltaic layering, and impact-induced upwelling on the Moon and Mars.</p>
+  <h3>Facilities Available</h3>
+  <ul>
+    <li>Martian Environmental Simulation Chamber</li>
+    <li>Hyperspectral Imaging Suite</li>
+    <li>Planetary Surface Modeling Tools</li>
+    <li>Remote Sensing Workstations</li>
+  </ul>
+</section>
+
+<section id="team">
+  <h2>Team</h2>
+  <div class="team-grid">
+    <div class="team-member">
+      <img src="trishit_ruj.jpg" alt="Trishit Ruj">
+      <h3>Trishit Ruj</h3>
+      <p>Principal Investigator</p>
+      <p>Associate Professor, IPM, Okayama University</p>
+    </div>
+    <div class="team-member">
+      <img src="Ren.jpg" alt="Ren Kito">
+      <h3>Ren Kito</h3>
+      <p>M.Sc Student (M2)</p>
+      <p>Research Topic: Delta Morphology and reconstructing Martian global regression</p>
+    </div>
+    <div class="team-member">
+      <img src="Taka.jpg" alt="Takaki Sako">
+      <h3>Takaki Sako</h3>
+      <p>M.Sc Student (M2)</p>
+      <p>Research Topic: Polygon morphology and identification of near-surface ice</p>
+    </div>
+    <div class="team-member">
+      <img src="Chijiiwa.jpg" alt="Takumu Chijiiwa">
+      <h3>Takumu Chijiiwa</h3>
+      <p>M.Sc Student (M2)</p>
+      <p>Research Topic: Present-day water activity on Martian high-latitudes</p>
+    </div>
+    <div class="team-member">
+      <img src="Hiral.jpg" alt="Hiral PB">
+      <h3>Hiral PB</h3>
+      <p>M.Sc Student (M2)</p>
+      <p>Research Topic: Water-ice distribution on Martian subsurface</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Project Gallery</h2>
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="project1.jpg" alt="Tank Experiment">
+      <div class="gallery-caption">Simulated Martian Delta</div>
+    </div>
+    <div class="gallery-item">
+      <img src="project2.jpg" alt="Tottori Field">
+      <div class="gallery-caption">Dune Analog Site</div>
+    </div>
+    <div class="gallery-item">
+      <img src="project3.jpg" alt="Chamber Setup">
+      <div class="gallery-caption">Simulation Chamber</div>
+    </div>
+  </div>
+</section>
+
+<section id="news">
+  <h2>News & Updates</h2>
+  <div class="news-item"><strong>June 2025:</strong> Paper on crater-filled glacial forms accepted in <em>Geology</em>.</div>
+  <div class="news-item"><strong>May 2025:</strong> Tottori field campaign concluded.</div>
+  <div class="news-item"><strong>April 2025:</strong> MISIP 2025 intern call open.</div>
+</section>
+
+<footer>
+  &copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University
+  <div style="margin-top: 1rem;">
+    <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" width="30" alt="ResearchGate">
+    </a>
+    <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" width="30" alt="Google Scholar">
+    </a>
+    <a href="https://orcid.org/0000-0002-7953-4085" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" width="30" alt="ORCID">
+    </a>
+  </div>
+</footer>
+
+<script>
+  const hero = document.getElementById('hero');
+  const images = [
+    'Mars.png',
+    'Solar%20system.png',
+    'Titan.png',
+    'venus.png',
+    'mars_road.jpg',
+    'mars_rover.jpg',
+    'Ryugu.png',
+    'enceledas.png'
+  ];
+  let current = 0;
+
+  function changeBackground() {
+    hero.classList.remove('fade-in');
+    hero.classList.add('fade-out');
+
+    setTimeout(() => {
+      hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${images[current]}')`;
+      hero.classList.remove('fade-out');
+      hero.classList.add('fade-in');
+      current = (current + 1) % images.length;
+    }, 1000);
+  }
+
+  changeBackground();
+  setInterval(changeBackground, 5000);
+</script>
+
+</body>
+</html>
