@@ -86,50 +86,6 @@
       margin-bottom: 1rem;
       color: #c39b77;
     }
-    .team-grid, .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
-    }
-    .team-member, .gallery-item {
-      background: #fff6ee;
-      padding: 1rem;
-      border-radius: 12px;
-      text-align: center;
-      transition: transform 0.3s, background 0.3s;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .team-member:hover, .gallery-item:hover {
-      transform: translateY(-8px);
-    }
-    .team-member img, .gallery-item img {
-      width: 100%;
-      border-radius: 12px;
-      object-fit: cover;
-      margin-bottom: 0.5rem;
-    }
-    .gallery-caption {
-      margin-top: 0.5rem;
-      font-size: 0.95rem;
-      color: #333;
-    }
-    .publication-list {
-      list-style: none;
-      padding-left: 1rem;
-    }
-    .publication-list li {
-      margin-bottom: 0.75rem;
-    }
-    .badges a {
-      display: inline-block;
-      margin-right: 10px;
-    }
-    .news-item {
-      margin-bottom: 1.5rem;
-      background: #fff6ee;
-      padding: 1rem;
-      border-left: 4px solid #c39b77;
-    }
     footer {
       background: #f5ded0;
       text-align: center;
@@ -145,11 +101,6 @@
     <h1>ASSL — Astrogeology & Surface Simulation Lab</h1>
     <nav>
       <a href="#about">About</a>
-      <a href="#research">Research</a>
-      <a href="#publications">Publications</a>
-      <a href="#team">Team</a>
-      <a href="#projects">Projects</a>
-      <a href="#news">News</a>
     </nav>
   </header>
 
@@ -174,8 +125,6 @@
     </p>
   </section>
 
-  <!-- You can include other sections here (research, publications, team, gallery, news, etc.) -->
-
   <footer>
     &copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University
   </footer>
@@ -196,5 +145,6 @@
       hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${images[current]}')`;
     }, 2000);
   </script>
+
 </body>
 </html>
