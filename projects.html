@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | ASSL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fdf6f0;
+      color: #000;
+      margin: 0;
+      padding: 2rem;
+    }
+    nav {
+      background: #f8e5da;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 1.5rem;
+      color: #5c5c5c;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+    }
+    nav a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #c39b77;
+    }
+    h1 {
+      color: #c39b77;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .gallery-item {
+      background: #fff6ee;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+    .gallery-caption {
+      font-size: 0.95rem;
+      color: #333;
+    }
+    footer {
+      background: #f5ded0;
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">About</a>
+    <a href="research.html">Research</a>
+    <a href="publications.html">Publications</a>
+    <a href="team.html">Team</a>
+    <a href="projects.html">Projects</a>
+    <a href="news.html">News</a>
+  </nav>
+
+  <h1>Project Gallery</h1>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="project1.jpg" alt="Martian Delta Tank Experiment">
+      <div class="gallery-caption">Delta formation under simulated Martian flow conditions</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="project2.jpg" alt="Fieldwork in Tottori Sand Dunes">
+      <div class="gallery-caption">Analog dune research at Tottori, Japan</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="project3.jpg" alt="Martian Chamber Setup">
+      <div class="gallery-caption">Environmental simulation chamber under construction</div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University
+  </footer>
+</body>
+</html>
