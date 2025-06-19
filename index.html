@@ -9,15 +9,18 @@
   <style>
     :root {
       --primary: #2c3e50;
-      --secondary: #34495e;
-      --accent: #3498db;
-      --light-accent: #ecf0f1;
-      --text: #333;
+      --secondary: #8e44ad;
+      --accent: #e74c3c;
+      --light-accent: #f5f7fa;
+      --text: #2c3e50;
       --light-text: #7f8c8d;
       --bg: #f9f9f9;
-      --card-bg: #fff;
+      --card-bg: #ffffff;
       --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       --section-padding: 5rem 2rem;
+      --mars-orange: #e67e22;
+      --space-blue: #3498db;
+      --galaxy-purple: #9b59b6;
     }
     
     html {
@@ -33,7 +36,7 @@
     }
     
     header {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       padding: 1.2rem 2rem;
       position: sticky;
       top: 0;
@@ -121,16 +124,6 @@
       overflow: hidden;
     }
     
-    .hero::before {
-      content: '';
-      position: absolute;
-      background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 73, 94, 0.8) 100%);
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    
     .hero-content {
       position: relative;
       text-align: center;
@@ -139,6 +132,7 @@
       opacity: 0;
       transform: translateY(30px);
       animation: fadeInUp 1s ease-out 0.3s forwards;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     
     @keyframes fadeInUp {
@@ -156,7 +150,6 @@
       font-size: 2.8rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     
     .hero p {
@@ -218,7 +211,7 @@
     }
     
     a:hover {
-      color: var(--primary);
+      color: var(--mars-orange);
     }
     
     /* About Section */
@@ -240,12 +233,13 @@
       padding: 1.5rem;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
       transition: var(--transition);
-      border-left: 4px solid var(--accent);
+      border-top: 3px solid var(--accent);
     }
     
     .research-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+      border-top: 3px solid var(--mars-orange);
     }
     
     /* Team Section */
@@ -373,6 +367,7 @@
     .news-item:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      border-top: 3px solid var(--mars-orange);
     }
     
     .news-item h4 {
@@ -402,11 +397,13 @@
       position: relative;
       padding-left: 2.5rem;
       transition: var(--transition);
+      border-left: 3px solid var(--space-blue);
     }
     
     #facilities li:hover {
       transform: translateY(-3px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-left: 3px solid var(--mars-orange);
     }
     
     #facilities li::before {
@@ -416,12 +413,16 @@
       position: absolute;
       left: 1rem;
       top: 1.2rem;
-      color: var(--accent);
+      color: var(--space-blue);
+    }
+    
+    #facilities li:hover::before {
+      color: var(--mars-orange);
     }
     
     /* Footer */
     footer {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
       text-align: center;
       padding: 3rem 0;
@@ -511,6 +512,7 @@
       animation: bounce 2s infinite;
       opacity: 0.7;
       cursor: pointer;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     
     @keyframes bounce {
@@ -737,14 +739,14 @@ let idx = 0;
 function changeBackground() {
   hero.style.opacity = 0;
   setTimeout(() => {
-    hero.style.backgroundImage = `linear-gradient(rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.8)), url('${imgs[idx]}')`;
+    hero.style.backgroundImage = `url('${imgs[idx]}')`;
     hero.style.opacity = 1;
     idx = (idx + 1) % imgs.length;
   }, 800);
 }
 
 // Initial call
-hero.style.backgroundImage = `linear-gradient(rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.8)), url('${imgs[0]}')`;
+hero.style.backgroundImage = `url('${imgs[0]}')`;
 hero.style.opacity = 1;
 idx = 1;
 
