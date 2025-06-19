@@ -53,23 +53,26 @@
       transition: transform 0.3s;
     }
     .hero {
-  height: 60vh; /* Smaller hero height */
+  height: 60vh;
   background-size: cover;
   background-position: center;
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
 }
 
 .hero::before {
   content: '';
   position: absolute;
-  background: rgba(0, 0, 0, 0.4); /* Dark overlay */
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-content {
@@ -431,15 +434,23 @@ const imgs = [
   'Ryugu.png',
   'enceledas.png'
 ];
+
 let idx = 0;
 
-function nextImg() {
-  hero.style.backgroundImage = `url('${imgs[idx]}')`;
-  idx = (idx + 1) % imgs.length;
+function changeBackground() {
+  hero.style.opacity = 0;  // Start fade-out
+  setTimeout(() => {
+    hero.style.backgroundImage = `url('${imgs[idx]}')`;  // Change image after fade-out
+    hero.style.opacity = 1;  // Fade-in new image
+    idx = (idx + 1) % imgs.length;
+  }, 1000); // Matches CSS transition time (1s)
 }
 
-nextImg();
-setInterval(nextImg, 4000); // Image changes every 4 seconds
+// Initial call
+changeBackground();
+
+// Interval timing for background image change
+setInterval(changeBackground, 5000); // 5 seconds interval
 </script>
 
 </body>
