@@ -4,135 +4,479 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Publications | ASSL</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #3a1c0d; /* Mars surface dark */
+      --secondary: #e27d60; /* Mars orange */
+      --accent: #c1440e; /* Mars accent */
+      --light-accent: #f8f1e5; /* Light sand */
+      --text: #2c3e50;
+      --light-text: #7f8c8d;
+      --bg: #f9f9f9;
+      --card-bg: #ffffff;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --section-padding: 3rem 2rem;
+      --mars-red: #e44d26;
+      --mars-dark: #2a1509;
+      --mars-light: #f8b195;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #fdf6f0;
-      color: #000;
+      background-color: var(--bg);
+      color: var(--text);
       margin: 0;
-      padding: 2rem;
+      line-height: 1.6;
     }
+    
+    header {
+      background: linear-gradient(135deg, var(--mars-dark) 0%, var(--primary) 100%);
+      padding: 1.2rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+    
+    header.scrolled {
+      padding: 0.8rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      color: white;
+      margin: 0;
+      transition: var(--transition);
+    }
+    
+    header.scrolled h1 {
+      font-size: 1.3rem;
+    }
+    
+    header h1 img {
+      height: 36px;
+      margin-right: 12px;
+      transition: var(--transition);
+    }
+    
+    header.scrolled h1 img {
+      height: 30px;
+    }
+    
     nav {
-      background: #f8e5da;
-      padding: 1rem 2rem;
-      text-align: center;
+      display: flex;
+      align-items: center;
     }
+    
     nav a {
-      margin: 0 1.5rem;
-      color: #5c5c5c;
-      text-decoration: none;
+      margin-left: 1.8rem;
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 500;
+      text-decoration: none;
       position: relative;
+      font-size: 0.95rem;
+      transition: var(--transition);
     }
-    nav a:hover::after {
-      content: '';
+    
+    nav a:hover {
+      color: var(--mars-light);
+    }
+    
+    nav a::after {
+      content: "";
       position: absolute;
       bottom: -5px;
       left: 0;
-      width: 100%;
+      width: 0;
       height: 2px;
-      background-color: #c39b77;
+      background: var(--mars-light);
+      transition: var(--transition);
     }
-    h1, h2 {
-      color: #c39b77;
+    
+    nav a:hover::after {
+      width: 100%;
     }
-    ul {
-      margin-top: 1rem;
-      padding-left: 1.5rem;
+    
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
     }
-    li {
-      margin-bottom: 0.75rem;
+    
+    h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      position: relative;
     }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      color: var(--secondary);
+      margin: 3rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--light-accent);
+    }
+    
+    .pub-year {
+      background-color: var(--light-accent);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .pub-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .pub-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px dashed var(--light-accent);
+    }
+    
+    .pub-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    .pub-title {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .pub-authors {
+      font-style: italic;
+      margin-bottom: 0.5rem;
+      color: var(--light-text);
+    }
+    
+    .pub-journal {
+      font-weight: 500;
+      color: var(--secondary);
+    }
+    
+    .pub-doi {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .pub-doi:hover {
+      color: var(--mars-red);
+    }
+    
+    .pub-image {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 8px;
+      margin: 1rem 0;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+    
+    .pub-image:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    
     footer {
-      background: #f5ded0;
+      background: linear-gradient(135deg, var(--mars-dark) 0%, var(--primary) 100%);
+      color: white;
       text-align: center;
-      padding: 2rem 0;
-      font-size: 0.9rem;
+      padding: 3rem 0;
       margin-top: 4rem;
+    }
+    
+    footer p {
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+    
+    .social-links {
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      display: inline-block;
+      margin: 0 10px;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      color: var(--mars-light);
+      transform: translateY(-3px);
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+        text-align: center;
+      }
+      
+      header h1 {
+        margin-bottom: 1rem;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      nav a {
+        margin: 0.5rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      main {
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">About</a>
-    <a href="research.html">Research</a>
-    <a href="publications.html">Publications</a>
-    <a href="team.html">Team</a>
-    <a href="projects.html">Projects</a>
-    <a href="news.html">News</a>
-  </nav>
+  <header>
+    <h1><img src="lab_logo.png" alt="Lab Logo"> ASSL — Astrogeology & Surface Simulation Lab</h1>
+    <nav>
+      <a href="index.html#about">About</a>
+      <a href="index.html#research">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="index.html#team">Team</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#news">News</a>
+    </nav>
+  </header>
 
-  <h1>Publications</h1>
+  <main>
+    <h1>Publications</h1>
 
-  <section id="pub-2025">
-    <h2>2025</h2>
-    <ul>
-      <li>Sako, T., Hasegawa, H., Ruj, T., Komatsu, G. and Sekine, Y. (2025). <em>The periglacial landforms and estimated subsurface ice distribution in the northern mid‐latitude of Mars</em>. <strong>Journal of Geophysical Research: Planets</strong>, 130(1), e2023JE008232. <a href="https://doi.org/10.1029/2023JE008232" target="_blank">doi:10.1029/2023JE008232</a></li>
-    </ul>
-  </section>
+    <section id="pub-2025" class="pub-year">
+      <h2>2025</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">The periglacial landforms and estimated subsurface ice distribution in the northern mid‐latitude of Mars</div>
+          <div class="pub-authors">Sako, T., Hasegawa, H., Ruj, T., Komatsu, G. and Sekine, Y.</div>
+          <div class="pub-journal">Journal of Geophysical Research: Planets, 130(1), e2023JE008232</div>
+          <a href="https://doi.org/10.1029/2023JE008232" target="_blank" class="pub-doi">doi:10.1029/2023JE008232</a>
+          <img src="mars_ice.jpg" alt="Mars subsurface ice illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
 
-  <section id="pub-2024">
-    <h2>2024</h2>
-    <ul>
-      <li>Luna, J. W., Iqbal, W., … Osinski, G., (incl. Ruj, T.) (2024). <em>Planetary Geologic Maps: Essential Tools for Scientific Inquiry and Space Exploration</em>. <strong>Journal of Geophysical Research: Planets</strong>, 129, e2024JE008442. <a href="https://doi.org/10.1029/2024JE008442" target="_blank">doi:10.1029/2024JE008442</a></li>
-    </ul>
-  </section>
+    <section id="pub-2024" class="pub-year">
+      <h2>2024</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">Planetary Geologic Maps: Essential Tools for Scientific Inquiry and Space Exploration</div>
+          <div class="pub-authors">Luna, J. W., Iqbal, W., … Osinski, G., (incl. Ruj, T.)</div>
+          <div class="pub-journal">Journal of Geophysical Research: Planets, 129, e2024JE008442</div>
+          <a href="https://doi.org/10.1029/2024JE008442" target="_blank" class="pub-doi">doi:10.1029/2024JE008442</a>
+          <img src="geologic_mapping.jpg" alt="Planetary geologic mapping illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
 
-  <section id="pub-2023">
-    <h2>2023</h2>
-    <ul>
-      <li>Zhang, F., Pizzi, A., Ruj, T., Komatsu, G., Yin, A., Liu, Y., and Zou, Y. (2023). <em>Evidence for Structural Control of Mare Volcanism in Lunar Compressional Tectonic Settings</em>. <strong>Nature Communications</strong>, 14(1), 2892. <a href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank">doi:10.1038/s41467-023-38615-1</a></li>
-      <li>Sinha, R., Rani, A., Ruj, T., Bhardwaj, A. (2023). <em>Formation age and seismicity of the lobate scarp in the vicinity of Chandrayaan-3 landing site in the southern high latitudes of the Moon</em>. <strong>Icarus</strong>, 115636. <a href="https://doi.org/10.1016/j.icarus.2023.115636" target="_blank">doi:10.1016/j.icarus.2023.115636</a></li>
-    </ul>
-  </section>
+    <section id="pub-2023" class="pub-year">
+      <h2>2023</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">Evidence for Structural Control of Mare Volcanism in Lunar Compressional Tectonic Settings</div>
+          <div class="pub-authors">Zhang, F., Pizzi, A., Ruj, T., Komatsu, G., Yin, A., Liu, Y., and Zou, Y.</div>
+          <div class="pub-journal">Nature Communications, 14(1), 2892</div>
+          <a href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank" class="pub-doi">doi:10.1038/s41467-023-38615-1</a>
+          <img src="lunar_volcanism.jpg" alt="Lunar volcanism illustration" class="pub-image">
+        </li>
+        <li class="pub-item">
+          <div class="pub-title">Formation age and seismicity of the lobate scarp in the vicinity of Chandrayaan-3 landing site in the southern high latitudes of the Moon</div>
+          <div class="pub-authors">Sinha, R., Rani, A., Ruj, T., Bhardwaj, A.</div>
+          <div class="pub-journal">Icarus, 115636</div>
+          <a href="https://doi.org/10.1016/j.icarus.2023.115636" target="_blank" class="pub-doi">doi:10.1016/j.icarus.2023.115636</a>
+          <img src="lunar_scarp.jpg" alt="Lunar lobate scarp illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
 
-  <section id="pub-2022">
-    <h2>2022</h2>
-    <ul>
-      <li>Ruj, T., Komatsu, G., Schmidt, G., Karunatillake, S., and Kawai, K. (2022). <em>Tectonism of Late Noachian Mars: Surface Signatures from the Southern Highlands</em>. <strong>Remote Sensing</strong>, 14(22). <a href="https://doi.org/10.3390/rs14225664" target="_blank">doi:10.3390/rs14225664</a></li>
-      <li>Ruj, T., Komatsu, G., Kawai, K., Okuda, H., Xiao, Z., and Dhingra, D. (2022). <em>Recent boulder falls within the Finsen crater on the lunar far side: An assessment of the possible triggering rationale</em>. <strong>Icarus</strong>, 114904. <a href="https://doi.org/10.1016/j.icarus.2022.114904" target="_blank">doi:10.1016/j.icarus.2022.114904</a></li>
-    </ul>
-  </section>
+    <section id="pub-2022" class="pub-year">
+      <h2>2022</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">Tectonism of Late Noachian Mars: Surface Signatures from the Southern Highlands</div>
+          <div class="pub-authors">Ruj, T., Komatsu, G., Schmidt, G., Karunatillake, S., and Kawai, K.</div>
+          <div class="pub-journal">Remote Sensing, 14(22)</div>
+          <a href="https://doi.org/10.3390/rs14225664" target="_blank" class="pub-doi">doi:10.3390/rs14225664</a>
+          <img src="mars_tectonics.jpg" alt="Mars tectonics illustration" class="pub-image">
+        </li>
+        <li class="pub-item">
+          <div class="pub-title">Recent boulder falls within the Finsen crater on the lunar far side: An assessment of the possible triggering rationale</div>
+          <div class="pub-authors">Ruj, T., Komatsu, G., Kawai, K., Okuda, H., Xiao, Z., and Dhingra, D.</div>
+          <div class="pub-journal">Icarus, 114904</div>
+          <a href="https://doi.org/10.1016/j.icarus.2022.114904" target="_blank" class="pub-doi">doi:10.1016/j.icarus.2022.114904</a>
+          <img src="lunar_boulders.jpg" alt="Lunar boulder falls illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
 
-  <section id="pub-2021">
-    <h2>2021</h2>
-    <ul>
-      <li>De, K., Ruj, T., Kundu, A., Dasgupta, N., and Kawai, K. (2021). <em>Extension in the Pyrrhae Fossae region on Mars, an age estimation through buffer crater counting</em>. <strong>Current Science</strong>, 127(7). <a href="https://doi.org/10.18520/cs/v121/i7/906-911" target="_blank">doi:10.18520/cs/v121/i7/906-911</a></li>
-      <li>Ruj, T., and Kawai, K. (2021). <em>A global investigation of wrinkle ridge formation events; Implications towards the thermal evolution of Mars</em>. <strong>Icarus</strong>, 114625. <a href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank">doi:10.1016/j.icarus.2021.114625</a></li>
-    </ul>
-  </section>
+    <section id="pub-2021" class="pub-year">
+      <h2>2021</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">Extension in the Pyrrhae Fossae region on Mars, an age estimation through buffer crater counting</div>
+          <div class="pub-authors">De, K., Ruj, T., Kundu, A., Dasgupta, N., and Kawai, K.</div>
+          <div class="pub-journal">Current Science, 127(7)</div>
+          <a href="https://doi.org/10.18520/cs/v121/i7/906-911" target="_blank" class="pub-doi">doi:10.18520/cs/v121/i7/906-911</a>
+          <img src="mars_craters.jpg" alt="Mars crater counting illustration" class="pub-image">
+        </li>
+        <li class="pub-item">
+          <div class="pub-title">A global investigation of wrinkle ridge formation events; Implications towards the thermal evolution of Mars</div>
+          <div class="pub-authors">Ruj, T., and Kawai, K.</div>
+          <div class="pub-journal">Icarus, 114625</div>
+          <a href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank" class="pub-doi">doi:10.1016/j.icarus.2021.114625</a>
+          <img src="wrinkle_ridges.jpg" alt="Mars wrinkle ridges illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
 
-  <section id="pub-2019">
-    <h2>2019</h2>
-    <ul>
-      <li>Ruj, T., Komatsu, G., Pasckert, J. H., and Dohm, J. M. (2019). <em>Timings of early crustal activity in southern highlands of Mars: Periods of crustal stretching and shortening</em>. <strong>Geoscience Frontiers</strong>, 10(3), 1029–1037. <a href="https://doi.org/10.1016/j.gsf.2018.05.016" target="_blank">doi:10.1016/j.gsf.2018.05.016</a></li>
-    </ul>
-  </section>
+    <section id="pub-2019" class="pub-year">
+      <h2>2019</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">Timings of early crustal activity in southern highlands of Mars: Periods of crustal stretching and shortening</div>
+          <div class="pub-authors">Ruj, T., Komatsu, G., Pasckert, J. H., and Dohm, J. M.</div>
+          <div class="pub-journal">Geoscience Frontiers, 10(3), 1029–1037</div>
+          <a href="https://doi.org/10.1016/j.gsf.2018.05.016" target="_blank" class="pub-doi">doi:10.1016/j.gsf.2018.05.016</a>
+          <img src="mars_crust.jpg" alt="Mars crustal activity illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
 
-  <section id="pub-2018">
-    <h2>2018</h2>
-    <ul>
-      <li>Ruj, T., Komatsu, G., Pondrelli, M., Di Pietro, I., and Pozzobon, R. (2018). <em>Morphometric analysis of a Hesperian aged Martian lobate scarp using high-resolution data</em>. <strong>Journal of Structural Geology</strong>, 113, 1–9. <a href="https://doi.org/10.101/10.1016/j.jsg.2018.04.018" target="_blank">doi:10.1016/j.jsg.2018.04.018</a></li>
-    </ul>
-  </section>
+    <section id="pub-2018" class="pub-year">
+      <h2>2018</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">Morphometric analysis of a Hesperian aged Martian lobate scarp using high-resolution data</div>
+          <div class="pub-authors">Ruj, T., Komatsu, G., Pondrelli, M., Di Pietro, I., and Pozzobon, R.</div>
+          <div class="pub-journal">Journal of Structural Geology, 113, 1–9</div>
+          <a href="https://doi.org/10.1016/j.jsg.2018.04.018" target="_blank" class="pub-doi">doi:10.1016/j.jsg.2018.04.018</a>
+          <img src="lobate_scarp.jpg" alt="Martian lobate scarp illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
 
-  <section id="pub-2017">
-    <h2>2017</h2>
-    <ul>
-      <li>Ruj, T., Komatsu, G., Dohm, J. M., Miyamoto, H., and Salese, F. (2017). <em>Generic identification and classification of morphostructures in the Noachis-Sabaea region, southern highlands of Mars</em>. <strong>Journal of Maps</strong>, 13(2), 755–766. <a href="https://doi.org/10.1080/17445647.2017.1379913" target="_blank">doi:10.1080/17445647.2017.1379913</a></li>
-    </ul>
-  </section>
+    <section id="pub-2017" class="pub-year">
+      <h2>2017</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">Generic identification and classification of morphostructures in the Noachis-Sabaea region, southern highlands of Mars</div>
+          <div class="pub-authors">Ruj, T., Komatsu, G., Dohm, J. M., Miyamoto, H., and Salese, F.</div>
+          <div class="pub-journal">Journal of Maps, 13(2), 755–766</div>
+          <a href="https://doi.org/10.1080/17445647.2017.1379913" target="_blank" class="pub-doi">doi:10.1080/17445647.2017.1379913</a>
+          <img src="mars_morphostructures.jpg" alt="Mars morphostructures illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
 
-  <section id="pub-2014">
-    <h2>2014</h2>
-    <ul>
-      <li>Ruj, T., and Dasgupta, N. (2014). <em>Tectonic imprints within a granite exposed near Srinagar, Rajasthan, India</em>. <strong>Journal of Earth System Science</strong>, 123(6), 1361–1374. <a href="https://doi.org/10.1007/s12040-014-0461-9" target="_blank">doi:10.1007/s12040-014-0461-9</a></li>
-    </ul>
-  </section>
+    <section id="pub-2014" class="pub-year">
+      <h2>2014</h2>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-title">Tectonic imprints within a granite exposed near Srinagar, Rajasthan, India</div>
+          <div class="pub-authors">Ruj, T., and Dasgupta, N.</div>
+          <div class="pub-journal">Journal of Earth System Science, 123(6), 1361–1374</div>
+          <a href="https://doi.org/10.1007/s12040-014-0461-9" target="_blank" class="pub-doi">doi:10.1007/s12040-014-0461-9</a>
+          <img src="earth_geology.jpg" alt="Earth geology illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University
+    <p>&copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University</p>
+    <div class="social-links">
+      <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank" aria-label="ResearchGate">
+        <i class="fab fa-researchgate"></i>
+      </a>
+      <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="https://orcid.org/0000-0002-7953-4085" target="_blank" aria-label="ORCID">
+        <i class="fab fa-orcid"></i>
+      </a>
+      <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </div>
   </footer>
+
+  <script>
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
