@@ -4,155 +4,525 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Astrogeology & Surface Simulation Lab | Trishit Ruj</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    html { scroll-behavior: smooth; }
+    :root {
+      --primary: #2c3e50;
+      --secondary: #34495e;
+      --accent: #3498db;
+      --light-accent: #ecf0f1;
+      --text: #333;
+      --light-text: #7f8c8d;
+      --bg: #f9f9f9;
+      --card-bg: #fff;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --section-padding: 5rem 2rem;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #fdf6f0;
-      color: #000;
+      background-color: var(--bg);
+      color: var(--text);
       margin: 0;
+      line-height: 1.6;
     }
+    
     header {
-      background: #f8e5da;
-      padding: 1.5rem 2rem;
+      background: var(--primary);
+      padding: 1.2rem 2rem;
       position: sticky;
       top: 0;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
     }
+    
+    header.scrolled {
+      padding: 0.8rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
     header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      color: white;
+      margin: 0;
+      transition: var(--transition);
+    }
+    
+    header.scrolled h1 {
+      font-size: 1.3rem;
+    }
+    
+    header h1 img {
+      height: 36px;
+      margin-right: 12px;
+      transition: var(--transition);
+    }
+    
+    header.scrolled h1 img {
+      height: 30px;
+    }
+    
+    nav {
       display: flex;
       align-items: center;
     }
-    header h1 img {
-      height: 40px;
-      margin-right: 10px;
-    }
+    
     nav a {
-      margin-left: 2rem;
-      color: #5c5c5c;
+      margin-left: 1.8rem;
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 500;
       text-decoration: none;
       position: relative;
+      font-size: 0.95rem;
+      transition: var(--transition);
     }
-    nav a:hover::after {
+    
+    nav a:hover {
+      color: white;
+    }
+    
+    nav a::after {
       content: "";
       position: absolute;
-      bottom: -4px;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    .hero {
+      height: 75vh;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background-attachment: fixed;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 73, 94, 0.8) 100%);
+      top: 0;
       left: 0;
       width: 100%;
-      height: 2px;
-      background: #c39b77;
-      transform: scaleX(1);
-      transform-origin: left;
-      transition: transform 0.3s;
+      height: 100%;
     }
-    .hero {
-  height: 60vh;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  background: rgba(0, 0, 0, 0.4);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.hero-content {
-  position: relative;
-  text-align: center;
-  animation: fadeUp 1.5s;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-}
-
-.hero p {
-  font-size: 1.2rem;
-}
-    .team-member {
-      background: #fff6ee;
-      padding: 1rem;
-      border-radius: 12px;
+    
+    .hero-content {
+      position: relative;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
+      max-width: 800px;
+      padding: 0 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease-out 0.3s forwards;
     }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    section {
+      padding: var(--section-padding);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    section:nth-child(even) {
+      background-color: var(--light-accent);
+    }
+    
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin: 2rem 0 1rem;
+    }
+    
+    h4 {
+      font-size: 1.2rem;
+      color: var(--secondary);
+      margin-bottom: 0.8rem;
+    }
+    
+    p {
+      margin-bottom: 1.2rem;
+    }
+    
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    a:hover {
+      color: var(--primary);
+    }
+    
+    /* About Section */
+    #about {
+      position: relative;
+    }
+    
+    /* Research Section */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+    
+    .research-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      border-left: 4px solid var(--accent);
+    }
+    
+    .research-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    }
+    
+    /* Team Section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .team-member {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .team-member.animated {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    
+    .team-member:nth-child(1) { animation-delay: 0.1s; }
+    .team-member:nth-child(2) { animation-delay: 0.2s; }
+    .team-member:nth-child(3) { animation-delay: 0.3s; }
+    .team-member:nth-child(4) { animation-delay: 0.4s; }
+    .team-member:nth-child(5) { animation-delay: 0.5s; }
+    
     .team-member:hover {
-      transform: translateY(-8px);
+      transform: translateY(-5px) !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
+    
     .team-member img {
-      width: 100%;
-      height: 240px;
-      object-fit: contain;
-      border-radius: 12px;
-      margin-bottom: 0.5rem;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      border: 4px solid var(--light-accent);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     }
+    
+    .team-member h3 {
+      margin: 0.5rem 0;
+      color: var(--primary);
+    }
+    
+    .team-member p {
+      margin: 0.3rem 0;
+      font-size: 0.9rem;
+      color: var(--light-text);
+    }
+    
+    /* Gallery Section */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
     }
+    
     .gallery-item {
-      background: #fff6ee;
-      padding: 1rem;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      height: 220px;
     }
+    
     .gallery-item:hover {
-      transform: translateY(-8px);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
+    
     .gallery-item img {
       width: 100%;
-      height: 180px;
+      height: 100%;
       object-fit: cover;
-      border-radius: 12px;
+      transition: var(--transition);
     }
+    
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    
     .gallery-caption {
-      font-size: 0.95rem;
-      margin-top: 0.5rem;
-    }
-    .news-item {
-      margin-bottom: 1.5rem;
-      background: #fff6ee;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      color: white;
       padding: 1rem;
-      border-left: 4px solid #c39b77;
+      font-size: 0.95rem;
+      opacity: 0;
+      transition: var(--transition);
     }
+    
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+    }
+    
+    /* News Section */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+    
+    .news-item {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      border-top: 3px solid var(--accent);
+    }
+    
+    .news-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .news-item h4 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .news-item p {
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+    
+    /* Facilities Section */
+    #facilities ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    #facilities li {
+      background: var(--card-bg);
+      padding: 1.2rem;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      position: relative;
+      padding-left: 2.5rem;
+      transition: var(--transition);
+    }
+    
+    #facilities li:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    #facilities li::before {
+      content: '\f054';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 1rem;
+      top: 1.2rem;
+      color: var(--accent);
+    }
+    
+    /* Footer */
     footer {
-      background: #f5ded0;
+      background: var(--primary);
+      color: white;
       text-align: center;
-      padding: 2rem 0;
-      font-size: 0.9rem;
-      color: #5c5c5c;
+      padding: 3rem 0;
     }
-    footer img {
+    
+    footer p {
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+    
+    .social-links {
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      display: inline-block;
       margin: 0 10px;
-      vertical-align: middle;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+        text-align: center;
+      }
+      
+      header h1 {
+        margin-bottom: 1rem;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      nav a {
+        margin: 0.5rem;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      section {
+        padding: 3rem 1.5rem;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    /* Animation classes */
+    .fade-in {
+      opacity: 0;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.5rem;
+      animation: bounce 2s infinite;
+      opacity: 0.7;
+      cursor: pointer;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+      }
+      40% {
+        transform: translateY(-20px) translateX(-50%);
+      }
+      60% {
+        transform: translateY(-10px) translateX(-50%);
+      }
     }
   </style>
 </head>
@@ -176,148 +546,74 @@
     <h1>Astrogeology & Surface Simulation Lab</h1>
     <p>Exploring planetary surface processes through geology, simulation & exploration</p>
   </div>
+  <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+    <i class="fas fa-chevron-down"></i>
+  </div>
 </section>
 
 <section id="about">
   <h2>About</h2>
-  <p>The Astrogeology and Surface Simulation Laboratory (ASSL), led by <strong>Dr. Trishit Ruj</strong> at the Institute for Planetary Materials, Okayama University, focuses on the exploration and analysis of planetary surfaces, particularly Mars, to unravel their geological history, environmental conditions, and potential habitability.</p>
-  <p>We employ interdisciplinary methods, integrating planetary geology, remote sensing, geomorphology, and experimental simulations. Our laboratory is equipped with custom-built Martian environmental simulation chambers, enabling precise replication of planetary surface processes.</p>
-  <p>We are dedicated to advancing planetary science by bridging laboratory experiments, field analog research, and computational modeling. Our international collaborations span Japan, India, Europe, and beyond.</p>
+  <div class="fade-in" style="transform: translateY(20px);">
+    <p>The Astrogeology and Surface Simulation Laboratory (ASSL), led by <strong>Dr. Trishit Ruj</strong> at the Institute for Planetary Materials, Okayama University, focuses on the exploration and analysis of planetary surfaces, particularly Mars, to unravel their geological history, environmental conditions, and potential habitability.</p>
+    <p>We employ interdisciplinary methods, integrating planetary geology, remote sensing, geomorphology, and experimental simulations. Our laboratory is equipped with custom-built Martian environmental simulation chambers, enabling precise replication of planetary surface processes.</p>
+    <p>We are dedicated to advancing planetary science by bridging laboratory experiments, field analog research, and computational modeling. Our international collaborations span Japan, India, Europe, and beyond.</p>
+  </div>
 </section>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Astrogeology & Surface Simulation Lab | Trishit Ruj</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #fdf6f0;
-      color: #000;
-      margin: 0;
-    }
-    header {
-      background: #f8e5da;
-      padding: 1.5rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-    }
-    header h1 img {
-      height: 40px;
-      margin-right: 10px;
-    }
-    nav a {
-      margin-left: 2rem;
-      color: #5c5c5c;
-      font-weight: 500;
-      text-decoration: none;
-      position: relative;
-    }
-    nav a:hover::after {
-      content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: #c39b77;
-      transform: scaleX(1);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-    section {
-      padding: 4rem 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #c39b77;
-    }
-    h3 {
-      margin-top: 1.5rem;
-      font-size: 1.4rem;
-      color: #7d5c43;
-    }
-  </style>
-</head>
-<body>
 
 <section id="research">
   <h2>Research</h2>
 
   <h3>Current Research</h3>
-  <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; margin-top: 1.5rem;">
-    <div style="flex: 1 1 320px; background: #fffaf6; border: 1px solid #e0cfc2; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <h4 style="margin: 0 0 0.8rem; font-size: 1.1rem; color: #7d5c43;">Periglacial Processes on Mars</h4>
-      <p style="margin: 0;">We examine Martian polygonal terrain and scalloped depressions to infer ice-related periglacial activity and seasonal freeze-thaw cycles.</p>
+  <div class="research-grid">
+    <div class="research-card fade-in" style="transform: translateY(20px);">
+      <h4>Periglacial Processes on Mars</h4>
+      <p>We examine Martian polygonal terrain and scalloped depressions to infer ice-related periglacial activity and seasonal freeze-thaw cycles.</p>
     </div>
-    <div style="flex: 1 1 320px; background: #fffaf6; border: 1px solid #e0cfc2; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <h4 style="margin: 0 0 0.8rem; font-size: 1.1rem; color: #7d5c43;">Brine Stability Under Martian Conditions</h4>
-      <p style="margin: 0;">We simulate present-day brine dynamics using environmental chambers to understand metastable liquid water occurrence in cold Martian regions.</p>
+    <div class="research-card fade-in" style="transform: translateY(20px);">
+      <h4>Brine Stability Under Martian Conditions</h4>
+      <p>We simulate present-day brine dynamics using environmental chambers to understand metastable liquid water occurrence in cold Martian regions.</p>
     </div>
-    <div style="flex: 1 1 320px; background: #fffaf6; border: 1px solid #e0cfc2; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <h4 style="margin: 0 0 0.8rem; font-size: 1.1rem; color: #7d5c43;">Delta Morphodynamics and Ocean Regression</h4>
-      <p style="margin: 0;">Through tank experiments and remote sensing, we reconstruct paleolake deltas and interpret large-scale regression signatures on ancient Mars.</p>
+    <div class="research-card fade-in" style="transform: translateY(20px);">
+      <h4>Delta Morphodynamics and Ocean Regression</h4>
+      <p>Through tank experiments and remote sensing, we reconstruct paleolake deltas and interpret large-scale regression signatures on ancient Mars.</p>
     </div>
-    <div style="flex: 1 1 320px; background: #fffaf6; border: 1px solid #e0cfc2; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <h4 style="margin: 0 0 0.8rem; font-size: 1.1rem; color: #7d5c43;">Lunar Tectonics and Crustal Stresses</h4>
-      <p style="margin: 0;">We analyze tectonic structures in polar and farside regions of the Moon to estimate crustal stress states and seismic hazard for future missions.</p>
+    <div class="research-card fade-in" style="transform: translateY(20px);">
+      <h4>Lunar Tectonics and Crustal Stresses</h4>
+      <p>We analyze tectonic structures in polar and farside regions of the Moon to estimate crustal stress states and seismic hazard for future missions.</p>
     </div>
-    <div style="flex: 1 1 320px; background: #fffaf6; border: 1px solid #e0cfc2; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <h4 style="margin: 0 0 0.8rem; font-size: 1.1rem; color: #7d5c43;">AI and Machine Learning in Planetary Mapping</h4>
-      <p style="margin: 0;">We apply deep learning models to classify geomorphic features on Mars using high-resolution topography and hyperspectral datasets.</p>
+    <div class="research-card fade-in" style="transform: translateY(20px);">
+      <h4>AI and Machine Learning in Planetary Mapping</h4>
+      <p>We apply deep learning models to classify geomorphic features on Mars using high-resolution topography and hyperspectral datasets.</p>
     </div>
   </div>
 
   <h3>Past Research</h3>
-  <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; margin-top: 1.5rem;">
-    <div style="flex: 1 1 320px; background: #fffaf6; border: 1px solid #e4cbb6; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <h4 style="margin-bottom: 0.8rem; font-size: 1.1rem; color: #7d5c43;">Martian Thermal Evolution & Tectonics</h4>
-      <p style="margin: 0 0 0.8rem;">We explored early lithospheric deformation in Mars’ southern highlands, identifying crustal extension and compressional tectonics as indicators of ancient dynamic regimes.</p>
-      <p style="margin: 0; font-size: 0.9rem;"><strong>Reference:</strong> <a href="https://doi.org/10.1016/j.gsf.2018.05.016" target="_blank">Ruj et al., 2019 – Geoscience Frontiers</a></p>
+  <div class="research-grid">
+    <div class="research-card fade-in" style="transform: translateY(20px);">
+      <h4>Martian Thermal Evolution & Tectonics</h4>
+      <p>We explored early lithospheric deformation in Mars' southern highlands, identifying crustal extension and compressional tectonics as indicators of ancient dynamic regimes.</p>
+      <p class="reference"><strong>Reference:</strong> <a href="https://doi.org/10.1016/j.gsf.2018.05.016" target="_blank">Ruj et al., 2019 – Geoscience Frontiers</a></p>
     </div>
-    <div style="flex: 1 1 320px; background: #fffaf6; border: 1px solid #e4cbb6; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <h4 style="margin-bottom: 0.8rem; font-size: 1.1rem; color: #7d5c43;">Wrinkle Ridge–Related Volcanism</h4>
-      <p style="margin: 0 0 0.8rem;">Our research identified young volcanic features associated with wrinkle ridges on the Moon and Mars, challenging the assumption that compressional zones lack volcanism.</p>
-      <p style="margin: 0; font-size: 0.9rem;"><strong>References:</strong> <a href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank">Ruj & Kawai, 2021 – Icarus</a>, <a href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank">Zhang et al., 2023 – Nat. Comm.</a></p>
+    <div class="research-card fade-in" style="transform: translateY(20px);">
+      <h4>Wrinkle Ridge–Related Volcanism</h4>
+      <p>Our research identified young volcanic features associated with wrinkle ridges on the Moon and Mars, challenging the assumption that compressional zones lack volcanism.</p>
+      <p class="reference"><strong>References:</strong> <a href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank">Ruj & Kawai, 2021 – Icarus</a>, <a href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank">Zhang et al., 2023 – Nat. Comm.</a></p>
     </div>
-    <div style="flex: 1 1 320px; background: #fffaf6; border: 1px solid #e4cbb6; border-radius: 12px; padding: 1.2rem 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <h4 style="margin-bottom: 0.8rem; font-size: 1.1rem; color: #7d5c43;">Lunar Landing Site Hazard Assessment</h4>
-      <p style="margin: 0 0 0.8rem;">We assessed lunar landing safety by modeling crustal stresses, analyzing slope instability, and identifying seismic hazards near targeted regions such as Chandrayaan-3’s site.</p>
-      <p style="margin: 0; font-size: 0.9rem;"><strong>References:</strong> <a href="https://doi.org/10.1016/j.icarus.2022.114904" target="_blank">Ruj et al., 2022 – Icarus</a>, <a href="https://doi.org/10.1016/j.icarus.2023.115636" target="_blank">Sinha et al., 2023 – Icarus</a></p>
+    <div class="research-card fade-in" style="transform: translateY(20px);">
+      <h4>Lunar Landing Site Hazard Assessment</h4>
+      <p>We assessed lunar landing safety by modeling crustal stresses, analyzing slope instability, and identifying seismic hazards near targeted regions such as Chandrayaan-3's site.</p>
+      <p class="reference"><strong>References:</strong> <a href="https://doi.org/10.1016/j.icarus.2022.114904" target="_blank">Ruj et al., 2022 – Icarus</a>, <a href="https://doi.org/10.1016/j.icarus.2023.115636" target="_blank">Sinha et al., 2023 – Icarus</a></p>
     </div>
   </div>
-</section>
-
-</body>
-</html>
-
-
 </section>
 
 <section id="facilities">
   <h2>Facilities</h2>
   <ul>
-    <li>Martian Surface Environmental Chamber (coming this October)</li>
-    <li>Hyperspectral Imaging Suite(coming this October)</li>
-    <li>Gravity Simulator</li>
-    <li>Planetary Surface Modeling Tools</li>
+    <li class="fade-in" style="transform: translateY(20px);">Martian Surface Environmental Chamber (coming this October)</li>
+    <li class="fade-in" style="transform: translateY(20px);">Hyperspectral Imaging Suite(coming this October)</li>
+    <li class="fade-in" style="transform: translateY(20px);">Gravity Simulator</li>
+    <li class="fade-in" style="transform: translateY(20px);">Planetary Surface Modeling Tools</li>
   </ul>
 </section>
 
@@ -360,15 +656,15 @@
 <section id="projects">
   <h2>Project Gallery</h2>
   <div class="gallery">
-    <div class="gallery-item">
+    <div class="gallery-item fade-in" style="transform: translateY(20px);">
       <img src="project1.jpg" alt="Tank Experiment">
       <div class="gallery-caption">Simulated Martian Delta</div>
     </div>
-    <div class="gallery-item">
+    <div class="gallery-item fade-in" style="transform: translateY(20px);">
       <img src="project2.jpg" alt="Tottori Field">
       <div class="gallery-caption">Dune Analog Site</div>
     </div>
-    <div class="gallery-item">
+    <div class="gallery-item fade-in" style="transform: translateY(20px);">
       <img src="project3.jpg" alt="Chamber Setup">
       <div class="gallery-caption">Simulation Chamber</div>
     </div>
@@ -377,52 +673,53 @@
 
 <section id="news">
   <h2>News & Updates</h2>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
-    
-    <div style="background: #fff2e6; border-left: 6px solid #c39b77; padding: 1rem 1.2rem; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: transform 0.2s;">
-      <h4 style="margin: 0 0 0.5rem; color: #7d4e2d;">June 2025</h4>
-      <p style="margin: 0.2rem 0;">🎓 <strong><a href="https://www.inamori-f.or.jp/en/250307" target="_blank" style="color:#4a2f19;">Trishit Ruj</a></strong> receives the prestigious 
-        <a href="https://www.inamori-f.or.jp/en/recipient/trishit-ruj/" target="_blank" style="color: #944c26;">Inamori Foundation Research Grant</a>.
+  <div class="news-grid">
+    <div class="news-item fade-in" style="transform: translateY(20px);">
+      <h4>June 2025</h4>
+      <p>🎓 <strong><a href="https://www.inamori-f.or.jp/en/250307" target="_blank">Trishit Ruj</a></strong> receives the prestigious 
+        <a href="https://www.inamori-f.or.jp/en/recipient/trishit-ruj/" target="_blank">Inamori Foundation Research Grant</a>.
       </p>
     </div>
-
-    <div style="background: #f5f0ec; border-left: 6px solid #ba9f7f; padding: 1rem 1.2rem; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: transform 0.2s;">
-      <h4 style="margin: 0 0 0.5rem; color: #634b36;">June 2025</h4>
-      <p style="margin: 0.2rem 0;">🏅 <strong><a href="https://www.hisf.or.jp/en/scholarship/foreigner/selection-result/" target="_blank" style="color:#533c2d;">Hiral PB</a></strong> awarded the <em>HISF International Scholarship</em>.</p>
+    <div class="news-item fade-in" style="transform: translateY(20px);">
+      <h4>June 2025</h4>
+      <p>🏅 <strong><a href="https://www.hisf.or.jp/en/scholarship/foreigner/selection-result/" target="_blank">Hiral PB</a></strong> awarded the <em>HISF International Scholarship</em>.</p>
     </div>
-
-    <div style="background: #fdf6ef; border-left: 6px solid #d4aa7d; padding: 1rem 1.2rem; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: transform 0.2s;">
-      <h4 style="margin: 0 0 0.5rem; color: #7a5740;">May 2025</h4>
-      <p style="margin: 0.2rem 0;">🏜️ Field campaign at <strong>Tottori Sand Dunes</strong> successfully completed.</p>
+    <div class="news-item fade-in" style="transform: translateY(20px);">
+      <h4>May 2025</h4>
+      <p>🏜️ Field campaign at <strong>Tottori Sand Dunes</strong> successfully completed.</p>
     </div>
-
-    <div style="background: #f6f3ee; border-left: 6px solid #bd9272; padding: 1rem 1.2rem; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: transform 0.2s;">
-      <h4 style="margin: 0 0 0.5rem; color: #5c4334;">April 2025</h4>
-      <p style="margin: 0.2rem 0;">👩‍🚀 <strong>Gowri Giri</strong> (University of Kerala) and <strong>Pekham Ganguly</strong> selected for 
-        <a href="https://www.misasa.okayama-u.ac.jp/MISIP/" target="_blank" style="color: #734d2e;">MISIP 2025 Internship Program</a>.
+    <div class="news-item fade-in" style="transform: translateY(20px);">
+      <h4>April 2025</h4>
+      <p>👩‍🚀 <strong>Gowri Giri</strong> (University of Kerala) and <strong>Pekham Ganguly</strong> selected for 
+        <a href="https://www.misasa.okayama-u.ac.jp/MISIP/" target="_blank">MISIP 2025 Internship Program</a>.
       </p>
     </div>
-
   </div>
 </section>
 
-
 <footer>
-  &copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University
-  <div style="margin-top: 1rem;">
-    <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" width="30" alt="ResearchGate">
+  <p>&copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University</p>
+  <div class="social-links">
+    <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank" aria-label="ResearchGate">
+      <i class="fab fa-researchgate"></i>
     </a>
-    <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" width="30" alt="Google Scholar">
+    <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
+      <i class="fab fa-google"></i>
     </a>
-    <a href="https://orcid.org/0000-0002-7953-4085" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" width="30" alt="ORCID">
+    <a href="https://orcid.org/0000-0002-7953-4085" target="_blank" aria-label="ORCID">
+      <i class="fab fa-orcid"></i>
+    </a>
+    <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+      <i class="fab fa-linkedin"></i>
     </a>
   </div>
 </footer>
 
 <script>
+// Hero background slideshow
 const hero = document.querySelector('.hero');
 const imgs = [
   'Mars.png',
@@ -438,19 +735,68 @@ const imgs = [
 let idx = 0;
 
 function changeBackground() {
-  hero.style.opacity = 0;  // Start fade-out
+  hero.style.opacity = 0;
   setTimeout(() => {
-    hero.style.backgroundImage = `url('${imgs[idx]}')`;  // Change image after fade-out
-    hero.style.opacity = 1;  // Fade-in new image
+    hero.style.backgroundImage = `linear-gradient(rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.8)), url('${imgs[idx]}')`;
+    hero.style.opacity = 1;
     idx = (idx + 1) % imgs.length;
-  }, 1000); // Matches CSS transition time (1s)
+  }, 800);
 }
 
 // Initial call
-changeBackground();
+hero.style.backgroundImage = `linear-gradient(rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.8)), url('${imgs[0]}')`;
+hero.style.opacity = 1;
+idx = 1;
 
 // Interval timing for background image change
-setInterval(changeBackground, 5000); // 5 seconds interval
+setInterval(changeBackground, 6000);
+
+// Header scroll effect
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('header');
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+// Intersection Observer for scroll animations
+const fadeElements = document.querySelectorAll('.fade-in');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1
+});
+
+fadeElements.forEach(element => {
+  observer.observe(element);
+});
+
+// Animate team members when section comes into view
+const teamSection = document.getElementById('team');
+const teamMembers = document.querySelectorAll('.team-member');
+
+const teamObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      teamMembers.forEach(member => {
+        member.classList.add('animated');
+      });
+      teamObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.2
+});
+
+teamObserver.observe(teamSection);
 </script>
 
 </body>
