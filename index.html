@@ -26,6 +26,12 @@
     header h1 {
       font-size: 1.8rem;
       font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+    header h1 img {
+      height: 40px;
+      margin-right: 10px;
     }
     nav a {
       margin-left: 2rem;
@@ -162,13 +168,14 @@
 <body>
 
 <header>
-  <h1>ASSL — Astrogeology & Surface Simulation Lab</h1>
+  <h1><img src="logo.png" alt="Lab Logo"> ASSL — Astrogeology & Surface Simulation Lab</h1>
   <nav>
     <a href="#about">About</a>
     <a href="#research">Research</a>
     <a href="publications.html">Publications</a>
     <a href="#team">Team</a>
     <a href="#projects">Projects</a>
+    <a href="#facilities">Facilities</a>
     <a href="#news">News</a>
   </nav>
 </header>
@@ -183,7 +190,7 @@
 <section id="about">
   <h2>About</h2>
   <p>The Astrogeology and Surface Simulation Laboratory (ASSL), led by <strong>Dr. Trishit Ruj</strong> at the Institute for Planetary Materials, Okayama University, focuses on the exploration and analysis of planetary surfaces, particularly Mars, to unravel their geological history, environmental conditions, and potential habitability.</p>
-  <p>At ASSL, we employ interdisciplinary methods, integrating planetary geology, remote sensing, geomorphology, and experimental simulations. Our laboratory is equipped with custom-built Martian environmental simulation chambers, enabling precise replication of planetary surface processes.</p>
+  <p>We employ interdisciplinary methods, integrating planetary geology, remote sensing, geomorphology, and experimental simulations. Our laboratory is equipped with custom-built Martian environmental simulation chambers, enabling precise replication of planetary surface processes.</p>
   <p>We are dedicated to advancing planetary science by bridging laboratory experiments, field analog research, and computational modeling. Our international collaborations span Japan, India, Europe, and beyond.</p>
 </section>
 
@@ -193,7 +200,10 @@
   <p>We investigate Martian periglacial processes, present-day brine stability, delta morphodynamics, lunar tectonics, and machine learning for terrain classification.</p>
   <h3>Past Research</h3>
   <p>We have explored cryosalt-driven flows, Amazonian glaciation, deltaic layering, and impact-induced upwelling on the Moon and Mars.</p>
-  <h3>Facilities Available</h3>
+</section>
+
+<section id="facilities">
+  <h2>Facilities</h2>
   <ul>
     <li>Martian Environmental Simulation Chamber</li>
     <li>Hyperspectral Imaging Suite</li>
@@ -230,7 +240,7 @@
       <p>Research Topic: Present-day water activity on Martian high-latitudes</p>
     </div>
     <div class="team-member">
-      <img src="Hiral.jpg" alt="Hiral PB">
+      <img src="Hiral.jpg" alt="Hiral Bhatt">
       <h3>Hiral PB</h3>
       <p>M.Sc Student (M2)</p>
       <p>Research Topic: Water-ice distribution on Martian subsurface</p>
