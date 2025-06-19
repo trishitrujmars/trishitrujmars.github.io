@@ -53,55 +53,43 @@
       transition: transform 0.3s;
     }
     .hero {
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: opacity 1s ease-in-out;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: #fff;
-    }
-    .fade-in {
-      opacity: 1;
-    }
-    .fade-out {
-      opacity: 0;
-    }
-    .hero h1 {
-      font-size: 3rem;
-      animation: fadeUp 1.5s ease-out forwards;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    section {
-      padding: 4rem 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #c39b77;
-    }
-    h3 {
-      margin-top: 1.5rem;
-      font-size: 1.4rem;
-      color: #7d5c43;
-    }
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
-    }
+  height: 60vh; /* Smaller hero height */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  animation: fadeUp 1.5s;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
     .team-member {
       background: #fff6ee;
       padding: 1rem;
@@ -180,8 +168,8 @@
   </nav>
 </header>
 
-<section id="hero" class="hero fade-in">
-  <div>
+<section id="hero" class="hero">
+  <div class="hero-content">
     <h1>Astrogeology & Surface Simulation Lab</h1>
     <p>Exploring planetary surface processes through geology, simulation & exploration</p>
   </div>
@@ -432,33 +420,26 @@
 </footer>
 
 <script>
-  const hero = document.getElementById('hero');
-  const images = [
-    'Mars.png',
-    'Solar%20system.png',
-    'Titan.png',
-    'venus.png',
-    'mars_road.jpg',
-    'mars_rover.jpg',
-    'Ryugu.png',
-    'enceledas.png'
-  ];
-  let current = 0;
+const hero = document.querySelector('.hero');
+const imgs = [
+  'Mars.png',
+  'Solar system.png',
+  'Titan.png',
+  'venus.png',
+  'mars_road.jpg',
+  'mars_rover.jpg',
+  'Ryugu.png',
+  'enceledas.png'
+];
+let idx = 0;
 
-  function changeBackground() {
-    hero.classList.remove('fade-in');
-    hero.classList.add('fade-out');
+function nextImg() {
+  hero.style.backgroundImage = `url('${imgs[idx]}')`;
+  idx = (idx + 1) % imgs.length;
+}
 
-    setTimeout(() => {
-      hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${images[current]}')`;
-      hero.classList.remove('fade-out');
-      hero.classList.add('fade-in');
-      current = (current + 1) % images.length;
-    }, 1000);
-  }
-
-  changeBackground();
-  setInterval(changeBackground, 5000);
+nextImg();
+setInterval(nextImg, 4000); // Image changes every 4 seconds
 </script>
 
 </body>
