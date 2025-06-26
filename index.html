@@ -34,6 +34,7 @@
       color: var(--text);
       margin: 0;
       line-height: 1.6;
+      overflow-x: hidden;
     }
     
     header {
@@ -113,18 +114,27 @@
     }
     
     .hero {
-      height: 75vh;
-      background-size: cover;
-      background-position: center;
+      height: 100vh;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
       overflow: hidden;
     }
     
-    .hero::before {
+    .hero-slides-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    
+    .hero-slide {
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .hero-slide::before {
       content: '';
       position: absolute;
       top: 0;
@@ -136,7 +146,10 @@
     }
     
     .hero-content {
-      position: relative;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
       max-width: 800px;
       padding: 2rem;
@@ -146,7 +159,8 @@
       backdrop-filter: blur(2px);
       animation: fadeInUp 1s ease-out 0.3s forwards;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translate(-50%, calc(-50% + 20px));
+      width: 80%;
     }
     
     .hero h1 {
@@ -162,6 +176,43 @@
       margin-bottom: 0;
       opacity: 0.9;
       color: #f8b195;
+    }
+    
+    .hero-nav {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      z-index: 3;
+    }
+    
+    .hero-nav-item {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      margin: 0 5px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .hero-nav-item.active {
+      background: white;
+      transform: scale(1.2);
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.5rem;
+      animation: bounce 2s infinite;
+      opacity: 0.7;
+      cursor: pointer;
+      z-index: 3;
     }
     
     section {
@@ -520,7 +571,7 @@
       
       .hero-content {
         padding: 1.5rem;
-        margin: 0 1rem;
+        width: 90%;
       }
     }
     
@@ -536,20 +587,6 @@
       }
     }
     
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 1.5rem;
-      animation: bounce 2s infinite;
-      opacity: 0.7;
-      cursor: pointer;
-      z-index: 3;
-    }
-    
     @keyframes bounce {
       0%, 20%, 50%, 80%, 100% {
         transform: translateY(0) translateX(-50%);
@@ -560,23 +597,6 @@
       60% {
         transform: translateY(-10px) translateX(-50%);
       }
-    }
-    
-    /* Hero image transition */
-    .hero-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
-    
-    .hero-slide.active {
-      opacity: 1;
     }
   </style>
 </head>
@@ -596,10 +616,15 @@
 </header>
 
 <div class="hero">
-  <!-- Hero slides will be inserted here by JavaScript -->
+  <div class="hero-slides-container">
+    <!-- Slides will be inserted here by JavaScript -->
+  </div>
   <div class="hero-content">
     <h1>Planetary Geology & Surface Simulation Lab</h1>
     <p>Exploring planetary surface processes through geology, simulation & exploration</p>
+  </div>
+  <div class="hero-nav">
+    <!-- Navigation dots will be inserted here by JavaScript -->
   </div>
   <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
     <i class="fas fa-chevron-down"></i>
@@ -609,7 +634,7 @@
 <section id="about">
   <h2>About</h2>
   <div class="fade-in">
-    <p>The APlanetary Geology and Surface Simulation Laboratory (PGSSL), led by <strong>Dr. Trishit Ruj</strong> at the Institute for Planetary Materials, Okayama University, focuses on the exploration and analysis of planetary surfaces, particularly Mars, to unravel their geological history, environmental conditions, and potential habitability.</p>
+    <p>The Planetary Geology and Surface Simulation Laboratory (PGSSL), led by <strong>Dr. Trishit Ruj</strong> at the Institute for Planetary Materials, Okayama University, focuses on the exploration and analysis of planetary surfaces, particularly Mars, to unravel their geological history, environmental conditions, and potential habitability.</p>
     <p>We employ interdisciplinary methods, integrating planetary geology, remote sensing, geomorphology, and experimental simulations. Our laboratory is equipped with custom-built Martian environmental simulation chambers, enabling precise replication of planetary surface processes.</p>
     <p>We are dedicated to advancing planetary science by bridging laboratory experiments, field analog research, and computational modeling. Our international collaborations span Japan, India, Europe, and beyond.</p>
   </div>
@@ -774,120 +799,157 @@
 </footer>
 
 <script>
-// Improved Hero Slideshow with Smooth Transitions
-const hero = document.querySelector('.hero');
-const imgs = [
-  'Mars.png',
-  'Solar system.png',
-  'Titan.png',
-  'venus.png',
-  'mars_road.jpg',
-  'mars_rover.jpg',
-  'Ryugu.png',
-  'enceledas.png'
-];
-
-// Create slides
-imgs.forEach((img, index) => {
-  const slide = document.createElement('div');
-  slide.className = 'hero-slide';
-  slide.style.backgroundImage = url('${img}');
-  if (index === 0) slide.classList.add('active');
-  hero.insertBefore(slide, hero.firstChild);
-});
-
-const slides = document.querySelectorAll('.hero-slide');
-let currentSlide = 0;
-
-function changeSlide() {
-  // Fade out current slide
-  slides[currentSlide].classList.remove('active');
+// Hero Slider with Horizontal Slide Effect
+document.addEventListener('DOMContentLoaded', function() {
+  const hero = document.querySelector('.hero');
+  const slidesContainer = document.querySelector('.hero-slides-container');
+  const navContainer = document.querySelector('.hero-nav');
   
-  // Move to next slide
-  currentSlide = (currentSlide + 1) % slides.length;
+  // Hero images - replace with your actual image paths
+  const imgs = [
+    'Mars.png',
+    'Solar system.png',
+    'Titan.png',
+    'venus.png',
+    'mars_road.jpg',
+    'mars_rover.jpg',
+    'Ryugu.png',
+    'enceledas.png'
+  ];
   
-  // Fade in next slide
-  slides[currentSlide].classList.add('active');
-}
-
-// Initial setup
-if (slides.length > 0) {
-  slides[0].classList.add('active');
-}
-
-// Change slide every 6 seconds
-const slideInterval = setInterval(changeSlide, 6000);
-
-// Pause slideshow when user hovers over hero section
-hero.addEventListener('mouseenter', () => {
-  clearInterval(slideInterval);
-});
-
-hero.addEventListener('mouseleave', () => {
-  slideInterval = setInterval(changeSlide, 6000);
-});
-
-// Header scroll effect
-window.addEventListener('scroll', function() {
-  const header = document.querySelector('header');
-  if (window.scrollY > 50) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
-});
-
-// Intersection Observer for scroll animations
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: "0px 0px -50px 0px"
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      if (entry.target.classList.contains('team-member')) {
-        entry.target.classList.add('animated');
-      }
+  // Create slides and navigation dots
+  imgs.forEach((img, index) => {
+    // Create slide
+    const slide = document.createElement('div');
+    slide.className = 'hero-slide';
+    slide.style.backgroundImage = `url('${img}')`;
+    slidesContainer.appendChild(slide);
+    
+    // Create navigation dot
+    const navDot = document.createElement('div');
+    navDot.className = 'hero-nav-item';
+    navDot.dataset.index = index;
+    navContainer.appendChild(navDot);
+    
+    // Set first slide and dot as active
+    if (index === 0) {
+      navDot.classList.add('active');
     }
   });
-}, observerOptions);
-
-// Observe all elements with fade-in or card classes
-document.querySelectorAll('.fade-in, .research-card, .gallery-item, .news-item, #facilities li').forEach(element => {
-  observer.observe(element);
-});
-
-// Special observation for team members
-const teamSection = document.getElementById('team');
-if (teamSection) {
-  const teamObserver = new IntersectionObserver((entries) => {
+  
+  const slides = document.querySelectorAll('.hero-slide');
+  const navItems = document.querySelectorAll('.hero-nav-item');
+  let currentSlide = 0;
+  let slideInterval;
+  
+  // Function to go to a specific slide
+  function goToSlide(index) {
+    // Update current slide
+    currentSlide = index;
+    
+    // Update slide container position
+    slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Update navigation dots
+    navItems.forEach((item, i) => {
+      item.classList.toggle('active', i === currentSlide);
+    });
+  }
+  
+  // Function to go to next slide
+  function nextSlide() {
+    const nextIndex = (currentSlide + 1) % slides.length;
+    goToSlide(nextIndex);
+  }
+  
+  // Set up navigation dots
+  navItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      goToSlide(index);
+      resetInterval();
+    });
+  });
+  
+  // Reset the auto-slide interval
+  function resetInterval() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 6000);
+  }
+  
+  // Start the auto-slide
+  slideInterval = setInterval(nextSlide, 6000);
+  
+  // Pause on hover
+  hero.addEventListener('mouseenter', () => {
+    clearInterval(slideInterval);
+  });
+  
+  hero.addEventListener('mouseleave', () => {
+    resetInterval();
+  });
+  
+  // Header scroll effect
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+  
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        document.querySelectorAll('.team-member').forEach(member => {
-          member.classList.add('animated');
-        });
-        teamObserver.unobserve(entry.target);
+        entry.target.classList.add('visible');
+        if (entry.target.classList.contains('team-member')) {
+          entry.target.classList.add('animated');
+        }
       }
     });
-  }, {
-    threshold: 0.2
+  }, observerOptions);
+  
+  // Observe all elements with fade-in or card classes
+  document.querySelectorAll('.fade-in, .research-card, .gallery-item, .news-item, #facilities li').forEach(element => {
+    observer.observe(element);
   });
   
-  teamObserver.observe(teamSection);
-}
-
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth'
+  // Special observation for team members
+  const teamSection = document.getElementById('team');
+  if (teamSection) {
+    const teamObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.team-member').forEach(member => {
+            member.classList.add('animated');
+          });
+          teamObserver.unobserve(entry.target);
+        }
       });
-    }
+    }, {
+      threshold: 0.2
+    });
+    
+    teamObserver.observe(teamSection);
+  }
+  
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
   });
 });
 </script>
