@@ -112,105 +112,57 @@
       width: 100%;
     }
     
-.hero {
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
-
-.hero-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 2s ease, transform 6s ease;
-  z-index: 0;
-}
-
-.hero-slide.active {
-  opacity: 1;
-  transform: scale(1);
-  z-index: 1;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.45);
-  z-index: 2;
-}
-
-.hero-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 3;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-  animation: fadeInUp 1.5s ease-out forwards;
-  opacity: 0;
-}
-
-.hero-content h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  animation: fadeInUp 1s ease 0.3s forwards;
-}
-
-.hero-content p {
-  font-size: 1.3rem;
-  animation: fadeInUp 1s ease 0.6s forwards;
-}
-
-.hero-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.3);
-  border: none;
-  color: white;
-  font-size: 2rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  z-index: 4;
-  transition: background 0.3s ease;
-}
-.hero-arrow:hover {
-  background: rgba(0,0,0,0.5);
-}
-.hero-arrow.prev { left: 15px; }
-.hero-arrow.next { right: 15px; }
-
-.hero-dots {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 4;
-}
-.hero-dots button {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.hero-dots button.active {
-  background: #f8b195;
-}
+    .hero {
+      height: 75vh;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(42, 21, 9, 0.3);
+      z-index: 1;
+    }
+    
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 800px;
+      padding: 2rem;
+      z-index: 2;
+      background-color: rgba(58, 28, 13, 0.7);
+      border-radius: 8px;
+      backdrop-filter: blur(2px);
+      animation: fadeInUp 1s ease-out 0.3s forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      font-weight: 300;
+      margin-bottom: 0;
+      opacity: 0.9;
+      color: #f8b195;
+    }
     
     section {
       padding: var(--section-padding);
@@ -644,18 +596,11 @@
 </header>
 
 <div class="hero">
-  <!-- Slides injected via JavaScript -->
-
+  <!-- Hero slides will be inserted here by JavaScript -->
   <div class="hero-content">
     <h1>Planetary Geology & Surface Simulation Lab</h1>
     <p>Exploring planetary surface processes through geology, simulation & exploration</p>
   </div>
-
-  <button class="hero-arrow prev" aria-label="Previous Slide">&#10094;</button>
-  <button class="hero-arrow next" aria-label="Next Slide">&#10095;</button>
-
-  <div class="hero-dots"></div>
-
   <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
     <i class="fas fa-chevron-down"></i>
   </div>
@@ -846,7 +791,7 @@ const imgs = [
 imgs.forEach((img, index) => {
   const slide = document.createElement('div');
   slide.className = 'hero-slide';
-  slide.style.backgroundImage = `url('${img}')`;
+  slide.style.backgroundImage = url('${img}');
   if (index === 0) slide.classList.add('active');
   hero.insertBefore(slide, hero.firstChild);
 });
@@ -946,66 +891,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 </script>
-  <script>
-const hero = document.querySelector('.hero');
-const imgs = [
-  'Mars.png',
-  'Solar system.png',
-  'Titan.png',
-  'venus.png',
-  'mars_road.jpg',
-  'mars_rover.jpg',
-  'Ryugu.png',
-  'enceledas.png'
-];
-
-// Create slides and dots
-const dotsContainer = document.querySelector('.hero-dots');
-imgs.forEach((img, index) => {
-  const slide = document.createElement('div');
-  slide.className = 'hero-slide';
-  slide.style.backgroundImage = `url('${img}')`;
-  if (index === 0) slide.classList.add('active');
-  hero.insertBefore(slide, hero.firstChild);
-
-  const dot = document.createElement('button');
-  dot.addEventListener('click', () => goToSlide(index));
-  dotsContainer.appendChild(dot);
-});
-
-const slides = document.querySelectorAll('.hero-slide');
-const dots = dotsContainer.querySelectorAll('button');
-let currentSlide = 0;
-let interval = setInterval(nextSlide, 6000);
-
-function goToSlide(index) {
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-  currentSlide = index;
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
-}
-
-function nextSlide() {
-  goToSlide((currentSlide + 1) % slides.length);
-}
-
-function prevSlide() {
-  goToSlide((currentSlide - 1 + slides.length) % slides.length);
-}
-
-document.querySelector('.hero-arrow.next').addEventListener('click', () => {
-  clearInterval(interval);
-  nextSlide();
-});
-document.querySelector('.hero-arrow.prev').addEventListener('click', () => {
-  clearInterval(interval);
-  prevSlide();
-});
-
-dots[currentSlide].classList.add('active');
-</script>
-
 
 </body>
 </html>
