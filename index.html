@@ -596,11 +596,18 @@
 </header>
 
 <div class="hero">
-  <!-- Hero slides will be inserted here by JavaScript -->
+  <!-- Slides injected via JavaScript -->
+
   <div class="hero-content">
     <h1>Planetary Geology & Surface Simulation Lab</h1>
     <p>Exploring planetary surface processes through geology, simulation & exploration</p>
   </div>
+
+  <button class="hero-arrow prev" aria-label="Previous Slide">&#10094;</button>
+  <button class="hero-arrow next" aria-label="Next Slide">&#10095;</button>
+
+  <div class="hero-dots"></div>
+
   <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
     <i class="fas fa-chevron-down"></i>
   </div>
