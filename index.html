@@ -296,6 +296,64 @@ footer p {
   40% { transform: translateY(-20px) translateX(-50%); }
   60% { transform: translateY(-10px) translateX(-50%); }
 }
+  /* News section */
+#news {
+  background: var(--light-accent);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 3rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+#news h2 {
+  color: var(--secondary);
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.5rem;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.5rem;
+}
+
+.news-item {
+  background: #fff;
+  border-left: 5px solid var(--accent);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: var(--transition);
+}
+
+.news-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.news-item h4 {
+  margin: 0 0 0.3rem 0;
+  color: var(--mars-dark);
+  font-size: 1rem;
+}
+
+.news-item p {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.news-item a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.news-item a:hover {
+  text-decoration: underline;
+}
+
 </style>
 
 
@@ -454,44 +512,64 @@ footer p {
 <section id="news">
   <h2>News & Updates</h2>
   <div class="news-grid">
-        <div class="news-item">
-      <h4>August 2025</h4>
-      <p>🎉 <strong>Hiral PB</strong> received Early Career Sponsorship for the <em>Mars Through Time</em> Conference.  She will be presenting in <strong>Paris</strong> on October 14-17.</p><strong>Congrats, Hiral!</strong>
-    </div>
+
     <div class="news-item">
-      <h4>August 2025</h4>
-      <p>📄 First-author paper by <strong>Trishit Ruj</strong> accepted in <em>Geology</em>, reporting new findings on Martian mid-latitude glaciation.</p>
+      <h4>October 27, 2025</h4>
+      <p>🧪 <strong>Space Chamber</strong> and <strong>Hyperspectral Camera</strong> scheduled for delivery.</p>
     </div>
+
+    <div class="news-item">
+      <h4>September 2025</h4>
+      <p>📰 Press coverage on <a href="https://www.eurekalert.org/news-releases/1101270" target="_blank" rel="noopener">EurekAlert</a> featuring our <em>Geology</em> paper on Martian mid-latitude ice accumulation.</p>
+    </div>
+
     <div class="news-item">
       <h4>September 12, 2025</h4>
-      <p>🪐 <strong>Trishit Ruj</strong> will speak on <em>"Martian Ice and Ice Deposition Patterns"</em> at the <strong>European Planetary Science Congress</strong> in <strong>Helsinki, Finland</strong>.</p>
+      <p>🪐 <strong>Trishit Ruj</strong> will present <em>"Martian Ice and Ice Deposition Patterns"</em> at the <strong>European Planetary Science Congress</strong> in <strong>Helsinki</strong>.</p>
     </div>
+
     <div class="news-item">
       <h4>September 3–5, 2025</h4>
-      <p>🛰️ <strong>Hiral PB</strong> will present her research at the <strong>Japan Society for Planetary Science Annual Meeting</strong> in <strong>Tokyo</strong>.</p>
+      <p>🛰️ <strong>Hiral PB</strong> will present at the <strong>Japan Society for Planetary Science Annual Meeting</strong> in <strong>Tokyo</strong>.</p>
     </div>
+
     <div class="news-item">
-      <h4>April 2025</h4>
-      <p>🎓 <strong><a href="https://www.inamori-f.or.jp/en/250307" target="_blank">Trishit Ruj</a></strong> receives the prestigious 
-        <a href="https://www.inamori-f.or.jp/en/recipient/trishit-ruj/" target="_blank">Inamori Foundation Research Grant</a>.
-      </p>
+      <h4>August 2025</h4>
+      <p>🎉 <strong>Hiral PB</strong> received Early Career Sponsorship for the <em>Mars Through Time</em> Conference in <strong>Paris</strong> (October 14–17). <strong>Congrats!</strong></p>
     </div>
+
     <div class="news-item">
-      <h4>April 2025</h4>
-      <p>🏅 <strong><a href="https://www.hisf.or.jp/en/scholarship/foreigner/selection-result/" target="_blank">Hiral PB</a></strong> awarded the <em>HISF International Scholarship</em>.</p>
+      <h4>August 2025</h4>
+      <p>📄 First-author paper by <strong>Trishit Ruj</strong> accepted in <em>Geology</em>, reporting new insights into Martian mid-latitude glaciation.</p>
     </div>
+
     <div class="news-item">
       <h4>May 2025</h4>
       <p>🏜️ Field campaign at <strong>Tottori Sand Dunes</strong> successfully completed.</p>
     </div>
+
     <div class="news-item">
       <h4>April 2025</h4>
-      <p>👩‍🚀 <strong>Gowri Giri</strong> (University of Kerala) and <strong>Pekham Ganguly</strong> selected for 
-        <a href="https://www.misasa.okayama-u.ac.jp/MISIP/" target="_blank">MISIP 2025 Internship Program</a>.
+      <p>🎓 <strong><a href="https://www.inamori-f.or.jp/en/250307" target="_blank" rel="noopener">Trishit Ruj</a></strong> receives the
+        <a href="https://www.inamori-f.or.jp/en/recipient/trishit-ruj/" target="_blank" rel="noopener">Inamori Foundation Research Grant</a>.
       </p>
     </div>
+
+    <div class="news-item">
+      <h4>April 2025</h4>
+      <p>🏅 <strong><a href="https://www.hisf.or.jp/en/scholarship/foreigner/selection-result/" target="_blank" rel="noopener">Hiral PB</a></strong> awarded the <em>HISF International Scholarship</em>.</p>
+    </div>
+
+    <div class="news-item">
+      <h4>April 2025</h4>
+      <p>👩‍🚀 <strong>Gowri Giri</strong> (University of Kerala) and <strong>Pekham Ganguly</strong> selected for the
+        <a href="https://www.misasa.okayama-u.ac.jp/MISIP/" target="_blank" rel="noopener">MISIP 2025 Internship Program</a>.
+      </p>
+    </div>
+
   </div>
 </section>
+
 
 <footer>
   <p>&copy; 2025 Planetary Geology & Surface Simulation Laboratory | Okayama University</p>
@@ -672,6 +750,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
 
 
