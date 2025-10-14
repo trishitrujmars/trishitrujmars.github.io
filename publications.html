@@ -1,3 +1,8 @@
+Nice — I’ve rebuilt your entire page with the interactive viewer wired to your Geology paper figures that sit in the **repo root** (`2025_Geology_Figure1.jpg`, `2025_Geology_Figure2_new.png`). You don’t need folders or separate thumbnails; it will work as is.
+
+Paste this over your current `publications.html`.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,10 +43,13 @@
     .pub-journal{font-weight:500;color:var(--secondary)}
     .pub-doi{display:inline-block;margin-top:.5rem;color:var(--accent);text-decoration:none;transition:var(--transition)}
     .pub-doi:hover{color:var(--mars-red)}
+
+    /* Thumbnails for interactive viewer */
     .thumbs{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.75rem}
     .thumbs img{width:160px;height:110px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:zoom-in;transition:var(--transition);background:#fff}
     .thumbs img:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.18)}
-    /* Viewer */
+
+    /* Full-screen viewer */
     .viewer{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:2000}
     .viewer.show{display:flex}
     .viewer-img-wrap{position:relative;max-width:92vw;max-height:82vh;overflow:hidden;cursor:grab;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
@@ -52,7 +60,17 @@
     .viewer-close{position:fixed;top:14px;right:16px}
     .viewer-nav{position:fixed;top:50%;left:0;right:0;display:flex;justify-content:space-between;pointer-events:none}
     .viewer-nav button{pointer-events:auto}
-    @media(max-width:768px){header{flex-direction:column;padding:1rem;text-align:center}header h1{margin-bottom:1rem}nav{width:100%;justify-content:center;flex-wrap:wrap}nav a{margin:.5rem}h1{font-size:2rem}h2{font-size:1.5rem}main{padding:1.5rem}.thumbs img{width:46vw;height:32vw}}
+
+    @media(max-width:768px){
+      header{flex-direction:column;padding:1rem;text-align:center}
+      header h1{margin-bottom:1rem}
+      nav{width:100%;justify-content:center;flex-wrap:wrap}
+      nav a{margin:.5rem}
+      h1{font-size:2rem}
+      h2{font-size:1.5rem}
+      main{padding:1.5rem}
+      .thumbs img{width:46vw;height:32vw}
+    }
   </style>
 </head>
 <body>
@@ -71,27 +89,53 @@
   <main>
     <h1>Publications</h1>
 
-   <section id="pub-2025" class="pub-year">
-  <h2>2025</h2>
-  <ul class="pub-list">
-    <li class="pub-item">
-      <div class="pub-title">Long-term and multi-stage ice accumulation in the martian mid-latitudes during the Amazonian</div>
-      <div class="pub-authors">Ruj, T., Okuda, H., Komatsu, G., Hasegawa, H., Head, J. W., Usui, T., Mihira, S., and Kobayashi, M.</div>
-      <div class="pub-journal">Geology (2025), Published online September 2, 2025</div>
-      <a href="https://doi.org/10.1130/G53418.1" target="_blank" class="pub-doi">https://doi.org/10.1130/G53418.1</a>
-      <img src="mars_midlat_ice.jpg" alt="Conceptual illustration of multi-stage mid-latitude ice accumulation on Mars" class="pub-image">
-    </li>
+    <!-- 2025 -->
+    <section id="pub-2025" class="pub-year">
+      <h2>2025</h2>
+      <ul class="pub-list">
 
-    <li class="pub-item">
-      <div class="pub-title">The periglacial landforms and estimated subsurface ice distribution in the northern mid‐latitude of Mars</div>
-      <div class="pub-authors">Sako, T., Hasegawa, H., Ruj, T., Komatsu, G., and Sekine, Y.</div>
-      <div class="pub-journal">Journal of Geophysical Research: Planets, 130(1), e2023JE008232</div>
-      <a href="https://doi.org/10.1029/2023JE008232" target="_blank" class="pub-doi">https://doi.org/10.1029/2023JE008232</a>
-      <img src="mars_ice.jpg" alt="Mars subsurface ice illustration" class="pub-image">
-    </li>
-  </ul>
-</section>
+        <!-- Geology (interactive images from repo root) -->
+        <li class="pub-item"
+            data-figs='[
+              "2025_Geology_Figure1.jpg",
+              "2025_Geology_Figure2_new.png"
+            ]'
+            data-captions='[
+              "Fig. 1. Obliquity-driven redistribution of ice between polar caps and mid-latitudes with CTX examples and conceptual cross-sections.",
+              "Fig. 2. Low-, mid-, and high-intensity crater filling: CTX/HiRISE textures and schematic block models."
+            ]'>
+          <div class="pub-title">Long-term and multi-stage ice accumulation in the martian mid-latitudes during the Amazonian</div>
+          <div class="pub-authors">Ruj, T., Okuda, H., Komatsu, G., Hasegawa, H., Head, J. W., Usui, T., Mihira, S., and Kobayashi, M.</div>
+          <div class="pub-journal">Geology (2025), Published online September 2, 2025</div>
+          <a href="https://doi.org/10.1130/G53418.1" target="_blank" class="pub-doi">https://doi.org/10.1130/G53418.1</a>
 
+          <!-- using the full images as thumbnails; no separate folder required -->
+          <div class="thumbs">
+            <img src="2025_Geology_Figure1.jpg" alt="Geology 2025 Figure 1" data-index="0" loading="lazy">
+            <img src="2025_Geology_Figure2_new.png" alt="Geology 2025 Figure 2" data-index="1" loading="lazy">
+          </div>
+
+          <!-- Long descriptions for accessibility (hidden visually) -->
+          <p style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+            [Figure 1 alt text] Schematic showing obliquity cycles and redistribution of ice, CTX crater examples with cold traps, and cross-sections illustrating thin vs extensive fills.
+          </p>
+          <p style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+            [Figure 2 alt text] Composite of three craters with different fill intensities and corresponding block diagrams indicating progressive thickening and lateral expansion of ice-rich deposits.
+          </p>
+        </li>
+
+        <!-- JGR: Planets (static for now; add interactive figures later if you want) -->
+        <li class="pub-item">
+          <div class="pub-title">The periglacial landforms and estimated subsurface ice distribution in the northern mid-latitude of Mars</div>
+          <div class="pub-authors">Sako, T., Hasegawa, H., Ruj, T., Komatsu, G., and Sekine, Y.</div>
+          <div class="pub-journal">Journal of Geophysical Research: Planets, 130(1), e2023JE008232</div>
+          <a href="https://doi.org/10.1029/2023JE008232" target="_blank" class="pub-doi">https://doi.org/10.1029/2023JE008232</a>
+          <img src="mars_ice.jpg" alt="Mars subsurface ice illustration" class="pub-image">
+        </li>
+      </ul>
+    </section>
+
+    <!-- 2024 -->
     <section id="pub-2024" class="pub-year">
       <h2>2024</h2>
       <ul class="pub-list">
@@ -105,6 +149,7 @@
       </ul>
     </section>
 
+    <!-- 2023 -->
     <section id="pub-2023" class="pub-year">
       <h2>2023</h2>
       <ul class="pub-list">
@@ -125,6 +170,7 @@
       </ul>
     </section>
 
+    <!-- 2022 -->
     <section id="pub-2022" class="pub-year">
       <h2>2022</h2>
       <ul class="pub-list">
@@ -145,6 +191,7 @@
       </ul>
     </section>
 
+    <!-- 2021 -->
     <section id="pub-2021" class="pub-year">
       <h2>2021</h2>
       <ul class="pub-list">
@@ -165,6 +212,7 @@
       </ul>
     </section>
 
+    <!-- 2019 -->
     <section id="pub-2019" class="pub-year">
       <h2>2019</h2>
       <ul class="pub-list">
@@ -178,6 +226,7 @@
       </ul>
     </section>
 
+    <!-- 2018 -->
     <section id="pub-2018" class="pub-year">
       <h2>2018</h2>
       <ul class="pub-list">
@@ -191,6 +240,7 @@
       </ul>
     </section>
 
+    <!-- 2017 -->
     <section id="pub-2017" class="pub-year">
       <h2>2017</h2>
       <ul class="pub-list">
@@ -204,6 +254,7 @@
       </ul>
     </section>
 
+    <!-- 2014 -->
     <section id="pub-2014" class="pub-year">
       <h2>2014</h2>
       <ul class="pub-list">
@@ -221,49 +272,113 @@
   <footer>
     <p>&copy; 2025 Astrogeology & Surface Simulation Laboratory | Okayama University</p>
     <div class="social-links">
-      <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank" aria-label="ResearchGate">
-        <i class="fab fa-researchgate"></i>
-      </a>
-      <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="https://orcid.org/0000-0002-7953-4085" target="_blank" aria-label="ORCID">
-        <i class="fab fa-orcid"></i>
-      </a>
-      <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
-        <i class="fab fa-linkedin"></i>
-      </a>
+      <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+      <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank" aria-label="Google Scholar"><i class="fab fa-google"></i></a>
+      <a href="https://orcid.org/0000-0002-7953-4085" target="_blank" aria-label="ORCID"><i class="fab fa-orcid"></i></a>
+      <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
     </div>
   </footer>
 
+  <!-- Full-screen viewer UI -->
+  <div class="viewer" id="viewer" aria-modal="true" role="dialog">
+    <button class="viewer-btn viewer-close" id="closeBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="viewer-nav">
+      <button class="viewer-btn" id="prevBtn" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="viewer-btn" id="nextBtn" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="viewer-img-wrap" id="imgWrap">
+      <img id="viewerImg" class="viewer-img" alt="">
+    </div>
+    <div class="viewer-ui">
+      <button class="viewer-btn" id="zoomIn" title="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+      <button class="viewer-btn" id="zoomOut" title="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+      <button class="viewer-btn" id="reset" title="Reset"><i class="fa-solid fa-rotate-right"></i></button>
+      <span id="caption" style="color:#fff;margin-left:.5rem;max-width:60vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></span>
+    </div>
+  </div>
+
   <script>
     // Header scroll effect
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', () => {
       const header = document.querySelector('header');
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
+      header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
+    // Interactive viewer
+    (function(){
+      const viewer = document.getElementById('viewer');
+      const viewerImg = document.getElementById('viewerImg');
+      const imgWrap = document.getElementById('imgWrap');
+      const caption = document.getElementById('caption');
+      let currentSet = [], captions = [], idx = 0, scale = 1, ox = 0, oy = 0, sx = 0, sy = 0, dragging = false;
+
+      function load(i){
+        if(!currentSet.length) return;
+        idx = (i + currentSet.length) % currentSet.length;
+        viewerImg.src = currentSet[idx];
+        caption.textContent = captions[idx] || '';
+        resetTransform();
+      }
+      function openFrom(item, start){
+        try { currentSet = JSON.parse(item.dataset.figs || '[]'); } catch(e){ currentSet = []; }
+        try { captions  = JSON.parse(item.dataset.captions || '[]'); } catch(e){ captions = []; }
+        if(!currentSet.length) return;
+        viewer.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        load(start || 0);
+      }
+      function close(){ viewer.classList.remove('show'); document.body.style.overflow = ''; }
+      function resetTransform(){ scale = 1; ox = 0; oy = 0; apply(); }
+      function apply(){ viewerImg.style.transform = `translate(${ox}px, ${oy}px) scale(${scale})`; }
+
+      // Hook thumbnails
+      document.querySelectorAll('.pub-item .thumbs img').forEach(img=>{
+        img.addEventListener('click', e=>{
+          const item = e.currentTarget.closest('.pub-item');
+          const start = parseInt(e.currentTarget.dataset.index || '0',10) || 0;
+          openFrom(item, start);
+        });
       });
-    });
+
+      // Controls
+      document.getElementById('closeBtn').onclick = close;
+      document.getElementById('prevBtn').onclick = ()=>load(idx-1);
+      document.getElementById('nextBtn').onclick = ()=>load(idx+1);
+      document.getElementById('zoomIn').onclick  = ()=>{ scale = Math.min(scale+0.2,6); apply(); };
+      document.getElementById('zoomOut').onclick = ()=>{ scale = Math.max(scale-0.2,0.5); apply(); };
+      document.getElementById('reset').onclick   = resetTransform;
+
+      // Drag to pan
+      imgWrap.addEventListener('mousedown', e=>{ dragging=true; sx=e.clientX-ox; sy=e.clientY-oy; imgWrap.style.cursor='grabbing'; });
+      window.addEventListener('mousemove', e=>{ if(!dragging) return; ox=e.clientX-sx; oy=e.clientY-sy; apply(); });
+      window.addEventListener('mouseup',   ()=>{ dragging=false; imgWrap.style.cursor='grab'; });
+
+      // Wheel zoom
+      imgWrap.addEventListener('wheel', e=>{
+        e.preventDefault();
+        const dir = Math.sign(e.deltaY);
+        scale = Math.min(6, Math.max(0.5, scale - dir*0.2));
+        apply();
+      }, { passive:false });
+
+      // Keys and backdrop
+      window.addEventListener('keydown', e=>{
+        if(!viewer.classList.contains('show')) return;
+        if(e.key==='Escape') close();
+        if(e.key==='ArrowLeft') load(idx-1);
+        if(e.key==='ArrowRight') load(idx+1);
+        if(e.key==='+'){ scale = Math.min(scale+0.2,6); apply(); }
+        if(e.key==='-'){ scale = Math.max(scale-0.2,0.5); apply(); }
+      });
+      viewer.addEventListener('click', e=>{ if(e.target===viewer) close(); });
+    })();
   </script>
 </body>
 </html>
+```
+
+If you later upload JGR figures in the root too, tell me their filenames and I’ll switch that item to interactive as well.
+
 
 
