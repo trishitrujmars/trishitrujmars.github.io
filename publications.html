@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Publications | ASSL</title>
+<title>Publications | PGSSL</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -12,19 +13,51 @@
   --primary:#3a1c0d;
   --secondary:#e27d60;
   --accent:#c1440e;
-  --bg:#f9f9f9;
+  --dark:#2a1509;
+  --bg:#f5f5f5;
   --text:#2c3e50;
   --muted:#7f8c8d;
-  --card:#ffffff;
 }
 
 body{
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  margin:0;
   background:var(--bg);
   color:var(--text);
-  margin:0;
   line-height:1.7;
 }
+
+/* ================= HEADER ================= */
+
+header{
+  background:linear-gradient(90deg,var(--dark),var(--primary));
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  color:white;
+  font-weight:600;
+  font-size:1.1rem;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:1.8rem;
+  font-size:.95rem;
+  opacity:.9;
+}
+
+nav a:hover{
+  opacity:1;
+  border-bottom:2px solid var(--secondary);
+  padding-bottom:.2rem;
+}
+
+/* ================= MAIN ================= */
 
 main{
   max-width:1000px;
@@ -33,7 +66,7 @@ main{
 }
 
 h1{
-  font-size:2.6rem;
+  font-size:2.5rem;
   margin-bottom:2.5rem;
   color:var(--primary);
 }
@@ -48,8 +81,8 @@ h1{
   color:var(--secondary);
   margin-bottom:1.2rem;
   border-bottom:2px solid var(--accent);
-  padding-bottom:.3rem;
   display:inline-block;
+  padding-bottom:.3rem;
 }
 
 .pub-list{
@@ -59,12 +92,12 @@ h1{
 }
 
 .pub-item{
-  background:var(--card);
-  padding:1.3rem 1.5rem;
+  background:white;
+  padding:1.4rem 1.6rem;
   margin-bottom:1rem;
   border-left:4px solid var(--accent);
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
   border-radius:6px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
 
 .pub-title{
@@ -83,13 +116,10 @@ h1{
   margin-bottom:.4rem;
 }
 
-.pub-doi{
-  font-size:.95rem;
-}
-
 .pub-doi a{
   color:var(--accent);
   text-decoration:none;
+  font-size:.95rem;
 }
 
 .pub-doi a:hover{
@@ -107,10 +137,24 @@ footer{
 
 <body>
 
+<header>
+  <div class="logo">PGSSL — Planetary Geology & Surface Simulation Lab</div>
+  <nav>
+    <a href="index.html">About</a>
+    <a href="research.html">Research</a>
+    <a href="publications.html">Publications</a>
+    <a href="team.html">Team</a>
+    <a href="projects.html">Projects</a>
+    <a href="facilities.html">Facilities</a>
+    <a href="news.html">News</a>
+  </nav>
+</header>
+
 <main>
+
 <h1>Publications</h1>
 
-<!-- ===================== 2026 ===================== -->
+<!-- ================= 2026 ================= -->
 <section class="year-section">
 <div class="year-title">2026</div>
 <ul class="pub-list">
@@ -126,7 +170,9 @@ Ray, A., Ruj, T., Komatsu, G. et al.
 Scientific Reports (2026)
 </div>
 <div class="pub-doi">
-DOI: <a href="https://doi.org/10.1038/s41598-026-40370-4" target="_blank">10.1038/s41598-026-40370-4</a>
+<a href="https://doi.org/10.1038/s41598-026-40370-4" target="_blank">
+10.1038/s41598-026-40370-4
+</a>
 </div>
 </li>
 
@@ -134,7 +180,7 @@ DOI: <a href="https://doi.org/10.1038/s41598-026-40370-4" target="_blank">10.103
 </section>
 
 
-<!-- ===================== 2025 ===================== -->
+<!-- ================= 2025 ================= -->
 <section class="year-section">
 <div class="year-title">2025</div>
 <ul class="pub-list">
@@ -150,7 +196,9 @@ Ruj, T., Okuda, H., Komatsu, G., Hasegawa, H., Head, J. W., Usui, T., Mihira, S.
 Geology (2025)
 </div>
 <div class="pub-doi">
-DOI: <a href="https://doi.org/10.1130/G53418.1" target="_blank">10.1130/G53418.1</a>
+<a href="https://doi.org/10.1130/G53418.1" target="_blank">
+10.1130/G53418.1
+</a>
 </div>
 </li>
 
@@ -162,10 +210,12 @@ The periglacial landforms and estimated subsurface ice distribution in the north
 Sako, T., Hasegawa, H., Ruj, T., Komatsu, G., and Sekine, Y.
 </div>
 <div class="pub-journal">
-Journal of Geophysical Research: Planets, 130(1), e2023JE008232
+Journal of Geophysical Research: Planets
 </div>
 <div class="pub-doi">
-DOI: <a href="https://doi.org/10.1029/2023JE008232" target="_blank">10.1029/2023JE008232</a>
+<a href="https://doi.org/10.1029/2023JE008232" target="_blank">
+10.1029/2023JE008232
+</a>
 </div>
 </li>
 
@@ -173,7 +223,7 @@ DOI: <a href="https://doi.org/10.1029/2023JE008232" target="_blank">10.1029/2023
 </section>
 
 
-<!-- ===================== 2024 ===================== -->
+<!-- ================= 2024 ================= -->
 <section class="year-section">
 <div class="year-title">2024</div>
 <ul class="pub-list">
@@ -186,10 +236,12 @@ Planetary Geologic Maps: Essential Tools for Scientific Inquiry and Space Explor
 Luna, J. W., Iqbal, W., … Osinski, G. (incl. Ruj, T.)
 </div>
 <div class="pub-journal">
-Journal of Geophysical Research: Planets, 129, e2024JE008442
+Journal of Geophysical Research: Planets, 129
 </div>
 <div class="pub-doi">
-DOI: <a href="https://doi.org/10.1029/2024JE008442" target="_blank">10.1029/2024JE008442</a>
+<a href="https://doi.org/10.1029/2024JE008442" target="_blank">
+10.1029/2024JE008442
+</a>
 </div>
 </li>
 
@@ -197,206 +249,96 @@ DOI: <a href="https://doi.org/10.1029/2024JE008442" target="_blank">10.1029/2024
 </section>
 
 
-<!-- ===================== 2023 ===================== -->
+<!-- ================= 2023 ================= -->
 <section class="year-section">
 <div class="year-title">2023</div>
 <ul class="pub-list">
 
 <li class="pub-item">
-<div class="pub-title">
-Evidence for Structural Control of Mare Volcanism in Lunar Compressional Tectonic Settings
-</div>
-<div class="pub-authors">
-Zhang, F., Pizzi, A., Ruj, T., Komatsu, G., Yin, A., Liu, Y., and Zou, Y.
-</div>
-<div class="pub-journal">
-Nature Communications, 14(1), 2892
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank">10.1038/s41467-023-38615-1</a>
-</div>
+Evidence for Structural Control of Mare Volcanism in Lunar Compressional Tectonic Settings — Nature Communications
 </li>
 
 <li class="pub-item">
-<div class="pub-title">
-Formation age and seismicity of the lobate scarp near the Chandrayaan-3 landing site
-</div>
-<div class="pub-authors">
-Sinha, R., Rani, A., Ruj, T., Bhardwaj, A.
-</div>
-<div class="pub-journal">
-Icarus, 115636
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.1016/j.icarus.2023.115636" target="_blank">10.1016/j.icarus.2023.115636</a>
-</div>
+Formation age and seismicity of the lobate scarp near the Chandrayaan-3 landing site — Icarus
 </li>
 
 </ul>
 </section>
 
 
-<!-- ===================== 2022 ===================== -->
+<!-- ================= 2022 ================= -->
 <section class="year-section">
 <div class="year-title">2022</div>
 <ul class="pub-list">
 
 <li class="pub-item">
-<div class="pub-title">
-Tectonism of Late Noachian Mars: Surface Signatures from the Southern Highlands
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Schmidt, G., Karunatillake, S., and Kawai, K.
-</div>
-<div class="pub-journal">
-Remote Sensing, 14(22)
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.3390/rs14225664" target="_blank">10.3390/rs14225664</a>
-</div>
+Tectonism of Late Noachian Mars: Surface Signatures from the Southern Highlands — Remote Sensing
 </li>
 
 <li class="pub-item">
-<div class="pub-title">
-Recent boulder falls within the Finsen crater on the lunar far side
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Kawai, K., Okuda, H., Xiao, Z., and Dhingra, D.
-</div>
-<div class="pub-journal">
-Icarus, 114904
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.1016/j.icarus.2022.114904" target="_blank">10.1016/j.icarus.2022.114904</a>
-</div>
+Recent boulder falls within the Finsen crater on the lunar far side — Icarus
 </li>
 
 </ul>
 </section>
 
 
-<!-- ===================== 2021 ===================== -->
+<!-- ================= 2021 ================= -->
 <section class="year-section">
 <div class="year-title">2021</div>
 <ul class="pub-list">
 
 <li class="pub-item">
-<div class="pub-title">
-Extension in the Pyrrhae Fossae region on Mars: Age estimation through buffer crater counting
-</div>
-<div class="pub-authors">
-De, K., Ruj, T., Kundu, A., Dasgupta, N., and Kawai, K.
-</div>
-<div class="pub-journal">
-Current Science, 127(7)
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.18520/cs/v121/i7/906-911" target="_blank">10.18520/cs/v121/i7/906-911</a>
-</div>
+Extension in the Pyrrhae Fossae region on Mars — Current Science
 </li>
 
 <li class="pub-item">
-<div class="pub-title">
-A global investigation of wrinkle ridge formation events: Implications for the thermal evolution of Mars
-</div>
-<div class="pub-authors">
-Ruj, T., and Kawai, K.
-</div>
-<div class="pub-journal">
-Icarus, 114625
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank">10.1016/j.icarus.2021.114625</a>
-</div>
+Global investigation of wrinkle ridge formation events — Icarus
 </li>
 
 </ul>
 </section>
 
 
-<!-- ===================== 2019 ===================== -->
+<!-- ================= 2019 ================= -->
 <section class="year-section">
 <div class="year-title">2019</div>
 <ul class="pub-list">
 <li class="pub-item">
-<div class="pub-title">
-Timings of early crustal activity in southern highlands of Mars
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Pasckert, J. H., and Dohm, J. M.
-</div>
-<div class="pub-journal">
-Geoscience Frontiers, 10(3), 1029–1037
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.1016/j.gsf.2018.05.016" target="_blank">10.1016/j.gsf.2018.05.016</a>
-</div>
+Timings of early crustal activity in southern highlands of Mars — Geoscience Frontiers
 </li>
 </ul>
 </section>
 
 
-<!-- ===================== 2018 ===================== -->
+<!-- ================= 2018 ================= -->
 <section class="year-section">
 <div class="year-title">2018</div>
 <ul class="pub-list">
 <li class="pub-item">
-<div class="pub-title">
-Morphometric analysis of a Hesperian-aged Martian lobate scarp
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Pondrelli, M., Di Pietro, I., and Pozzobon, R.
-</div>
-<div class="pub-journal">
-Journal of Structural Geology, 113, 1–9
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.1016/j.jsg.2018.04.018" target="_blank">10.1016/j.jsg.2018.04.018</a>
-</div>
+Morphometric analysis of a Hesperian-aged Martian lobate scarp — Journal of Structural Geology
 </li>
 </ul>
 </section>
 
 
-<!-- ===================== 2017 ===================== -->
+<!-- ================= 2017 ================= -->
 <section class="year-section">
 <div class="year-title">2017</div>
 <ul class="pub-list">
 <li class="pub-item">
-<div class="pub-title">
-Generic identification and classification of morphostructures in the Noachis-Sabaea region
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Dohm, J. M., Miyamoto, H., and Salese, F.
-</div>
-<div class="pub-journal">
-Journal of Maps, 13(2), 755–766
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.1080/17445647.2017.1379913" target="_blank">10.1080/17445647.2017.1379913</a>
-</div>
+Generic identification and classification of morphostructures — Journal of Maps
 </li>
 </ul>
 </section>
 
 
-<!-- ===================== 2014 ===================== -->
+<!-- ================= 2014 ================= -->
 <section class="year-section">
 <div class="year-title">2014</div>
 <ul class="pub-list">
 <li class="pub-item">
-<div class="pub-title">
-Tectonic imprints within a granite exposed near Srinagar, Rajasthan, India
-</div>
-<div class="pub-authors">
-Ruj, T., and Dasgupta, N.
-</div>
-<div class="pub-journal">
-Journal of Earth System Science, 123(6), 1361–1374
-</div>
-<div class="pub-doi">
-DOI: <a href="https://doi.org/10.1007/s12040-014-0461-9" target="_blank">10.1007/s12040-014-0461-9</a>
-</div>
+Tectonic imprints within a granite exposed near Srinagar, Rajasthan — Journal of Earth System Science
 </li>
 </ul>
 </section>
@@ -404,9 +346,8 @@ DOI: <a href="https://doi.org/10.1007/s12040-014-0461-9" target="_blank">10.1007
 </main>
 
 <footer>
-© 2026 Astrogeology & Surface Simulation Laboratory | Okayama University
+© 2026 PGSSL | Okayama University
 </footer>
 
 </body>
 </html>
-
