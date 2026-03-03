@@ -1,92 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Publications | ASSL</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root{
-      --primary:#3a1c0d;--secondary:#e27d60;--accent:#c1440e;--light-accent:#f8f1e5;
-      --text:#2c3e50;--light-text:#7f8c8d;--bg:#f9f9f9;--mars-red:#e44d26;--mars-dark:#2a1509;--mars-light:#f8b195;
-      --transition:all .3s cubic-bezier(.25,.8,.25,1)
-    }
-    html{scroll-behavior:smooth}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.6}
-    header{background:linear-gradient(135deg,var(--mars-dark),var(--primary));padding:1.2rem 2rem;position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.1);transition:var(--transition)}
-    header.scrolled{padding:.8rem 2rem;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-    header h1{font-size:1.5rem;font-weight:600;display:flex;align-items:center;color:#fff;margin:0;transition:var(--transition)}
-    header.scrolled h1{font-size:1.3rem}
-    header h1 img{height:36px;margin-right:12px;transition:var(--transition)}
-    header.scrolled h1 img{height:30px}
-    nav{display:flex;align-items:center}
-    nav a{margin-left:1.8rem;color:rgba(255,255,255,.9);font-weight:500;text-decoration:none;position:relative;font-size:.95rem;transition:var(--transition)}
-    nav a:hover{color:var(--mars-light)}
-    nav a::after{content:"";position:absolute;bottom:-5px;left:0;width:0;height:2px;background:var(--mars-light);transition:var(--transition)}
-    nav a:hover::after{width:100%}
-    main{max-width:1200px;margin:0 auto;padding:2rem}
-    h1{font-size:2.5rem;color:var(--primary);margin-bottom:2rem;position:relative}
-    h1::after{content:"";position:absolute;bottom:-10px;left:0;width:60px;height:3px;background:var(--accent);border-radius:3px}
-    h2{font-size:1.8rem;color:var(--secondary);margin:3rem 0 1.5rem;padding-bottom:.5rem;border-bottom:1px solid var(--light-accent)}
-    .pub-year{background:var(--light-accent);padding:1.5rem;border-radius:8px;margin-bottom:2rem;box-shadow:0 3px 10px rgba(0,0,0,.05)}
-    .pub-list{list-style:none;padding:0;margin:0}
-    .pub-item{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px dashed var(--light-accent)}
-    .pub-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-    .pub-title{font-weight:600;color:var(--primary);margin-bottom:.5rem}
-    .pub-authors{font-style:italic;margin-bottom:.5rem;color:var(--light-text)}
-    .pub-journal{font-weight:500;color:var(--secondary)}
-    .pub-doi{display:inline-block;margin-top:.5rem;color:var(--accent);text-decoration:none;transition:var(--transition)}
-    .pub-doi:hover{color:var(--mars-red)}
-  </style>
-</head>
-<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publications | ASSL</title>
 
-<header>
-  <h1><img src="lab_logo.png" alt="Lab Logo"> ASSL | Astrogeology & Surface Simulation Lab</h1>
-  <nav>
-    <a href="index.html#about">About</a>
-    <a href="index.html#research">Research</a>
-    <a href="publications.html">Publications</a>
-    <a href="index.html#team">Team</a>
-    <a href="index.html#projects">Projects</a>
-    <a href="index.html#news">News</a>
-  </nav>
-</header>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#3a1c0d;
+  --secondary:#e27d60;
+  --accent:#c1440e;
+  --bg:#f9f9f9;
+  --text:#2c3e50;
+  --muted:#7f8c8d;
+  --card:#ffffff;
+}
+
+body{
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  margin:0;
+  line-height:1.7;
+}
+
+main{
+  max-width:1000px;
+  margin:0 auto;
+  padding:3rem 2rem;
+}
+
+h1{
+  font-size:2.6rem;
+  margin-bottom:2.5rem;
+  color:var(--primary);
+}
+
+.year-section{
+  margin-bottom:3.5rem;
+}
+
+.year-title{
+  font-size:1.6rem;
+  font-weight:600;
+  color:var(--secondary);
+  margin-bottom:1.2rem;
+  border-bottom:2px solid var(--accent);
+  padding-bottom:.3rem;
+  display:inline-block;
+}
+
+.pub-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.pub-item{
+  background:var(--card);
+  padding:1.3rem 1.5rem;
+  margin-bottom:1rem;
+  border-left:4px solid var(--accent);
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  border-radius:6px;
+}
+
+.pub-title{
+  font-weight:600;
+  margin-bottom:.4rem;
+}
+
+.pub-authors{
+  font-style:italic;
+  color:var(--muted);
+  margin-bottom:.4rem;
+}
+
+.pub-journal{
+  font-weight:500;
+  margin-bottom:.4rem;
+}
+
+.pub-doi{
+  font-size:.95rem;
+}
+
+.pub-doi a{
+  color:var(--accent);
+  text-decoration:none;
+}
+
+.pub-doi a:hover{
+  text-decoration:underline;
+}
+
+footer{
+  text-align:center;
+  padding:2rem;
+  font-size:.9rem;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
 
 <main>
 <h1>Publications</h1>
 
-<!-- 2026 -->
-<section id="pub-2026" class="pub-year">
-  <h2>2026</h2>
-  <ul class="pub-list">
-    <li class="pub-item">
-      <div class="pub-title">Boulder populations and orientation trends on asteroid Ryugu: implications for rubble-pile surface processes</div>
-      <div class="pub-authors">Ray, A., Ruj, T., Komatsu, G. <i>et al.</i></div>
-      <div class="pub-journal">Scientific Reports (2026)</div>
-      <a href="https://doi.org/10.1038/s41598-026-40370-4" target="_blank" class="pub-doi">
-        https://doi.org/10.1038/s41598-026-40370-4
-      </a>
-    </li>
-  </ul>
+<!-- ===================== 2026 ===================== -->
+<section class="year-section">
+<div class="year-title">2026</div>
+<ul class="pub-list">
+
+<li class="pub-item">
+<div class="pub-title">
+Boulder populations and orientation trends on asteroid Ryugu: implications for rubble-pile surface processes
+</div>
+<div class="pub-authors">
+Ray, A., Ruj, T., Komatsu, G. et al.
+</div>
+<div class="pub-journal">
+Scientific Reports (2026)
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1038/s41598-026-40370-4" target="_blank">10.1038/s41598-026-40370-4</a>
+</div>
+</li>
+
+</ul>
 </section>
 
-<!-- 2025 -->
-<section id="pub-2025" class="pub-year">
-  <h2>2025</h2>
-  <ul class="pub-list">
-    <!-- your existing 2025 entries remain unchanged -->
-  </ul>
+
+<!-- ===================== 2025 ===================== -->
+<section class="year-section">
+<div class="year-title">2025</div>
+<ul class="pub-list">
+
+<li class="pub-item">
+<div class="pub-title">
+Long-term and multi-stage ice accumulation in the Martian mid-latitudes during the Amazonian
+</div>
+<div class="pub-authors">
+Ruj, T., Okuda, H., Komatsu, G., Hasegawa, H., Head, J. W., Usui, T., Mihira, S., and Kobayashi, M.
+</div>
+<div class="pub-journal">
+Geology (2025)
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1130/G53418.1" target="_blank">10.1130/G53418.1</a>
+</div>
+</li>
+
+<li class="pub-item">
+<div class="pub-title">
+The periglacial landforms and estimated subsurface ice distribution in the northern mid-latitude of Mars
+</div>
+<div class="pub-authors">
+Sako, T., Hasegawa, H., Ruj, T., Komatsu, G., and Sekine, Y.
+</div>
+<div class="pub-journal">
+Journal of Geophysical Research: Planets, 130(1), e2023JE008232
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1029/2023JE008232" target="_blank">10.1029/2023JE008232</a>
+</div>
+</li>
+
+</ul>
 </section>
 
-<!-- rest of your existing sections remain unchanged -->
+
+<!-- ===================== 2024 ===================== -->
+<section class="year-section">
+<div class="year-title">2024</div>
+<ul class="pub-list">
+
+<li class="pub-item">
+<div class="pub-title">
+Planetary Geologic Maps: Essential Tools for Scientific Inquiry and Space Exploration
+</div>
+<div class="pub-authors">
+Luna, J. W., Iqbal, W., … Osinski, G. (incl. Ruj, T.)
+</div>
+<div class="pub-journal">
+Journal of Geophysical Research: Planets, 129, e2024JE008442
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1029/2024JE008442" target="_blank">10.1029/2024JE008442</a>
+</div>
+</li>
+
+</ul>
+</section>
+
+
+<!-- ===================== 2023 ===================== -->
+<section class="year-section">
+<div class="year-title">2023</div>
+<ul class="pub-list">
+
+<li class="pub-item">
+<div class="pub-title">
+Evidence for Structural Control of Mare Volcanism in Lunar Compressional Tectonic Settings
+</div>
+<div class="pub-authors">
+Zhang, F., Pizzi, A., Ruj, T., Komatsu, G., Yin, A., Liu, Y., and Zou, Y.
+</div>
+<div class="pub-journal">
+Nature Communications, 14(1), 2892
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank">10.1038/s41467-023-38615-1</a>
+</div>
+</li>
+
+<li class="pub-item">
+<div class="pub-title">
+Formation age and seismicity of the lobate scarp near the Chandrayaan-3 landing site
+</div>
+<div class="pub-authors">
+Sinha, R., Rani, A., Ruj, T., Bhardwaj, A.
+</div>
+<div class="pub-journal">
+Icarus, 115636
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1016/j.icarus.2023.115636" target="_blank">10.1016/j.icarus.2023.115636</a>
+</div>
+</li>
+
+</ul>
+</section>
+
+
+<!-- ===================== 2022 ===================== -->
+<section class="year-section">
+<div class="year-title">2022</div>
+<ul class="pub-list">
+
+<li class="pub-item">
+<div class="pub-title">
+Tectonism of Late Noachian Mars: Surface Signatures from the Southern Highlands
+</div>
+<div class="pub-authors">
+Ruj, T., Komatsu, G., Schmidt, G., Karunatillake, S., and Kawai, K.
+</div>
+<div class="pub-journal">
+Remote Sensing, 14(22)
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.3390/rs14225664" target="_blank">10.3390/rs14225664</a>
+</div>
+</li>
+
+<li class="pub-item">
+<div class="pub-title">
+Recent boulder falls within the Finsen crater on the lunar far side
+</div>
+<div class="pub-authors">
+Ruj, T., Komatsu, G., Kawai, K., Okuda, H., Xiao, Z., and Dhingra, D.
+</div>
+<div class="pub-journal">
+Icarus, 114904
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1016/j.icarus.2022.114904" target="_blank">10.1016/j.icarus.2022.114904</a>
+</div>
+</li>
+
+</ul>
+</section>
+
+
+<!-- ===================== 2021 ===================== -->
+<section class="year-section">
+<div class="year-title">2021</div>
+<ul class="pub-list">
+
+<li class="pub-item">
+<div class="pub-title">
+Extension in the Pyrrhae Fossae region on Mars: Age estimation through buffer crater counting
+</div>
+<div class="pub-authors">
+De, K., Ruj, T., Kundu, A., Dasgupta, N., and Kawai, K.
+</div>
+<div class="pub-journal">
+Current Science, 127(7)
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.18520/cs/v121/i7/906-911" target="_blank">10.18520/cs/v121/i7/906-911</a>
+</div>
+</li>
+
+<li class="pub-item">
+<div class="pub-title">
+A global investigation of wrinkle ridge formation events: Implications for the thermal evolution of Mars
+</div>
+<div class="pub-authors">
+Ruj, T., and Kawai, K.
+</div>
+<div class="pub-journal">
+Icarus, 114625
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank">10.1016/j.icarus.2021.114625</a>
+</div>
+</li>
+
+</ul>
+</section>
+
+
+<!-- ===================== 2019 ===================== -->
+<section class="year-section">
+<div class="year-title">2019</div>
+<ul class="pub-list">
+<li class="pub-item">
+<div class="pub-title">
+Timings of early crustal activity in southern highlands of Mars
+</div>
+<div class="pub-authors">
+Ruj, T., Komatsu, G., Pasckert, J. H., and Dohm, J. M.
+</div>
+<div class="pub-journal">
+Geoscience Frontiers, 10(3), 1029–1037
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1016/j.gsf.2018.05.016" target="_blank">10.1016/j.gsf.2018.05.016</a>
+</div>
+</li>
+</ul>
+</section>
+
+
+<!-- ===================== 2018 ===================== -->
+<section class="year-section">
+<div class="year-title">2018</div>
+<ul class="pub-list">
+<li class="pub-item">
+<div class="pub-title">
+Morphometric analysis of a Hesperian-aged Martian lobate scarp
+</div>
+<div class="pub-authors">
+Ruj, T., Komatsu, G., Pondrelli, M., Di Pietro, I., and Pozzobon, R.
+</div>
+<div class="pub-journal">
+Journal of Structural Geology, 113, 1–9
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1016/j.jsg.2018.04.018" target="_blank">10.1016/j.jsg.2018.04.018</a>
+</div>
+</li>
+</ul>
+</section>
+
+
+<!-- ===================== 2017 ===================== -->
+<section class="year-section">
+<div class="year-title">2017</div>
+<ul class="pub-list">
+<li class="pub-item">
+<div class="pub-title">
+Generic identification and classification of morphostructures in the Noachis-Sabaea region
+</div>
+<div class="pub-authors">
+Ruj, T., Komatsu, G., Dohm, J. M., Miyamoto, H., and Salese, F.
+</div>
+<div class="pub-journal">
+Journal of Maps, 13(2), 755–766
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1080/17445647.2017.1379913" target="_blank">10.1080/17445647.2017.1379913</a>
+</div>
+</li>
+</ul>
+</section>
+
+
+<!-- ===================== 2014 ===================== -->
+<section class="year-section">
+<div class="year-title">2014</div>
+<ul class="pub-list">
+<li class="pub-item">
+<div class="pub-title">
+Tectonic imprints within a granite exposed near Srinagar, Rajasthan, India
+</div>
+<div class="pub-authors">
+Ruj, T., and Dasgupta, N.
+</div>
+<div class="pub-journal">
+Journal of Earth System Science, 123(6), 1361–1374
+</div>
+<div class="pub-doi">
+DOI: <a href="https://doi.org/10.1007/s12040-014-0461-9" target="_blank">10.1007/s12040-014-0461-9</a>
+</div>
+</li>
+</ul>
+</section>
 
 </main>
 
 <footer>
-  <p>&copy; 2026 Astrogeology & Surface Simulation Laboratory | Okayama University</p>
+© 2026 Astrogeology & Surface Simulation Laboratory | Okayama University
 </footer>
 
 </body>
 </html>
+
