@@ -1,472 +1,1354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Publications | PGSSL</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications | PGSSL</title>
+  <link rel="icon" href="logo.png" type="image/png">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
-:root{
-  --primary:#3a1c0d;
-  --secondary:#e27d60;
-  --accent:#c1440e;
-  --dark:#2a1509;
-  --bg:#f5f5f5;
-  --text:#2c3e50;
-  --muted:#7f8c8d;
-}
+  <style>
+    :root {
+      --bg-main: #04070d;
+      --bg-soft: #0a1019;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --bg-card-strong: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.10);
+      --border-strong: rgba(255, 255, 255, 0.18);
+      --text-main: #f5f7fb;
+      --text-soft: #b6c0d1;
+      --text-dim: #8c98ab;
+      --accent: #ff6b35;
+      --accent-2: #ffb36b;
+      --accent-blue: #62b8ff;
+      --glow-orange: rgba(255, 107, 53, 0.20);
+      --glow-blue: rgba(98, 184, 255, 0.14);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.18);
+      --radius: 24px;
+      --radius-lg: 34px;
+      --transition: all 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+      --max-width: 1240px;
+    }
 
-body{
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.7;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-/* ================= HEADER ================= */
+    html {
+      scroll-behavior: smooth;
+    }
 
-header{
-  background:linear-gradient(90deg,var(--dark),var(--primary));
-  padding:1rem 2rem;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255, 107, 53, 0.08), transparent 22%),
+        radial-gradient(circle at 85% 20%, rgba(98, 184, 255, 0.08), transparent 18%),
+        radial-gradient(circle at 50% 85%, rgba(255, 179, 107, 0.07), transparent 20%),
+        linear-gradient(180deg, #03060b 0%, #070c13 40%, #04070d 100%);
+      color: var(--text-main);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-.logo{
-  color:white;
-  font-weight:600;
-  font-size:1.1rem;
-}
+    canvas#starfield {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+    }
 
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:1.8rem;
-  font-size:.95rem;
-  opacity:.9;
-}
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: -2;
+      opacity: 0.7;
+    }
 
-nav a:hover{
-  opacity:1;
-  border-bottom:2px solid var(--secondary);
-  padding-bottom:.2rem;
-}
+    .orb.orb-1 {
+      width: 420px;
+      height: 420px;
+      background: var(--glow-orange);
+      top: -60px;
+      right: -80px;
+    }
 
-/* ================= MAIN ================= */
+    .orb.orb-2 {
+      width: 360px;
+      height: 360px;
+      background: var(--glow-blue);
+      bottom: 8%;
+      left: -80px;
+    }
 
-main{
-  max-width:1000px;
-  margin:0 auto;
-  padding:3rem 2rem;
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-h1{
-  font-size:2.5rem;
-  margin-bottom:2.5rem;
-  color:var(--primary);
-}
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-.year-section{
-  margin-bottom:3.5rem;
-}
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
 
-.year-title{
-  font-size:1.6rem;
-  font-weight:600;
-  color:var(--secondary);
-  margin-bottom:1.2rem;
-  border-bottom:2px solid var(--accent);
-  display:inline-block;
-  padding-bottom:.3rem;
-}
+    header {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1160px, calc(100% - 1.2rem));
+      z-index: 1000;
+      background: rgba(11, 15, 23, 0.52);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      transition: var(--transition);
+      box-shadow: var(--shadow-soft);
+    }
 
-.pub-list{
-  list-style:none;
-  padding:0;
-  margin:0;
-}
+    header.scrolled {
+      top: 0;
+      width: 100%;
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+      background: rgba(7, 10, 16, 0.92);
+    }
 
-.pub-item{
-  background:white;
-  padding:1.4rem 1.6rem;
-  margin-bottom:1rem;
-  border-left:4px solid var(--accent);
-  border-radius:6px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-}
+    .nav-wrap {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0 1.2rem;
+    }
 
-.pub-title{
-  font-weight:600;
-  margin-bottom:.4rem;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: white;
+      min-width: 0;
+    }
 
-.pub-authors{
-  font-style:italic;
-  color:var(--muted);
-  margin-bottom:.4rem;
-}
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,107,53,0.18), rgba(98,184,255,0.14));
+      border: 1px solid var(--border-strong);
+      color: var(--accent);
+      font-size: 1.1rem;
+      box-shadow: 0 0 22px rgba(255, 107, 53, 0.15);
+      flex-shrink: 0;
+    }
 
-.pub-journal{
-  font-weight:500;
-  margin-bottom:.4rem;
-}
+    .brand-text {
+      min-width: 0;
+    }
 
-.pub-doi a{
-  color:var(--accent);
-  text-decoration:none;
-  font-size:.95rem;
-}
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-.pub-doi a:hover{
-  text-decoration:underline;
-}
+    .brand-subtitle {
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      margin-top: 0.15rem;
+    }
 
-footer{
-  text-align:center;
-  padding:2rem;
-  font-size:.9rem;
-  color:var(--muted);
-}
-</style>
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -0.35rem;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: var(--transition);
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: white;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.7rem 1rem;
+      border-radius: 14px;
+      border: 1px solid var(--border-strong);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 0;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 9rem 0 4rem;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 107, 53, 0.09);
+      border: 1px solid rgba(255, 107, 53, 0.18);
+      color: var(--accent-2);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      background: linear-gradient(180deg, #ffffff 20%, #dbe4f0 62%, #7c8ca4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      margin: 0 0 1.8rem;
+      font-size: 1.08rem;
+      color: var(--text-soft);
+      max-width: 720px;
+    }
+
+    .hero-panel {
+      min-height: 360px;
+      border-radius: 34px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02)),
+        rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 24% 30%, rgba(255,107,53,0.16), transparent 22%),
+        radial-gradient(circle at 76% 72%, rgba(98,184,255,0.10), transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 40%);
+    }
+
+    .hero-panel-content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .hero-mini {
+      padding: 1rem;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-mini i {
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-bottom: 0.7rem;
+      display: inline-block;
+    }
+
+    .hero-mini h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .hero-mini p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .section {
+      padding: 2rem 0 5rem;
+    }
+
+    .section-header {
+      max-width: 780px;
+      margin-bottom: 2rem;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      background: rgba(255, 107, 53, 0.08);
+      border: 1px solid rgba(255, 107, 53, 0.18);
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      margin: 0 0 0.9rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 1.02rem;
+      max-width: 720px;
+    }
+
+    .featured-paper {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 0;
+      border-radius: 32px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .featured-content {
+      padding: 2rem;
+      background:
+        radial-gradient(circle at top left, rgba(255,107,53,0.10), transparent 24%),
+        rgba(255,255,255,0.03);
+    }
+
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255,107,53,0.08);
+      border: 1px solid rgba(255,107,53,0.18);
+      color: var(--accent-2);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .featured-content h3 {
+      margin: 0 0 0.8rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      line-height: 1.08;
+    }
+
+    .featured-authors {
+      color: var(--text-soft);
+      font-size: 0.98rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .featured-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: white;
+      font-weight: 600;
+    }
+
+    .featured-content p {
+      margin: 0 0 1.2rem;
+      color: var(--text-soft);
+      font-size: 1rem;
+    }
+
+    .featured-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.85rem 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .link-btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 107, 53, 0.24);
+    }
+
+    .link-btn.primary {
+      background: linear-gradient(135deg, var(--accent), #ff8b45);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 12px 28px rgba(255, 107, 53, 0.22);
+    }
+
+    .featured-visual {
+      position: relative;
+      min-height: 360px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,107,53,0.22), transparent 22%),
+        radial-gradient(circle at 72% 68%, rgba(98,184,255,0.14), transparent 18%),
+        linear-gradient(180deg, #0b1017 0%, #090d14 100%);
+      overflow: hidden;
+    }
+
+    .visual-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .visual-ring.r1 {
+      width: 280px;
+      height: 280px;
+      top: 28px;
+      right: 28px;
+    }
+
+    .visual-ring.r2 {
+      width: 180px;
+      height: 180px;
+      bottom: 40px;
+      left: 40px;
+    }
+
+    .visual-core {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      top: 78px;
+      left: 78px;
+      background: radial-gradient(circle at 35% 35%, #ffbf85, #ff6b35 55%, #912f12 100%);
+      box-shadow: 0 0 50px rgba(255, 107, 53, 0.32);
+    }
+
+    .visual-card {
+      position: absolute;
+      background: rgba(10,14,22,0.72);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1rem;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .visual-card.v1 {
+      top: 50px;
+      right: 34px;
+      width: 190px;
+    }
+
+    .visual-card.v2 {
+      left: 36px;
+      bottom: 40px;
+      width: 210px;
+    }
+
+    .visual-card span {
+      display: block;
+      color: var(--accent-2);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+
+    .visual-card strong {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
+    }
+
+    .visual-card p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .search-box i {
+      color: var(--text-dim);
+    }
+
+    .search-box input {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      outline: none;
+      color: white;
+      font-size: 0.98rem;
+      font-family: inherit;
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .filter-btn {
+      padding: 0.75rem 0.95rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: rgba(255,107,53,0.12);
+      border-color: rgba(255,107,53,0.24);
+      color: white;
+    }
+
+    .publications-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .pub-card {
+      padding: 1.35rem;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+    }
+
+    .pub-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,107,53,0.22);
+    }
+
+    .pub-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .pub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .pub-title {
+      margin: 0 0 0.65rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.18rem;
+      line-height: 1.22;
+    }
+
+    .pub-authors {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .pub-journal {
+      color: var(--accent-2);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .pub-desc {
+      color: var(--text-dim);
+      font-size: 0.94rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .pub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .pub-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .pub-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,107,53,0.24);
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+    }
+
+    footer {
+      padding: 3rem 0 2.4rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.03));
+    }
+
+    .footer-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .footer-copy h3 {
+      margin: 0 0 0.35rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+    }
+
+    .footer-copy p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.92rem;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .social-links a {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: white;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 107, 53, 0.26);
+      color: var(--accent-2);
+    }
+
+    .back-top {
+      position: fixed;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      background: rgba(8, 11, 18, 0.75);
+      color: white;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: var(--transition);
+      backdrop-filter: blur(14px);
+    }
+
+    .back-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1020px) {
+      .hero-grid,
+      .featured-paper {
+        grid-template-columns: 1fr;
+      }
+
+      .publications-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        position: absolute;
+        top: 74px;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 0.7rem 1rem 1rem;
+        background: rgba(7, 10, 16, 0.95);
+        border-top: 1px solid var(--border);
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      nav a {
+        width: 100%;
+        padding: 0.9rem 0.1rem;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(var(--max-width), calc(100% - 1.1rem));
+      }
+
+      header {
+        top: 10px;
+      }
+
+      .nav-wrap {
+        padding: 0 0.9rem;
+      }
+
+      .brand-title {
+        font-size: 0.92rem;
+      }
+
+      .brand-subtitle {
+        font-size: 0.68rem;
+      }
+
+      .hero {
+        padding-top: 7rem;
+      }
+
+      .featured-content,
+      .hero-panel-content {
+        padding: 1.3rem;
+      }
+
+      .hero-mini-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <div class="logo">PGSSL — Planetary Geology & Surface Simulation Lab</div>
-  <nav>
-    <a href="index.html">About</a>
-    <a href="research.html">Research</a>
-    <a href="publications.html">Publications</a>
-    <a href="team.html">Team</a>
-    <a href="projects.html">Projects</a>
-    <a href="facilities.html">Facilities</a>
-    <a href="news.html">News</a>
-  </nav>
-</header>
+  <canvas id="starfield"></canvas>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-<main>
+  <header id="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">
+          <i class="fas fa-meteor"></i>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">PGSSL | Planetary Geology & Surface Simulation Lab</div>
+          <div class="brand-subtitle">Institute for Planetary Materials, Okayama University</div>
+        </div>
+      </a>
 
-<h1>Publications</h1>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+      </button>
 
-<!-- ================= 2026 ================= -->
-<section class="year-section">
-<div class="year-title">2026</div>
-<ul class="pub-list">
-<li class="pub-item">
-<div class="pub-title">
-Boulder populations and orientation trends on asteroid Ryugu: implications for rubble-pile surface processes
-</div>
-<div class="pub-authors">
-Ray, A., Ruj, T., Komatsu, G. et al.
-</div>
-<div class="pub-journal">
-Scientific Reports (2026)
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1038/s41598-026-40370-4" target="_blank">
-10.1038/s41598-026-40370-4
-</a>
-</div>
-</li>
-</ul>
-</section>
+      <nav id="site-nav">
+        <a href="index.html#about">About</a>
+        <a href="index.html#research">Research</a>
+        <a href="publications.html" class="active">Publications</a>
+        <a href="index.html#facilities">Facilities</a>
+        <a href="index.html#team">Team</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#news">News</a>
+        <a href="#footer" class="nav-cta">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<!-- ================= 2025 ================= -->
-<section class="year-section">
-<div class="year-title">2025</div>
-<ul class="pub-list">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="fade-in">
+          <div class="hero-kicker">
+            <i class="fas fa-book-open"></i>
+            Publications
+          </div>
+          <h1>Research outputs from the lab.</h1>
+          <p>
+            A selection of publications spanning Martian glaciation, paleohydrology, tectonics, surface hazards,
+            and planetary process interpretation through experiments, mapping, and remote sensing.
+          </p>
+        </div>
 
-<li class="pub-item">
-<div class="pub-title">
-Long-term and multi-stage ice accumulation in the Martian mid-latitudes during the Amazonian
-</div>
-<div class="pub-authors">
-Ruj, T., Okuda, H., Komatsu, G., Hasegawa, H., Head, J. W., Usui, T., Mihira, S., and Kobayashi, M.
-</div>
-<div class="pub-journal">
-Geology (2025)
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1130/G53418.1" target="_blank">
-10.1130/G53418.1
-</a>
-</div>
-</li>
+        <div class="hero-panel fade-in">
+          <div class="hero-panel-content">
+            <div class="hero-mini-grid">
+              <div class="hero-mini">
+                <i class="fas fa-file-lines"></i>
+                <h3>Featured Papers</h3>
+                <p>Highlighting first-author and major collaborative publications from the lab.</p>
+              </div>
+              <div class="hero-mini">
+                <i class="fas fa-filter"></i>
+                <h3>Searchable List</h3>
+                <p>Filter by category or search by title, journal, topic, or keyword.</p>
+              </div>
+              <div class="hero-mini">
+                <i class="fas fa-globe"></i>
+                <h3>Planetary Scope</h3>
+                <p>Mars, Moon, and planetary materials with process-focused interpretation.</p>
+              </div>
+              <div class="hero-mini">
+                <i class="fas fa-link"></i>
+                <h3>Direct Access</h3>
+                <p>Each entry includes journal and DOI links for quick reference.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<li class="pub-item">
-<div class="pub-title">
-The periglacial landforms and estimated subsurface ice distribution in the northern mid-latitude of Mars
-</div>
-<div class="pub-authors">
-Sako, T., Hasegawa, H., Ruj, T., Komatsu, G., and Sekine, Y.
-</div>
-<div class="pub-journal">
-Journal of Geophysical Research: Planets, 130(1), e2023JE008232
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1029/2023JE008232" target="_blank">
-10.1029/2023JE008232
-</a>
-</div>
-</li>
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-tag">
+          <i class="fas fa-star"></i>
+          Featured Publication
+        </div>
+        <h2>Recent highlight</h2>
+        <p>
+          A recent paper representing one of the lab’s major research directions in Martian climate and ice history.
+        </p>
+      </div>
 
-</ul>
-</section>
+      <div class="featured-paper fade-in">
+        <div class="featured-content">
+          <div class="featured-badge">
+            <i class="fas fa-award"></i>
+            Featured Paper
+          </div>
+          <h3>Long-term and multi-stage ice accumulation in the martian mid-latitudes during the Amazonian</h3>
+          <div class="featured-authors">Trishit Ruj et al.</div>
+          <div class="featured-meta">
+            <span class="pill"><i class="fas fa-book"></i> Geology</span>
+            <span class="pill"><i class="fas fa-calendar"></i> 2025</span>
+            <span class="pill"><i class="fas fa-snowflake"></i> Mars Glaciation</span>
+          </div>
+          <p>
+            This study reconstructs multi-stage Amazonian ice accumulation in the Martian mid-latitudes and provides
+            new constraints on obliquity-driven climate evolution and long-term surface ice preservation.
+          </p>
+          <div class="featured-links">
+            <a class="link-btn primary" href="https://doi.org/10.1130/G53418.1" target="_blank" rel="noopener">
+              <i class="fas fa-arrow-up-right-from-square"></i>
+              View Paper
+            </a>
+            <a class="link-btn" href="https://doi.org/10.1130/G53418.1" target="_blank" rel="noopener">
+              <i class="fas fa-link"></i>
+              DOI
+            </a>
+          </div>
+        </div>
 
-<!-- ================= 2024 ================= -->
-<section class="year-section">
-<div class="year-title">2024</div>
-<ul class="pub-list">
+        <div class="featured-visual">
+          <div class="visual-ring r1"></div>
+          <div class="visual-ring r2"></div>
+          <div class="visual-core"></div>
 
-<li class="pub-item">
-<div class="pub-title">
-Planetary Geologic Maps: Essential Tools for Scientific Inquiry and Space Exploration
-</div>
-<div class="pub-authors">
-Luna, J. W., Iqbal, W., et al. (incl. Ruj, T.)
-</div>
-<div class="pub-journal">
-Journal of Geophysical Research: Planets, 129, e2024JE008442
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1029/2024JE008442" target="_blank">
-10.1029/2024JE008442
-</a>
-</div>
-</li>
+          <div class="visual-card v1">
+            <span>Focus</span>
+            <strong>Mid-latitude ice history</strong>
+            <p>Long-term accumulation and climatic cycling in the Amazonian.</p>
+          </div>
 
-</ul>
-</section>
+          <div class="visual-card v2">
+            <span>Approach</span>
+            <strong>Geomorphology + chronology</strong>
+            <p>Landform analysis tied to crater-based age constraints.</p>
+          </div>
+        </div>
+      </div>
 
-<!-- ================= 2023 ================= -->
-<section class="year-section">
-<div class="year-title">2023</div>
-<ul class="pub-list">
+      <div class="section-header fade-in" style="margin-top: 3rem;">
+        <div class="section-tag">
+          <i class="fas fa-layer-group"></i>
+          Publication List
+        </div>
+        <h2>Browse publications</h2>
+        <p>
+          You can filter by topic or search directly across titles, journals, authors, and keywords.
+        </p>
+      </div>
 
-<li class="pub-item">
-<div class="pub-title">
-Evidence for Structural Control of Mare Volcanism in Lunar Compressional Tectonic Settings
-</div>
-<div class="pub-authors">
-Zhang, F., Pizzi, A., Ruj, T., Komatsu, G., Yin, A., Liu, Y., and Zou, Y.
-</div>
-<div class="pub-journal">
-Nature Communications, 14(1), 2892
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank">
-10.1038/s41467-023-38615-1
-</a>
-</div>
-</li>
+      <div class="controls fade-in">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search papers, journals, topics, or keywords">
+        </div>
 
-<li class="pub-item">
-<div class="pub-title">
-Formation age and seismicity of the lobate scarp in the vicinity of Chandrayaan-3 landing site in the southern high latitudes of the Moon
-</div>
-<div class="pub-authors">
-Sinha, R., Rani, A., Ruj, T., and Bhardwaj, A.
-</div>
-<div class="pub-journal">
-Icarus, 115636
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1016/j.icarus.2023.115636" target="_blank">
-10.1016/j.icarus.2023.115636
-</a>
-</div>
-</li>
+        <div class="filters" id="filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="mars">Mars</button>
+          <button class="filter-btn" data-filter="moon">Moon</button>
+          <button class="filter-btn" data-filter="tectonics">Tectonics</button>
+          <button class="filter-btn" data-filter="glaciation">Glaciation</button>
+          <button class="filter-btn" data-filter="hazards">Hazards</button>
+        </div>
+      </div>
 
-</ul>
-</section>
+      <div class="publications-grid" id="publicationsGrid">
 
-<!-- ================= 2022 ================= -->
-<section class="year-section">
-<div class="year-title">2022</div>
-<ul class="pub-list">
+        <article class="pub-card fade-in" data-category="mars glaciation climate">
+          <div class="pub-top">
+            <span class="pub-badge">2025</span>
+            <span class="pub-badge">Mars</span>
+            <span class="pub-badge">Glaciation</span>
+          </div>
+          <h3 class="pub-title">Long-term and multi-stage ice accumulation in the martian mid-latitudes during the Amazonian</h3>
+          <div class="pub-authors">Trishit Ruj et al.</div>
+          <div class="pub-journal">Geology</div>
+          <div class="pub-desc">
+            Reconstructs long-term and multi-stage ice accumulation in the Martian mid-latitudes and discusses its implications for Amazonian climate variability.
+          </div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://doi.org/10.1130/G53418.1" target="_blank" rel="noopener"><i class="fas fa-link"></i> DOI</a>
+          </div>
+        </article>
 
-<li class="pub-item">
-<div class="pub-title">
-Tectonism of Late Noachian Mars: Surface Signatures from the Southern Highlands
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Schmidt, G., Karunatillake, S., and Kawai, K.
-</div>
-<div class="pub-journal">
-Remote Sensing, 14(22)
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.3390/rs14225664" target="_blank">
-10.3390/rs14225664
-</a>
-</div>
-</li>
+        <article class="pub-card fade-in" data-category="moon mars tectonics volcanism">
+          <div class="pub-top">
+            <span class="pub-badge">2023</span>
+            <span class="pub-badge">Moon</span>
+            <span class="pub-badge">Volcanism</span>
+          </div>
+          <h3 class="pub-title">Young volcanism associated with compressional tectonics on the Moon</h3>
+          <div class="pub-authors">Zhang et al. including Trishit Ruj</div>
+          <div class="pub-journal">Nature Communications</div>
+          <div class="pub-desc">
+            Examines the association between compressional tectonic settings and young volcanic features, challenging traditional assumptions about tectonic-volcanic coupling.
+          </div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank" rel="noopener"><i class="fas fa-link"></i> DOI</a>
+          </div>
+        </article>
 
-<li class="pub-item">
-<div class="pub-title">
-Recent boulder falls within the Finsen crater on the lunar far side: An assessment of the possible triggering rationale
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Kawai, K., Okuda, H., Xiao, Z., and Dhingra, D.
-</div>
-<div class="pub-journal">
-Icarus, 114904
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1016/j.icarus.2022.114904" target="_blank">
-10.1016/j.icarus.2022.114904
-</a>
-</div>
-</li>
+        <article class="pub-card fade-in" data-category="moon hazards tectonics landing">
+          <div class="pub-top">
+            <span class="pub-badge">2022</span>
+            <span class="pub-badge">Moon</span>
+            <span class="pub-badge">Hazards</span>
+          </div>
+          <h3 class="pub-title">Tectonic stress and landing site hazards in the Chandrayaan-3 landing region</h3>
+          <div class="pub-authors">Trishit Ruj et al.</div>
+          <div class="pub-journal">Icarus</div>
+          <div class="pub-desc">
+            Evaluates crustal stress, slope stability, and tectonic context in support of lunar landing safety assessments.
+          </div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://doi.org/10.1016/j.icarus.2022.114904" target="_blank" rel="noopener"><i class="fas fa-link"></i> DOI</a>
+          </div>
+        </article>
 
-</ul>
-</section>
+        <article class="pub-card fade-in" data-category="moon mars tectonics volcanism">
+          <div class="pub-top">
+            <span class="pub-badge">2021</span>
+            <span class="pub-badge">Moon</span>
+            <span class="pub-badge">Tectonics</span>
+          </div>
+          <h3 class="pub-title">Volcanic manifestations associated with wrinkle ridge tectonics on planetary surfaces</h3>
+          <div class="pub-authors">Trishit Ruj and Kawai</div>
+          <div class="pub-journal">Icarus</div>
+          <div class="pub-desc">
+            Investigates the relation between wrinkle ridge tectonics and associated volcanic expressions on the Moon and Mars.
+          </div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank" rel="noopener"><i class="fas fa-link"></i> DOI</a>
+          </div>
+        </article>
 
-<!-- ================= 2021 ================= -->
-<section class="year-section">
-<div class="year-title">2021</div>
-<ul class="pub-list">
+        <article class="pub-card fade-in" data-category="mars tectonics crust geology">
+          <div class="pub-top">
+            <span class="pub-badge">2019</span>
+            <span class="pub-badge">Mars</span>
+            <span class="pub-badge">Tectonics</span>
+          </div>
+          <h3 class="pub-title">Tectonic deformation and lithospheric evolution in the Martian southern highlands</h3>
+          <div class="pub-authors">Trishit Ruj et al.</div>
+          <div class="pub-journal">Geoscience Frontiers</div>
+          <div class="pub-desc">
+            Explores early tectonic deformation and implications for thermal and lithospheric evolution in ancient Martian terrains.
+          </div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://doi.org/10.1016/j.gsf.2018.05.016" target="_blank" rel="noopener"><i class="fas fa-link"></i> DOI</a>
+          </div>
+        </article>
 
-<li class="pub-item">
-<div class="pub-title">
-Extension in the Pyrrhae Fossae region on Mars, an age estimation through buffer crater counting
-</div>
-<div class="pub-authors">
-De, K., Ruj, T., Kundu, A., Dasgupta, N., and Kawai, K.
-</div>
-<div class="pub-journal">
-Current Science, 127(7)
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.18520/cs/v121/i7/906-911" target="_blank">
-10.18520/cs/v121/i7/906-911
-</a>
-</div>
-</li>
+        <article class="pub-card fade-in" data-category="moon hazards tectonics seismic">
+          <div class="pub-top">
+            <span class="pub-badge">2023</span>
+            <span class="pub-badge">Moon</span>
+            <span class="pub-badge">Hazards</span>
+          </div>
+          <h3 class="pub-title">Tectonic and slope instability implications for lunar surface hazard assessment</h3>
+          <div class="pub-authors">Sinha et al. including Trishit Ruj</div>
+          <div class="pub-journal">Icarus</div>
+          <div class="pub-desc">
+            Assesses tectonic structures and instability-related risks relevant to robotic and future human exploration of the lunar surface.
+          </div>
+          <div class="pub-links">
+            <a class="pub-link" href="https://doi.org/10.1016/j.icarus.2023.115636" target="_blank" rel="noopener"><i class="fas fa-link"></i> DOI</a>
+          </div>
+        </article>
 
-<li class="pub-item">
-<div class="pub-title">
-A global investigation of wrinkle ridge formation events; Implications towards the thermal evolution of Mars
-</div>
-<div class="pub-authors">
-Ruj, T., and Kawai, K.
-</div>
-<div class="pub-journal">
-Icarus, 114625
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank">
-10.1016/j.icarus.2021.114625
-</a>
-</div>
-</li>
+      </div>
 
-</ul>
-</section>
+      <div class="empty-state" id="emptyState">
+        No publications match your search or filter.
+      </div>
+    </div>
+  </section>
 
-<!-- ================= 2019 ================= -->
-<section class="year-section">
-<div class="year-title">2019</div>
-<ul class="pub-list">
-<li class="pub-item">
-<div class="pub-title">
-Timings of early crustal activity in southern highlands of Mars: Periods of crustal stretching and shortening
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Pasckert, J. H., and Dohm, J. M.
-</div>
-<div class="pub-journal">
-Geoscience Frontiers, 10(3), 1029–1037
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1016/j.gsf.2018.05.016" target="_blank">
-10.1016/j.gsf.2018.05.016
-</a>
-</div>
-</li>
-</ul>
-</section>
+  <footer id="footer">
+    <div class="container footer-wrap">
+      <div class="footer-copy">
+        <h3>Planetary Geology & Surface Simulation Laboratory</h3>
+        <p>&copy; 2026 Institute for Planetary Materials, Okayama University</p>
+      </div>
 
-<!-- ================= 2018 ================= -->
-<section class="year-section">
-<div class="year-title">2018</div>
-<ul class="pub-list">
-<li class="pub-item">
-<div class="pub-title">
-Morphometric analysis of a Hesperian aged Martian lobate scarp using high-resolution data
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Pondrelli, M., Di Pietro, I., and Pozzobon, R.
-</div>
-<div class="pub-journal">
-Journal of Structural Geology, 113, 1–9
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1016/j.jsg.2018.04.018" target="_blank">
-10.1016/j.jsg.2018.04.018
-</a>
-</div>
-</li>
-</ul>
-</section>
+      <div class="social-links">
+        <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank" rel="noopener" aria-label="ResearchGate">
+          <i class="fab fa-researchgate"></i>
+        </a>
+        <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="https://orcid.org/0000-0002-7953-4085" target="_blank" rel="noopener" aria-label="ORCID">
+          <i class="fab fa-orcid"></i>
+        </a>
+        <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
 
-<!-- ================= 2017 ================= -->
-<section class="year-section">
-<div class="year-title">2017</div>
-<ul class="pub-list">
-<li class="pub-item">
-<div class="pub-title">
-Generic identification and classification of morphostructures in the Noachis-Sabaea region, southern highlands of Mars
-</div>
-<div class="pub-authors">
-Ruj, T., Komatsu, G., Dohm, J. M., Miyamoto, H., and Salese, F.
-</div>
-<div class="pub-journal">
-Journal of Maps, 13(2), 755–766
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1080/17445647.2017.1379913" target="_blank">
-10.1080/17445647.2017.1379913
-</a>
-</div>
-</li>
-</ul>
-</section>
+  <a href="#" class="back-top" id="backTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
 
-<!-- ================= 2014 ================= -->
-<section class="year-section">
-<div class="year-title">2014</div>
-<ul class="pub-list">
-<li class="pub-item">
-<div class="pub-title">
-Tectonic imprints within a granite exposed near Srinagar, Rajasthan, India
-</div>
-<div class="pub-authors">
-Ruj, T., and Dasgupta, N.
-</div>
-<div class="pub-journal">
-Journal of Earth System Science, 123(6), 1361–1374
-</div>
-<div class="pub-doi">
-<a href="https://doi.org/10.1007/s12040-014-0461-9" target="_blank">
-10.1007/s12040-014-0461-9
-</a>
-</div>
-</li>
-</ul>
-</section>
+  <script>
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let animationFrame;
 
-</main>
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      createStars();
+    }
 
-<footer>
-© 2026 PGSSL | Okayama University
-</footer>
+    function createStars() {
+      stars = [];
+      const count = Math.floor((canvas.width * canvas.height) / 9000);
 
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.3 + 0.2,
+          a: Math.random() * 0.8 + 0.1,
+          speed: (Math.random() - 0.5) * 0.06
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const star of stars) {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${star.a})`;
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        star.a += star.speed;
+        if (star.a > 1 || star.a < 0.12) {
+          star.speed *= -1;
+        }
+      }
+
+      animationFrame = requestAnimationFrame(drawStars);
+    }
+
+    resizeCanvas();
+    drawStars();
+    window.addEventListener('resize', resizeCanvas);
+
+    const header = document.getElementById('site-header');
+    const backTop = document.getElementById('backTop');
+    const menuToggle = document.getElementById('menu-toggle');
+    const siteNav = document.getElementById('site-nav');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+        backTop.classList.add('show');
+      } else {
+        header.classList.remove('scrolled');
+        backTop.classList.remove('show');
+      }
+    });
+
+    menuToggle.addEventListener('click', () => {
+      siteNav.classList.toggle('open');
+      const icon = menuToggle.querySelector('i');
+      icon.className = siteNav.classList.contains('open') ? 'fas fa-xmark' : 'fas fa-bars';
+    });
+
+    document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+      link.addEventListener('click', () => {
+        siteNav.classList.remove('open');
+        const icon = menuToggle.querySelector('i');
+        icon.className = 'fas fa-bars';
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const pubCards = document.querySelectorAll('.pub-card');
+    const emptyState = document.getElementById('emptyState');
+
+    let activeFilter = 'all';
+
+    function filterPublications() {
+      const query = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      pubCards.forEach(card => {
+        const categories = card.dataset.category.toLowerCase();
+        const text = card.innerText.toLowerCase();
+
+        const matchesFilter = activeFilter === 'all' || categories.includes(activeFilter);
+        const matchesSearch = query === '' || text.includes(query);
+
+        if (matchesFilter && matchesSearch) {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        activeFilter = button.dataset.filter;
+        filterPublications();
+      });
+    });
+
+    searchInput.addEventListener('input', filterPublications);
+  </script>
 </body>
 </html>
-
