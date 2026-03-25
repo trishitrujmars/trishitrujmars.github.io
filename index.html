@@ -20,7 +20,7 @@
       --sand: #f7efe5;
       --sand-2: #efe0d0;
       --bg: #fbfaf8;
-      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-bg: rgba(255, 255, 255, 0.92);
       --text: #25313d;
       --muted: #61707d;
       --border: rgba(73, 43, 27, 0.12);
@@ -539,15 +539,139 @@
       font-weight: 600;
     }
 
+    /* Facilities */
+    #facilities {
+      position: relative;
+    }
+
+    .facilities-showcase {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .facility-feature {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+      background: linear-gradient(180deg, #ffffff, #fcf7f2);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    .facility-feature.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .facility-feature:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .facility-feature.reverse {
+      grid-template-columns: 1fr 1.1fr;
+    }
+
+    .facility-feature.reverse .facility-feature-image {
+      order: 2;
+    }
+
+    .facility-feature.reverse .facility-feature-content {
+      order: 1;
+    }
+
+    .facility-feature-image {
+      min-height: 340px;
+      position: relative;
+      overflow: hidden;
+      background: #e9dfd4;
+    }
+
+    .facility-feature-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .facility-feature:hover .facility-feature-image img {
+      transform: scale(1.04);
+    }
+
+    .facility-feature-content {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .facility-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      width: fit-content;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(194, 77, 22, 0.10);
+      color: var(--accent-dark);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .facility-feature-content h3 {
+      margin: 0 0 1rem;
+      color: var(--primary);
+      font-size: 1.7rem;
+      line-height: 1.2;
+    }
+
+    .facility-feature-content p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .facility-feature-content p:last-of-type {
+      margin-bottom: 1.2rem;
+    }
+
+    .facility-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .facility-tags span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: #f5ede4;
+      border: 1px solid rgba(194, 77, 22, 0.12);
+      color: var(--primary);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
     .facilities-grid {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.4rem;
     }
 
     .facility-card {
-      padding: 1.4rem;
-      border-radius: 22px;
-      background: linear-gradient(180deg, #ffffff, #fdf8f2);
+      background: linear-gradient(180deg, #ffffff, #fcf8f4);
       border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 1.5rem;
       box-shadow: var(--shadow);
       transition: var(--transition);
       opacity: 0;
@@ -564,28 +688,29 @@
       box-shadow: var(--shadow-hover);
     }
 
-    .facility-card i {
-      width: 46px;
-      height: 46px;
+    .facility-icon {
+      width: 52px;
+      height: 52px;
       display: grid;
       place-items: center;
-      border-radius: 14px;
+      border-radius: 16px;
       background: rgba(194, 77, 22, 0.10);
       color: var(--accent);
-      font-size: 1.15rem;
-      margin-bottom: 0.95rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
     }
 
     .facility-card h4 {
-      margin: 0 0 0.45rem;
+      margin: 0 0 0.6rem;
       color: var(--primary);
-      font-size: 1.06rem;
+      font-size: 1.08rem;
     }
 
     .facility-card p {
       margin: 0;
       color: var(--muted);
       font-size: 0.95rem;
+      line-height: 1.65;
     }
 
     .team-grid {
@@ -898,6 +1023,22 @@
       }
     }
 
+    @media (max-width: 900px) {
+      .facility-feature,
+      .facility-feature.reverse {
+        grid-template-columns: 1fr;
+      }
+
+      .facility-feature.reverse .facility-feature-image,
+      .facility-feature.reverse .facility-feature-content {
+        order: unset;
+      }
+
+      .facility-feature-image {
+        min-height: 260px;
+      }
+    }
+
     @media (max-width: 768px) {
       .hero-panel {
         padding: 1.5rem;
@@ -922,6 +1063,20 @@
       .footer-wrap {
         flex-direction: column;
         align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .facility-feature-content {
+        padding: 1.35rem;
+      }
+
+      .facility-feature-content h3 {
+        font-size: 1.4rem;
+      }
+
+      .facility-feature-image {
+        min-height: 220px;
       }
     }
 
@@ -1145,7 +1300,7 @@
 
         <div class="research-card">
           <div class="icon"><i class="fas fa-volcano"></i></div>
-          <h4>Wrinkle Ridge–Related Volcanism</h4>
+          <h4>Wrinkle Ridge-Related Volcanism</h4>
           <p>Our research identified young volcanic features associated with wrinkle ridges on the Moon and Mars, challenging the assumption that compressional zones lack volcanism.</p>
           <p class="reference"><strong>References:</strong> <a href="https://doi.org/10.1016/j.icarus.2021.114625" target="_blank" rel="noopener">Ruj & Kawai, 2021 – Icarus</a>, <a href="https://doi.org/10.1038/s41467-023-38615-1" target="_blank" rel="noopener">Zhang et al., 2023 – Nature Communications</a></p>
         </div>
@@ -1164,35 +1319,115 @@
     <div class="container">
       <div class="section-header">
         <span class="section-kicker">Facilities</span>
-        <h2>Laboratory infrastructure</h2>
+        <h2>Experimental facilities and analytical infrastructure</h2>
         <p>
-          Our lab combines simulation capability, imaging tools, and modeling workflows for process-based planetary science.
+          Our laboratory combines environmental simulation, hyperspectral imaging, and planetary surface analysis tools
+          to investigate active and ancient surface processes on Mars and other planetary bodies.
         </p>
+      </div>
+
+      <div class="facilities-showcase">
+        <article class="facility-feature">
+          <div class="facility-feature-image">
+            <img src="Mars Chamber.jpg" alt="Mars chamber facility">
+          </div>
+          <div class="facility-feature-content">
+            <div class="facility-label">
+              <i class="fas fa-flask-vial"></i>
+              Core Facility
+            </div>
+            <h3>MISASA Mars Surface Simulation Chamber</h3>
+            <p>
+              Our Mars chamber is designed to reproduce key near-surface Martian environmental conditions for controlled
+              laboratory experiments. It supports investigations of brine formation, evaporation, frost-related activity,
+              desiccation, mineral stability, and regolith-atmosphere interactions under Mars-relevant conditions.
+            </p>
+            <p>
+              This system forms the experimental backbone of our lab and allows us to directly test hypotheses generated
+              from orbital observations, field analogs, and geomorphic interpretation.
+            </p>
+
+            <div class="facility-tags">
+              <span>Low-pressure simulation</span>
+              <span>Martian surface processes</span>
+              <span>Brine and frost experiments</span>
+              <span>Planetary analog studies</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="facility-feature reverse">
+          <div class="facility-feature-image">
+            <img src="Camera and stage.jpg" alt="Camera and stage system">
+          </div>
+          <div class="facility-feature-content">
+            <div class="facility-label">
+              <i class="fas fa-camera"></i>
+              Imaging System
+            </div>
+            <h3>Hyperspectral Imaging and Motorized Stage</h3>
+            <p>
+              The facility includes VNIR and SWIR hyperspectral imaging systems integrated with a motorized scanning stage
+              for high-resolution spectral characterization of samples, experimental products, and analog materials.
+            </p>
+            <p>
+              This setup enables us to track mineralogical and hydration-related spectral changes, bridge laboratory
+              observations with orbital datasets, and examine how surface materials evolve during environmental simulation.
+            </p>
+
+            <div class="facility-tags">
+              <span>VNIR imaging</span>
+              <span>SWIR imaging</span>
+              <span>Motorized stage scanning</span>
+              <span>Mineral spectral analysis</span>
+            </div>
+          </div>
+        </article>
       </div>
 
       <div class="facilities-grid">
         <div class="facility-card">
-          <i class="fas fa-flask-vial"></i>
-          <h4>Martian Surface Environmental Chamber</h4>
-          <p>Dedicated facility for simulating near-surface Martian environmental conditions and material behavior.</p>
+          <div class="facility-icon">
+            <i class="fas fa-water"></i>
+          </div>
+          <h4>Brine and Water Activity Experiments</h4>
+          <p>
+            Experimental work on deliquescence, transient liquid formation, evaporation pathways, and salt-controlled
+            water activity under Mars-relevant conditions.
+          </p>
         </div>
 
         <div class="facility-card">
-          <i class="fas fa-camera"></i>
-          <h4>Hyperspectral Imaging Suite</h4>
-          <p>VNIR and SWIR systems for material characterization, spectral analysis, and experiment monitoring.</p>
+          <div class="facility-icon">
+            <i class="fas fa-snowflake"></i>
+          </div>
+          <h4>Frost and Ice Process Simulation</h4>
+          <p>
+            Investigation of frost formation, sublimation, ice-related sediment behavior, and cold-environment surface
+            modification relevant to Martian high and mid-latitudes.
+          </p>
         </div>
 
         <div class="facility-card">
-          <i class="fas fa-weight-hanging"></i>
-          <h4>Gravity Simulator</h4>
-          <p>Experimental support for investigating granular and surface processes under controlled conditions.</p>
+          <div class="facility-icon">
+            <i class="fas fa-mountain"></i>
+          </div>
+          <h4>Planetary Surface Process Analysis</h4>
+          <p>
+            Integrated interpretation of chamber results, field analog observations, and geomorphic datasets to constrain
+            active and ancient planetary surface evolution.
+          </p>
         </div>
 
         <div class="facility-card">
-          <i class="fas fa-laptop-code"></i>
-          <h4>Planetary Surface Modeling Tools</h4>
-          <p>Integrated computational workflows for geomorphic interpretation, image analysis, and data synthesis.</p>
+          <div class="facility-icon">
+            <i class="fas fa-satellite"></i>
+          </div>
+          <h4>Lab to Orbit Comparison</h4>
+          <p>
+            Spectral and process-based comparison between laboratory products and remote sensing observations from
+            planetary missions, especially for Mars.
+          </p>
         </div>
       </div>
     </div>
@@ -1305,7 +1540,7 @@
 
           <div class="news-item">
             <h4>November 1, 2025</h4>
-            <p>📷 Installation completed for our new <strong>Hyperspectral Imaging Systems</strong> (VNIR 400–1000 nm, SWIR 950–2500 nm).</p>
+            <p>📷 Installation completed for our new <strong>Hyperspectral Imaging Systems</strong> (VNIR 400-1000 nm, SWIR 950-2500 nm).</p>
           </div>
 
           <div class="news-item">
@@ -1324,7 +1559,7 @@
           </div>
 
           <div class="news-item">
-            <h4>September 3–5, 2025</h4>
+            <h4>September 3-5, 2025</h4>
             <p>🛰️ <strong>Hiral PB</strong> will present at the <strong>Japan Society for Planetary Science Annual Meeting</strong> in Tokyo.</p>
           </div>
 
@@ -1495,7 +1730,7 @@
       });
 
       document.querySelectorAll(
-        '.fade-in, .research-card, .facility-card, .team-member, .gallery-item, .news-item'
+        '.fade-in, .research-card, .facility-feature, .facility-card, .team-member, .gallery-item, .news-item'
       ).forEach(el => observer.observe(el));
     });
   </script>
