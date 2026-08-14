@@ -1,38 +1,58 @@
-<!DOCTYPE html>
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f6f2" />
   <title>PGSSL | Planetary Geology & Surface Simulation Lab</title>
+
   <link rel="icon" href="logo.png" type="image/png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
 
   <style>
     :root {
-      --bg-main: #04070d;
-      --bg-soft: #0a1019;
-      --bg-card: rgba(255, 255, 255, 0.04);
-      --bg-card-strong: rgba(255, 255, 255, 0.06);
-      --border: rgba(255, 255, 255, 0.10);
-      --border-strong: rgba(255, 255, 255, 0.18);
-      --text-main: #f5f7fb;
-      --text-soft: #b6c0d1;
-      --text-dim: #8c98ab;
-      --accent: #ff6b35;
-      --accent-2: #ffb36b;
-      --accent-blue: #62b8ff;
-      --glow-orange: rgba(255, 107, 53, 0.22);
-      --glow-blue: rgba(98, 184, 255, 0.14);
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
-      --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.18);
-      --radius: 24px;
-      --radius-lg: 34px;
-      --transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      --max-width: 1240px;
+      --bg: #f5f6f2;
+      --bg-warm: #fafaf7;
+      --surface: #ffffff;
+      --surface-soft: #f0f2ef;
+      --surface-blue: #edf3f6;
+      --surface-sage: #eef2ed;
+
+      --ink: #182126;
+      --ink-soft: #465259;
+      --muted: #718087;
+      --line: #dce2df;
+      --line-strong: #cbd3cf;
+
+      --accent: #315d6b;
+      --accent-dark: #244a56;
+      --accent-soft: #dfeaed;
+      --sage: #6d8376;
+      --sand: #c6a474;
+      --clay: #b67864;
+
+      --shadow-xs: 0 1px 2px rgba(26, 40, 45, 0.04);
+      --shadow-sm: 0 8px 24px rgba(26, 40, 45, 0.06);
+      --shadow-md: 0 18px 48px rgba(26, 40, 45, 0.08);
+
+      --radius-sm: 12px;
+      --radius: 18px;
+      --radius-lg: 28px;
+
+      --max-width: 1220px;
+      --transition: 240ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     * {
@@ -41,57 +61,35 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 92px;
     }
 
     body {
       margin: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background:
-        radial-gradient(circle at 15% 15%, rgba(255, 107, 53, 0.08), transparent 22%),
-        radial-gradient(circle at 85% 20%, rgba(98, 184, 255, 0.08), transparent 18%),
-        radial-gradient(circle at 50% 85%, rgba(255, 179, 107, 0.07), transparent 20%),
-        linear-gradient(180deg, #03060b 0%, #070c13 40%, #04070d 100%);
-      color: var(--text-main);
-      line-height: 1.7;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
       overflow-x: hidden;
     }
 
-    canvas#starfield {
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -3;
-    }
-
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(90px);
       pointer-events: none;
-      z-index: -2;
-      opacity: 0.7;
-    }
-
-    .orb.orb-1 {
-      width: 420px;
-      height: 420px;
-      background: var(--glow-orange);
-      top: -60px;
-      right: -80px;
-    }
-
-    .orb.orb-2 {
-      width: 360px;
-      height: 360px;
-      background: var(--glow-blue);
-      bottom: 8%;
-      left: -80px;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 15% 8%, rgba(255,255,255,0.95), transparent 30%),
+        radial-gradient(circle at 90% 28%, rgba(230,237,235,0.72), transparent 28%),
+        linear-gradient(180deg, #fafbf8 0%, #f5f6f2 42%, #f3f5f1 100%);
     }
 
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
     }
 
     a {
@@ -99,565 +97,719 @@
       text-decoration: none;
     }
 
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
     .container {
-      width: min(var(--max-width), calc(100% - 2rem));
+      width: min(var(--max-width), calc(100% - 48px));
       margin: 0 auto;
     }
 
-    .section-tag {
+    .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
-      padding: 0.45rem 0.9rem;
-      border-radius: 999px;
-      font-size: 0.78rem;
+      gap: 9px;
+      margin-bottom: 18px;
+      color: var(--accent);
+      font-size: 0.76rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent-2);
-      background: rgba(255, 107, 53, 0.08);
-      border: 1px solid rgba(255, 107, 53, 0.18);
-      margin-bottom: 1rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.7;
     }
 
     .section-header {
-      max-width: 780px;
-      margin-bottom: 2.5rem;
+      max-width: 770px;
+      margin-bottom: 44px;
     }
 
     .section-header h2 {
-      margin: 0 0 0.9rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      margin: 0 0 16px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(2.05rem, 4vw, 3.45rem);
+      font-weight: 600;
       line-height: 1.08;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.035em;
+      color: var(--ink);
     }
 
     .section-header p {
       margin: 0;
-      color: var(--text-soft);
-      font-size: 1.05rem;
-      max-width: 720px;
+      max-width: 700px;
+      color: var(--ink-soft);
+      font-size: 1.02rem;
+      line-height: 1.78;
     }
 
+    section {
+      position: relative;
+      padding: 104px 0;
+    }
+
+    .section-soft {
+      background: rgba(255, 255, 255, 0.54);
+      border-top: 1px solid rgba(220, 226, 223, 0.85);
+      border-bottom: 1px solid rgba(220, 226, 223, 0.85);
+    }
+
+    /* Header */
     header {
       position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(1160px, calc(100% - 1.2rem));
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 1000;
-      background: rgba(11, 15, 23, 0.52);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      transition: var(--transition);
-      box-shadow: var(--shadow-soft);
+      border-bottom: 1px solid transparent;
+      transition:
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
     }
 
     header.scrolled {
-      top: 0;
-      width: 100%;
-      border-radius: 0;
-      border-left: 0;
-      border-right: 0;
-      background: rgba(7, 10, 16, 0.92);
+      background: rgba(250, 251, 248, 0.92);
+      border-color: rgba(203, 211, 207, 0.8);
+      box-shadow: 0 8px 26px rgba(26, 40, 45, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .nav-wrap {
-      min-height: 74px;
+      min-height: 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
-      padding: 0 1.2rem;
+      gap: 24px;
     }
 
     .brand {
+      min-width: 0;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      color: white;
-      min-width: 0;
+      gap: 12px;
     }
 
-    .brand-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(255,107,53,0.18), rgba(98,184,255,0.14));
-      border: 1px solid var(--border-strong);
-      color: var(--accent);
-      font-size: 1.1rem;
-      box-shadow: 0 0 22px rgba(255, 107, 53, 0.15);
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      position: relative;
       flex-shrink: 0;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.72);
     }
 
-    .brand-text {
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .brand-mark::before {
+      width: 8px;
+      height: 8px;
+      left: 15px;
+      top: 15px;
+      background: var(--accent);
+      box-shadow:
+        11px -8px 0 -2px var(--sage),
+        -10px 8px 0 -2px var(--clay);
+    }
+
+    .brand-mark::after {
+      inset: 6px;
+      border: 1px solid rgba(49, 93, 107, 0.32);
+    }
+
+    .brand-copy {
       min-width: 0;
     }
 
     .brand-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem;
+      font-size: 0.94rem;
       font-weight: 700;
-      line-height: 1.1;
+      letter-spacing: -0.01em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .brand-subtitle {
-      font-size: 0.74rem;
-      color: var(--text-dim);
-      margin-top: 0.15rem;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.7rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     nav {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 25px;
     }
 
     nav a {
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      font-weight: 600;
       position: relative;
-      transition: var(--transition);
+      color: #435158;
+      font-size: 0.86rem;
+      font-weight: 600;
+      transition: color var(--transition);
     }
 
-    nav a::after {
-      content: '';
+    nav a:not(.nav-cta)::after {
+      content: "";
       position: absolute;
       left: 0;
-      bottom: -0.35rem;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      transition: var(--transition);
+      bottom: -7px;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform var(--transition);
     }
 
     nav a:hover {
-      color: white;
+      color: var(--accent);
     }
 
     nav a:hover::after {
-      width: 100%;
+      transform: scaleX(1);
+      transform-origin: left;
     }
 
     .nav-cta {
-      padding: 0.7rem 1rem;
-      border-radius: 14px;
-      border: 1px solid var(--border-strong);
-      background: rgba(255,255,255,0.04);
+      padding: 9px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+    }
+
+    .nav-cta:hover {
+      background: var(--surface);
     }
 
     .menu-toggle {
       display: none;
-      background: transparent;
-      border: 0;
-      color: white;
-      font-size: 1.2rem;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.75);
+      color: var(--ink);
+      font-size: 1rem;
       cursor: pointer;
     }
 
+    /* Hero */
     .hero {
       min-height: 100vh;
+      padding-top: 142px;
+      padding-bottom: 92px;
       display: flex;
       align-items: center;
-      position: relative;
-      padding: 7rem 0 4rem;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      right: -230px;
+      top: 8%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(221,232,230,0.62) 0%, rgba(221,232,230,0) 68%);
+      pointer-events: none;
+      z-index: -1;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 2rem;
+      grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
+      gap: 78px;
       align-items: center;
     }
 
     .hero-copy {
-      position: relative;
-      z-index: 1;
+      max-width: 750px;
     }
 
     .hero-kicker {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.55rem;
-      padding: 0.45rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(255, 107, 53, 0.09);
-      border: 1px solid rgba(255, 107, 53, 0.18);
-      color: var(--accent-2);
-      font-size: 0.8rem;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: var(--accent);
+      font-size: 0.78rem;
       font-weight: 700;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 1.2rem;
+    }
+
+    .hero-kicker .mini-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(49, 93, 107, 0.08);
     }
 
     .hero h1 {
-      margin: 0 0 1rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(3rem, 7vw, 5.8rem);
+      margin: 0 0 26px;
+      max-width: 820px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(3.65rem, 7vw, 6.95rem);
+      font-weight: 500;
       line-height: 0.96;
-      letter-spacing: -0.05em;
-      background: linear-gradient(180deg, #ffffff 20%, #dbe4f0 62%, #7c8ca4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.055em;
+      color: var(--ink);
     }
 
-    .hero p {
-      margin: 0 0 1.8rem;
-      font-size: 1.14rem;
-      color: var(--text-soft);
-      max-width: 700px;
+    .hero h1 .accent-word {
+      color: var(--accent);
     }
 
-    .hero-buttons {
+    .hero-lead {
+      max-width: 680px;
+      margin: 0 0 34px;
+      color: var(--ink-soft);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 12px;
+      margin-bottom: 45px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      padding: 0.95rem 1.25rem;
-      border-radius: 16px;
-      font-weight: 700;
-      transition: var(--transition);
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 19px;
       border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 650;
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        border-color var(--transition),
+        color var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
     }
 
     .btn-primary {
-      color: white;
-      background: linear-gradient(135deg, var(--accent), #ff8b45);
-      box-shadow: 0 12px 28px rgba(255, 107, 53, 0.25);
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 10px 26px rgba(49, 93, 107, 0.18);
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 36px rgba(255, 107, 53, 0.32);
+      background: var(--accent-dark);
     }
 
-    .btn-ghost {
-      color: white;
-      border-color: var(--border-strong);
-      background: rgba(255,255,255,0.04);
+    .btn-secondary {
+      color: var(--ink);
+      background: rgba(255,255,255,0.68);
+      border-color: var(--line-strong);
     }
 
-    .btn-ghost:hover {
-      background: rgba(255,255,255,0.08);
-      transform: translateY(-3px);
+    .btn-secondary:hover {
+      background: #fff;
     }
 
-    .hero-stats {
+    .hero-meta {
       display: grid;
-      grid-template-columns: repeat(3, minmax(130px, 1fr));
-      gap: 1rem;
-      max-width: 760px;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 750px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
 
-    .stat-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 1rem 1rem 0.95rem;
-      backdrop-filter: blur(12px);
+    .meta-item {
+      padding: 17px 22px 17px 0;
+      min-height: 88px;
     }
 
-    .stat-card strong {
+    .meta-item + .meta-item {
+      padding-left: 22px;
+      border-left: 1px solid var(--line);
+    }
+
+    .meta-item strong {
       display: block;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .stat-card span {
-      color: var(--text-dim);
-      font-size: 0.88rem;
-    }
-
-    .hero-panel {
-      position: relative;
-      min-height: 520px;
-      border-radius: 34px;
-      background:
-        linear-gradient(160deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02)),
-        rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-panel::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,107,53,0.18), transparent 24%),
-        radial-gradient(circle at 78% 25%, rgba(98,184,255,0.12), transparent 18%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 40%);
-      pointer-events: none;
-    }
-
-    .planet-ring {
-      position: absolute;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 50%;
-    }
-
-    .ring-1 {
-      width: 360px;
-      height: 360px;
-      top: 45px;
-      right: -40px;
-    }
-
-    .ring-2 {
-      width: 240px;
-      height: 240px;
-      bottom: 55px;
-      left: 35px;
-    }
-
-    .ring-3 {
-      width: 110px;
-      height: 110px;
-      top: 72px;
-      left: 48px;
-      background: radial-gradient(circle at 35% 35%, #ffbf85, #ff6b35 55%, #912f12 100%);
-      box-shadow: 0 0 44px rgba(255, 107, 53, 0.28);
-      border: 0;
-    }
-
-    .hero-floating-card {
-      position: absolute;
-      background: rgba(11, 16, 24, 0.7);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 1rem;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .floating-1 {
-      top: 140px;
-      right: 40px;
-      width: 190px;
-    }
-
-    .floating-2 {
-      left: 36px;
-      bottom: 44px;
-      width: 220px;
-    }
-
-    .floating-3 {
-      right: 56px;
-      bottom: 46px;
-      width: 170px;
-    }
-
-    .hero-floating-card .mini-label {
-      color: var(--accent-2);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 0.9rem;
       font-weight: 700;
-      margin-bottom: 0.45rem;
+    }
+
+    .meta-item span {
       display: block;
-    }
-
-    .hero-floating-card h4 {
-      margin: 0 0 0.3rem;
-      font-size: 1rem;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    .hero-floating-card p {
-      margin: 0;
-      color: var(--text-dim);
-      font-size: 0.86rem;
+      color: var(--muted);
+      font-size: 0.78rem;
       line-height: 1.5;
     }
 
-    section {
-      padding: 6rem 0;
+    /* Dot field */
+    .hero-visual {
+      position: relative;
+      min-height: 570px;
+      display: grid;
+      place-items: center;
+    }
+
+    .dot-field {
+      width: min(100%, 540px);
+      aspect-ratio: 1;
+      position: relative;
+    }
+
+    .dot-field::before {
+      content: "";
+      position: absolute;
+      inset: 6%;
+      border: 1px solid rgba(49, 93, 107, 0.13);
+      border-radius: 50%;
+    }
+
+    .dot-field::after {
+      content: "";
+      position: absolute;
+      inset: 20%;
+      border: 1px dashed rgba(109, 131, 118, 0.17);
+      border-radius: 50%;
+      animation: slowSpin 28s linear infinite;
+    }
+
+    @keyframes slowSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .dot {
+      position: absolute;
+      width: var(--size, 8px);
+      height: var(--size, 8px);
+      left: var(--x);
+      top: var(--y);
+      border-radius: 50%;
+      background: var(--dot-color, var(--accent));
+      opacity: var(--opacity, 0.72);
+      transform: translate(-50%, -50%);
+      animation: drift var(--duration, 8s) ease-in-out infinite alternate;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .dot.soft {
+      box-shadow: 0 0 0 7px rgba(49, 93, 107, 0.035);
+    }
+
+    @keyframes drift {
+      from { transform: translate(-50%, -50%) translateY(-3px); }
+      to { transform: translate(-50%, -50%) translateY(6px); }
+    }
+
+    .visual-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 172px;
+      height: 172px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(10px);
+    }
+
+    .visual-center::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(49, 93, 107, 0.14);
+    }
+
+    .visual-center strong {
+      display: block;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.85rem;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .visual-center span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .orbit-label {
+      position: absolute;
+      min-width: 150px;
+      padding: 12px 14px;
+      border: 1px solid rgba(203, 211, 207, 0.92);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.78);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(10px);
+    }
+
+    .orbit-label small {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--accent);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .orbit-label strong {
+      display: block;
+      font-size: 0.83rem;
+      line-height: 1.35;
+    }
+
+    .label-1 { top: 11%; right: 0; }
+    .label-2 { bottom: 15%; left: -2%; }
+    .label-3 { bottom: 3%; right: 4%; }
+
+    .visual-note {
+      position: absolute;
+      left: 6%;
+      top: 21%;
+      max-width: 122px;
+      color: var(--muted);
+      font-size: 0.73rem;
+      line-height: 1.5;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .about-copy {
+      max-width: 760px;
+    }
+
+    .about-copy p {
+      margin: 0 0 18px;
+      color: var(--ink-soft);
+      font-size: 1.02rem;
+    }
+
+    .about-copy p:first-child {
+      color: var(--ink);
+      font-size: 1.15rem;
+      line-height: 1.8;
+    }
+
+    .about-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-principles {
+      border-top: 1px solid var(--line);
+    }
+
+    .principle {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 14px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .principle-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-size: 0.9rem;
+    }
+
+    .principle h3 {
+      margin: 0 0 4px;
+      font-size: 0.94rem;
+    }
+
+    .principle p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    /* Research */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .research-card {
+      min-height: 250px;
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.74);
+      box-shadow: var(--shadow-xs);
+      transition:
+        transform var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .research-card:hover {
+      transform: translateY(-4px);
+      border-color: #c4d0cb;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .research-card::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -62px;
+      top: -62px;
+      border-radius: 50%;
+      background: var(--card-wash, var(--accent-soft));
+      opacity: 0.55;
+      transition: transform var(--transition);
+    }
+
+    .research-card:hover::before {
+      transform: scale(1.12);
+    }
+
+    .research-card.large {
+      grid-column: span 6;
+      min-height: 340px;
+    }
+
+    .research-card.medium {
+      grid-column: span 3;
+      min-height: 340px;
+    }
+
+    .research-card.small {
+      grid-column: span 3;
+    }
+
+    .research-card.wide {
+      grid-column: span 6;
+    }
+
+    .research-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 56px;
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
       position: relative;
       z-index: 1;
     }
 
-    .glass-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(16px);
+    .research-card.small .research-icon,
+    .research-card.wide .research-icon {
+      margin-bottom: 36px;
     }
 
-    .about-layout {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 1.5rem;
-      align-items: stretch;
-    }
-
-    .about-main {
-      padding: 2rem;
-    }
-
-    .about-main p {
-      margin: 0 0 1rem;
-      color: var(--text-soft);
-    }
-
-    .about-main p:last-child {
-      margin-bottom: 0;
-    }
-
-    .about-side {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .about-mini {
-      padding: 1.25rem;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-    }
-
-    .about-mini i {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: rgba(255, 107, 53, 0.12);
-      color: var(--accent);
-      margin-bottom: 0.9rem;
-    }
-
-    .about-mini h3 {
-      margin: 0 0 0.45rem;
-      font-size: 1.03rem;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    .about-mini p {
-      margin: 0;
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 235px;
-      gap: 1.2rem;
-    }
-
-    .bento-card {
-      padding: 1.6rem;
-      border-radius: 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      backdrop-filter: blur(14px);
-    }
-
-    .bento-card::before {
-      content: '';
+    .research-number {
       position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top right, rgba(255,107,53,0.10), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.02), transparent 40%);
-      pointer-events: none;
+      top: 28px;
+      right: 28px;
+      color: #a9b4b0;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
     }
 
-    .bento-card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(255, 107, 53, 0.30);
-      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.26);
+    .research-card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 12px;
+      max-width: 420px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      line-height: 1.16;
+      letter-spacing: -0.02em;
     }
 
-    .bento-card i {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      background: rgba(255,107,53,0.12);
-      color: var(--accent);
-      font-size: 1.15rem;
-      margin-bottom: auto;
-    }
-
-    .bento-card h3 {
-      margin: 0 0 0.5rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.35rem;
-      line-height: 1.15;
-    }
-
-    .bento-card p {
+    .research-card p {
+      position: relative;
+      z-index: 1;
       margin: 0;
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      line-height: 1.55;
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
     }
 
-    .span-2 {
-      grid-column: span 2;
-    }
-
-    .row-2 {
-      grid-row: span 2;
-    }
-
-    .facilities-showcase {
+    /* Facilities */
+    .facility-stack {
       display: grid;
-      gap: 1.8rem;
-      margin-top: 2.3rem;
-      margin-bottom: 2rem;
+      gap: 34px;
     }
 
     .facility-feature {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 0;
+      grid-template-columns: 1.06fr 0.94fr;
       overflow: hidden;
-      border-radius: 32px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-    }
-
-    .facility-feature:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 107, 53, 0.24);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
     }
 
     .facility-feature.reverse {
-      grid-template-columns: 0.95fr 1.05fr;
+      grid-template-columns: 0.94fr 1.06fr;
     }
 
     .facility-feature.reverse .facility-media {
@@ -669,392 +821,418 @@
     }
 
     .facility-media {
-      min-height: 360px;
       position: relative;
+      min-height: 420px;
       overflow: hidden;
-      background: #0d121b;
+      background: var(--surface-soft);
     }
 
     .facility-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.78;
-      transition: transform 0.9s ease, opacity 0.6s ease;
+      transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .facility-feature:hover .facility-media img {
-      transform: scale(1.06);
-      opacity: 0.9;
+      transform: scale(1.025);
     }
 
     .facility-media::after {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(to top, rgba(3,5,10,0.38), transparent 45%),
-        linear-gradient(to right, rgba(3,5,10,0.15), transparent 30%);
+      background: linear-gradient(180deg, transparent 55%, rgba(24,33,38,0.08));
       pointer-events: none;
     }
 
     .facility-content {
-      padding: 2rem;
+      padding: 48px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background:
-        radial-gradient(circle at top right, rgba(255,107,53,0.08), transparent 22%),
-        rgba(255,255,255,0.03);
     }
 
-    .facility-label {
-      display: inline-flex;
+    .facility-index {
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      width: fit-content;
-      padding: 0.45rem 0.8rem;
-      border-radius: 999px;
-      background: rgba(255,107,53,0.08);
-      border: 1px solid rgba(255,107,53,0.18);
-      color: var(--accent-2);
-      font-size: 0.78rem;
+      gap: 11px;
+      margin-bottom: 18px;
+      color: var(--accent);
+      font-size: 0.73rem;
       font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 1rem;
+    }
+
+    .facility-index::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: currentColor;
     }
 
     .facility-content h3 {
-      margin: 0 0 1rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.9rem;
+      margin: 0 0 18px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(1.9rem, 3vw, 2.65rem);
+      font-weight: 600;
       line-height: 1.08;
+      letter-spacing: -0.035em;
     }
 
     .facility-content p {
-      margin: 0 0 1rem;
-      color: var(--text-soft);
-      font-size: 1rem;
+      margin: 0 0 16px;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+    }
+
+    .facility-content p:last-of-type {
+      margin-bottom: 24px;
     }
 
     .facility-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-top: 0.4rem;
+      gap: 8px;
     }
 
     .facility-tags span {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.55rem 0.9rem;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      font-size: 0.86rem;
-      color: white;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
+      background: var(--bg-warm);
+      color: var(--ink-soft);
+      font-size: 0.76rem;
+      font-weight: 500;
     }
 
-    .facility-grid {
+    .facility-capabilities {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
+      gap: 1px;
+      margin-top: 36px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--line);
     }
 
-    .facility-mini {
-      padding: 1.25rem;
-      border-radius: 24px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      transition: var(--transition);
+    .capability {
+      padding: 25px;
+      background: rgba(255,255,255,0.78);
     }
 
-    .facility-mini:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 107, 53, 0.24);
-    }
-
-    .facility-mini i {
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: rgba(255,107,53,0.12);
+    .capability i {
+      margin-bottom: 18px;
       color: var(--accent);
-      margin-bottom: 0.9rem;
-    }
-
-    .facility-mini h4 {
-      margin: 0 0 0.45rem;
       font-size: 1rem;
-      font-family: 'Space Grotesk', sans-serif;
     }
 
-    .facility-mini p {
+    .capability h4 {
+      margin: 0 0 7px;
+      font-size: 0.9rem;
+    }
+
+    .capability p {
       margin: 0;
-      color: var(--text-dim);
-      font-size: 0.92rem;
-      line-height: 1.6;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.58;
     }
 
+    /* Team */
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
     }
 
     .team-card {
-      padding: 1.5rem;
-      border-radius: 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      text-align: center;
-      box-shadow: var(--shadow-soft);
-      transition: var(--transition);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.72);
+      transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
     }
 
     .team-card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(255, 107, 53, 0.26);
+      transform: translateY(-4px);
+      border-color: #c5d0cc;
+      box-shadow: var(--shadow-sm);
     }
 
-    .team-avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
+    .team-photo {
+      aspect-ratio: 4 / 4.55;
       overflow: hidden;
-      margin: 0 auto 1rem;
-      border: 2px solid rgba(255,255,255,0.12);
-      box-shadow: 0 0 0 10px rgba(255,255,255,0.02);
-      background: #111722;
+      background: #e8ece9;
     }
 
-    .team-avatar img {
+    .team-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: saturate(0.9);
+      transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .team-card h3 {
-      margin: 0 0 0.3rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.15rem;
+    .team-card:hover .team-photo img {
+      transform: scale(1.025);
+    }
+
+    .team-info {
+      padding: 19px 18px 21px;
+    }
+
+    .team-info h3 {
+      margin: 0 0 4px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.16rem;
+      font-weight: 600;
+      line-height: 1.25;
     }
 
     .team-role {
-      color: var(--accent-2);
-      font-size: 0.86rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      margin-bottom: 9px;
+      color: var(--accent);
+      font-size: 0.7rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .team-topic {
       margin: 0;
-      color: var(--text-dim);
-      font-size: 0.93rem;
-      line-height: 1.6;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.55;
     }
 
+    /* Projects */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
+      grid-template-columns: 1.15fr 0.85fr 0.85fr;
+      gap: 18px;
     }
 
     .gallery-card {
+      min-height: 390px;
       position: relative;
-      min-height: 300px;
-      border-radius: 28px;
       overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      transition: var(--transition);
-      background: #0d121b;
-    }
-
-    .gallery-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 107, 53, 0.24);
+      border-radius: 26px;
+      background: #dfe5e2;
     }
 
     .gallery-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.82;
-      transition: transform 0.9s ease, opacity 0.5s ease;
+      transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .gallery-card:hover img {
-      transform: scale(1.06);
-      opacity: 0.95;
+      transform: scale(1.035);
     }
 
     .gallery-card::after {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(3,5,10,0.82), rgba(3,5,10,0.15));
+      background: linear-gradient(to top, rgba(20,30,34,0.74), rgba(20,30,34,0.06) 55%);
       pointer-events: none;
     }
 
     .gallery-caption {
       position: absolute;
-      left: 1rem;
-      right: 1rem;
-      bottom: 1rem;
       z-index: 1;
-      padding: 1rem;
-      border-radius: 18px;
-      background: rgba(7, 10, 16, 0.55);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      color: #fff;
     }
 
     .gallery-caption strong {
       display: block;
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 0.2rem;
+      margin-bottom: 5px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.28rem;
+      font-weight: 600;
     }
 
     .gallery-caption span {
-      color: var(--text-dim);
-      font-size: 0.88rem;
+      display: block;
+      color: rgba(255,255,255,0.82);
+      font-size: 0.78rem;
+      line-height: 1.5;
     }
 
-    .news-shell {
-      padding: 1.2rem;
-      border-radius: 34px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .news-grid {
+    /* News */
+    .news-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
+      grid-template-columns: 300px 1fr;
+      gap: 70px;
+      align-items: start;
     }
 
-    .news-card {
-      padding: 1.2rem;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
+    .news-intro {
+      position: sticky;
+      top: 112px;
     }
 
-    .news-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 107, 53, 0.24);
+    .news-intro h2 {
+      margin: 0 0 15px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
     }
 
-    .news-card::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    }
-
-    .news-card h4 {
-      margin: 0 0 0.55rem;
-      color: var(--accent-2);
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .news-card p {
+    .news-intro p {
       margin: 0;
-      color: var(--text-soft);
-      font-size: 0.96rem;
-      line-height: 1.6;
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
-    .news-card a {
-      color: var(--accent-2);
-      font-weight: 700;
+    .news-list {
+      border-top: 1px solid var(--line);
     }
 
+    .news-item {
+      display: grid;
+      grid-template-columns: 128px 1fr auto;
+      gap: 24px;
+      align-items: start;
+      padding: 25px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .news-date {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 650;
+      letter-spacing: 0.03em;
+    }
+
+    .news-text {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.68;
+    }
+
+    .news-text strong {
+      color: var(--ink);
+    }
+
+    .news-text a {
+      color: var(--accent);
+      font-weight: 650;
+      text-decoration: underline;
+      text-decoration-color: rgba(49, 93, 107, 0.3);
+      text-underline-offset: 3px;
+    }
+
+    .news-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent);
+      background: rgba(255,255,255,0.72);
+      font-size: 0.75rem;
+    }
+
+    /* Footer */
     footer {
-      padding: 3rem 0 2.4rem;
-      border-top: 1px solid var(--border);
-      margin-top: 2rem;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.03));
+      padding: 54px 0 38px;
+      border-top: 1px solid var(--line);
+      background: #edf0ec;
     }
 
-    .footer-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 1.5rem;
-      align-items: center;
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: end;
     }
 
     .footer-copy h3 {
-      margin: 0 0 0.35rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
+      margin: 0 0 7px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.34rem;
+      font-weight: 600;
     }
 
     .footer-copy p {
       margin: 0;
-      color: var(--text-dim);
-      font-size: 0.92rem;
+      color: var(--muted);
+      font-size: 0.8rem;
     }
 
     .social-links {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 8px;
     }
 
     .social-links a {
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
       display: grid;
       place-items: center;
+      border: 1px solid var(--line-strong);
       border-radius: 50%;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      color: white;
-      transition: var(--transition);
+      background: rgba(255,255,255,0.72);
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      transition:
+        color var(--transition),
+        background var(--transition),
+        transform var(--transition);
     }
 
     .social-links a:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 107, 53, 0.26);
-      color: var(--accent-2);
+      transform: translateY(-2px);
+      color: var(--accent);
+      background: #fff;
     }
 
+    .footer-bottom {
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    /* Interaction */
     .back-top {
       position: fixed;
-      right: 1.2rem;
-      bottom: 1.2rem;
-      width: 48px;
-      height: 48px;
+      right: 22px;
+      bottom: 22px;
+      width: 43px;
+      height: 43px;
+      z-index: 900;
       display: grid;
       place-items: center;
+      border: 1px solid var(--line-strong);
       border-radius: 50%;
-      border: 1px solid var(--border-strong);
-      background: rgba(8, 11, 18, 0.75);
-      color: white;
-      z-index: 1000;
+      background: rgba(255,255,255,0.88);
+      color: var(--ink);
+      box-shadow: var(--shadow-sm);
       opacity: 0;
       visibility: hidden;
-      transform: translateY(12px);
-      transition: var(--transition);
-      backdrop-filter: blur(14px);
+      transform: translateY(10px);
+      transition: all var(--transition);
+      backdrop-filter: blur(10px);
     }
 
     .back-top.show {
@@ -1063,53 +1241,82 @@
       transform: translateY(0);
     }
 
-    .fade-in {
+    .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: var(--transition);
+      transform: translateY(18px);
+      transition:
+        opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .fade-in.visible {
+    .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    @media (max-width: 1020px) {
-      .hero-grid,
-      .about-layout {
-        grid-template-columns: 1fr;
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
       }
 
-      .hero-panel {
-        min-height: 460px;
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
 
-      .bento-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .facility-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .gallery {
-        grid-template-columns: 1fr 1fr;
+      .reveal {
+        opacity: 1;
+        transform: none;
       }
     }
 
-    @media (max-width: 900px) {
+    /* Responsive */
+    @media (max-width: 1120px) {
+      nav {
+        gap: 17px;
+      }
+
+      nav a {
+        font-size: 0.81rem;
+      }
+
+      .hero-grid {
+        gap: 44px;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .container {
+        width: min(var(--max-width), calc(100% - 36px));
+      }
+
+      .menu-toggle {
+        display: grid;
+        place-items: center;
+      }
+
       nav {
         position: absolute;
-        top: 74px;
-        left: 0;
-        right: 0;
+        top: 70px;
+        left: 18px;
+        right: 18px;
         display: none;
+        padding: 12px;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 0;
-        padding: 0.7rem 1rem 1rem;
-        background: rgba(7, 10, 16, 0.95);
-        border-top: 1px solid var(--border);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(250,251,248,0.97);
+        box-shadow: var(--shadow-md);
+        backdrop-filter: blur(16px);
       }
 
       nav.open {
@@ -1117,12 +1324,57 @@
       }
 
       nav a {
-        width: 100%;
-        padding: 0.9rem 0.1rem;
+        padding: 11px 9px;
       }
 
-      .menu-toggle {
-        display: inline-flex;
+      nav a::after {
+        display: none;
+      }
+
+      .nav-cta {
+        border-radius: 12px;
+        margin-top: 4px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        max-width: 820px;
+      }
+
+      .hero-visual {
+        min-height: 500px;
+      }
+
+      .dot-field {
+        max-width: 500px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 46px;
+      }
+
+      .research-card.large {
+        grid-column: span 7;
+      }
+
+      .research-card.medium {
+        grid-column: span 5;
+      }
+
+      .research-card.small {
+        grid-column: span 6;
+      }
+
+      .research-card.wide {
+        grid-column: span 6;
       }
 
       .facility-feature,
@@ -1132,113 +1384,224 @@
 
       .facility-feature.reverse .facility-media,
       .facility-feature.reverse .facility-content {
-        order: unset;
+        order: initial;
       }
 
       .facility-media {
-        min-height: 260px;
+        min-height: 360px;
+      }
+
+      .facility-capabilities {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery-card:first-child {
+        grid-column: span 2;
+      }
+
+      .news-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .news-intro {
+        position: static;
       }
     }
 
-    @media (max-width: 700px) {
-      .hero-stats {
+    @media (max-width: 720px) {
+      section {
+        padding: 78px 0;
+      }
+
+      .hero {
+        padding-top: 122px;
+        padding-bottom: 72px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.15rem, 15vw, 5rem);
+      }
+
+      .hero-meta {
         grid-template-columns: 1fr;
       }
 
-      .bento-grid,
-      .facility-grid,
+      .meta-item,
+      .meta-item + .meta-item {
+        padding: 14px 0;
+        border-left: 0;
+      }
+
+      .meta-item + .meta-item {
+        border-top: 1px solid var(--line);
+      }
+
+      .hero-visual {
+        min-height: 430px;
+      }
+
+      .orbit-label {
+        min-width: 132px;
+        padding: 10px 11px;
+      }
+
+      .visual-center {
+        width: 148px;
+        height: 148px;
+      }
+
+      .research-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .research-card.large,
+      .research-card.medium,
+      .research-card.small,
+      .research-card.wide {
+        grid-column: auto;
+        min-height: 260px;
+      }
+
+      .research-icon {
+        margin-bottom: 44px;
+      }
+
+      .facility-content {
+        padding: 34px 28px;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .gallery {
         grid-template-columns: 1fr;
       }
 
-      .span-2,
-      .row-2 {
-        grid-column: span 1;
-        grid-row: span 1;
+      .gallery-card:first-child {
+        grid-column: auto;
       }
 
-      .hero-panel {
-        min-height: 420px;
+      .gallery-card {
+        min-height: 330px;
       }
 
-      .floating-1,
-      .floating-2,
-      .floating-3 {
-        transform: scale(0.92);
+      .news-item {
+        grid-template-columns: 1fr auto;
+        gap: 12px 18px;
       }
 
-      .floating-1 {
-        right: 16px;
+      .news-date {
+        grid-column: 1;
       }
 
-      .floating-2 {
-        left: 16px;
+      .news-text {
+        grid-column: 1;
       }
 
-      .floating-3 {
-        right: 16px;
+      .news-icon {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
       }
     }
 
-    @media (max-width: 560px) {
+    @media (max-width: 520px) {
       .container {
-        width: min(var(--max-width), calc(100% - 1.1rem));
-      }
-
-      header {
-        top: 10px;
+        width: min(var(--max-width), calc(100% - 26px));
       }
 
       .nav-wrap {
-        padding: 0 0.9rem;
+        min-height: 70px;
       }
 
       .brand-title {
-        font-size: 0.92rem;
+        font-size: 0.84rem;
       }
 
       .brand-subtitle {
-        font-size: 0.68rem;
+        max-width: 230px;
+        font-size: 0.63rem;
       }
 
       .hero {
-        padding-top: 6.6rem;
+        padding-top: 108px;
       }
 
-      .hero-panel {
+      .hero-actions {
+        display: grid;
+      }
+
+      .btn {
+        justify-content: center;
+      }
+
+      .hero-visual {
         min-height: 380px;
       }
 
-      .facility-content,
-      .about-main {
-        padding: 1.35rem;
+      .dot-field {
+        width: 104%;
       }
 
-      .news-shell {
-        padding: 0.85rem;
+      .label-1 {
+        top: 6%;
+      }
+
+      .label-2 {
+        bottom: 8%;
+      }
+
+      .label-3 {
+        right: 0;
+        bottom: -2%;
+      }
+
+      .visual-note {
+        display: none;
+      }
+
+      .facility-capabilities {
+        grid-template-columns: 1fr;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-photo {
+        aspect-ratio: 4 / 3.6;
       }
     }
   </style>
 </head>
+
 <body>
 
-  <canvas id="starfield"></canvas>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-
   <header id="site-header">
-    <div class="nav-wrap">
-      <a href="#" class="brand">
-        <div class="brand-icon">
-          <i class="fas fa-meteor"></i>
-        </div>
-        <div class="brand-text">
+    <div class="container nav-wrap">
+      <a href="#" class="brand" aria-label="PGSSL home">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
           <div class="brand-title">PGSSL | Planetary Geology & Surface Simulation Lab</div>
           <div class="brand-subtitle">Institute for Planetary Materials, Okayama University</div>
         </div>
       </a>
 
-      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
       </button>
 
@@ -1255,563 +1618,729 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-copy fade-in">
-          <div class="hero-kicker">
-            <i class="fas fa-satellite-dish"></i>
-            IPM Okayama University
-          </div>
-          <h1>Decoding planetary surfaces through experiments and exploration.</h1>
-          <p>
-            The Planetary Geology and Surface Simulation Lab investigates Mars and other planetary bodies by combining
-            environmental chamber experiments, geomorphology, remote sensing, field analog studies, and planetary mapping.
-          </p>
+  <main>
 
-          <div class="hero-buttons">
-            <a href="#research" class="btn btn-primary">
-              Explore Research
-              <i class="fas fa-arrow-right"></i>
-            </a>
-            <a href="#facilities" class="btn btn-ghost">
-              View Facilities
-              <i class="fas fa-flask-vial"></i>
-            </a>
-          </div>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
 
-          <div class="hero-stats">
-            <div class="stat-card">
-              <strong>Mars</strong>
-              <span>Brines, ice, deltas, periglacial activity</span>
+          <div class="hero-copy reveal">
+            <div class="hero-kicker">
+              <span class="mini-dot"></span>
+              Institute for Planetary Materials · Okayama University
             </div>
-            <div class="stat-card">
-              <strong>Lab + Field</strong>
-              <span>Simulation integrated with analog observations</span>
-            </div>
-            <div class="stat-card">
-              <strong>Remote Sensing</strong>
-              <span>Planetary mapping and orbital interpretation</span>
-            </div>
-          </div>
-        </div>
 
-        <div class="hero-panel fade-in">
-          <div class="planet-ring ring-1"></div>
-          <div class="planet-ring ring-2"></div>
-          <div class="planet-ring ring-3"></div>
+            <h1>
+              Decoding planetary <span class="accent-word">surfaces</span> through experiments and exploration.
+            </h1>
 
-          <div class="hero-floating-card floating-1">
-            <span class="mini-label">Core Facility</span>
-            <h4>MISASA Chamber</h4>
-            <p>Experimental simulation of Mars-relevant near-surface conditions.</p>
-          </div>
-
-          <div class="hero-floating-card floating-2">
-            <span class="mini-label">Spectral Analysis</span>
-            <h4>VNIR-SWIR Imaging</h4>
-            <p>Linking lab products with orbital observations and analog materials.</p>
-          </div>
-
-          <div class="hero-floating-card floating-3">
-            <span class="mini-label">Current Themes</span>
-            <h4>Brines, Ice, Deltas</h4>
-            <p>Process-based planetary surface science across scales.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="container">
-      <div class="section-header fade-in">
-        <div class="section-tag">
-          <i class="fas fa-circle-info"></i>
-          About the Lab
-        </div>
-        <h2>Planetary surface science with an experimental core</h2>
-        <p>
-          We investigate the evolution of planetary surfaces by integrating environmental simulation, geomorphic analysis,
-          planetary mapping, field analog studies, and mission-relevant interpretation.
-        </p>
-      </div>
-
-      <div class="about-layout">
-        <div class="glass-card about-main fade-in">
-          <p>
-            The Planetary Geology and Surface Simulation Laboratory, led by <strong>Dr. Trishit Ruj</strong> at the
-            Institute for Planetary Materials, Okayama University, focuses on understanding planetary surfaces,
-            especially Mars, through a combination of geology, experiments, and remote sensing.
-          </p>
-          <p>
-            Our research spans Martian brine stability, periglacial activity, paleohydrology, planetary tectonics,
-            surface analog studies, and machine learning applications in planetary mapping.
-          </p>
-          <p>
-            By connecting chamber experiments with orbital observations and field analogs, we aim to test process-based
-            hypotheses rather than relying only on visual interpretation.
-          </p>
-        </div>
-
-        <div class="about-side">
-          <div class="about-mini fade-in">
-            <i class="fas fa-flask"></i>
-            <h3>Experimental Simulation</h3>
-            <p>Controlled chamber studies for Mars-relevant surface processes, hydration changes, and material evolution.</p>
-          </div>
-
-          <div class="about-mini fade-in">
-            <i class="fas fa-mountain"></i>
-            <h3>Field Analogs</h3>
-            <p>Earth environments used to refine interpretations of planetary sedimentary and geomorphic processes.</p>
-          </div>
-
-          <div class="about-mini fade-in">
-            <i class="fas fa-satellite"></i>
-            <h3>Remote Sensing</h3>
-            <p>Orbital observations and mapping integrated with lab results for process-based planetary interpretation.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="research">
-    <div class="container">
-      <div class="section-header fade-in">
-        <div class="section-tag">
-          <i class="fas fa-rocket"></i>
-          Research
-        </div>
-        <h2>Active investigations across Mars and planetary materials</h2>
-        <p>
-          Current work in the lab focuses on near-surface activity, environmental thresholds, and reconstructing past planetary environments.
-        </p>
-      </div>
-
-      <div class="bento-grid">
-        <div class="bento-card span-2 row-2 fade-in">
-          <i class="fas fa-water"></i>
-          <h3>Brine Stability Under Martian Conditions</h3>
-          <p>Simulating deliquescence, transient liquid formation, evaporation, and hydration changes under Mars-relevant environmental conditions.</p>
-        </div>
-
-        <div class="bento-card row-2 fade-in">
-          <i class="fas fa-snowflake"></i>
-          <h3>Periglacial Processes on Mars</h3>
-          <p>Investigating polygonal terrain, scalloped depressions, and ground-ice related landforms to understand Martian cold-climate activity.</p>
-        </div>
-
-        <div class="bento-card fade-in">
-          <i class="fas fa-water-ladder"></i>
-          <h3>Delta Morphodynamics</h3>
-          <p>Tank experiments and remote sensing to reconstruct paleolake and paleo-ocean transitions on Mars.</p>
-        </div>
-
-        <div class="bento-card fade-in">
-          <i class="fas fa-brain"></i>
-          <h3>AI Planetary Mapping</h3>
-          <p>Deep learning approaches for geomorphic classification and planetary surface analysis.</p>
-        </div>
-
-        <div class="bento-card fade-in">
-          <i class="fas fa-moon"></i>
-          <h3>Lunar Tectonics</h3>
-          <p>Crustal stresses, tectonic structures, and surface hazards relevant to lunar exploration.</p>
-        </div>
-
-        <div class="bento-card fade-in">
-          <i class="fas fa-satellite-dish"></i>
-          <h3>Lab to Orbit Linking</h3>
-          <p>Connecting experimental observations and spectral data with orbital signatures on planetary surfaces.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="facilities">
-    <div class="container">
-      <div class="section-header fade-in">
-        <div class="section-tag">
-          <i class="fas fa-microchip"></i>
-          Facilities
-        </div>
-        <h2>Experimental infrastructure built for planetary surface science</h2>
-        <p>
-          Our facilities combine environmental simulation and spectral imaging to directly investigate Mars-relevant processes in the lab.
-        </p>
-      </div>
-
-      <div class="facilities-showcase">
-        <article class="facility-feature fade-in">
-          <div class="facility-media">
-            <img src="Mars Chamber.jpg" alt="Mars chamber facility">
-          </div>
-          <div class="facility-content">
-            <div class="facility-label">
-              <i class="fas fa-flask-vial"></i>
-              Core Facility
-            </div>
-            <h3>MISASA Mars Surface Simulation Chamber</h3>
-            <p>
-              Our Mars chamber is designed to reproduce key near-surface Martian environmental conditions for controlled
-              laboratory experiments on brine formation, evaporation, frost-related activity, desiccation, mineral stability,
-              and regolith-atmosphere interactions.
+            <p class="hero-lead">
+              The Planetary Geology and Surface Simulation Lab investigates Mars and other planetary bodies by combining
+              environmental chamber experiments, geomorphology, remote sensing, field analog studies, and planetary mapping.
             </p>
-            <p>
-              It forms the experimental backbone of the lab and allows us to directly test hypotheses derived from orbital
-              datasets, geomorphic interpretation, and field analog studies.
-            </p>
-            <div class="facility-tags">
-              <span>Low-pressure simulation</span>
-              <span>Brine and frost experiments</span>
-              <span>Mineral stability</span>
-              <span>Planetary analog studies</span>
+
+            <div class="hero-actions">
+              <a href="#research" class="btn btn-primary">
+                Explore Research
+                <i class="fas fa-arrow-right"></i>
+              </a>
+
+              <a href="#facilities" class="btn btn-secondary">
+                View Facilities
+                <i class="fas fa-flask"></i>
+              </a>
+            </div>
+
+            <div class="hero-meta">
+              <div class="meta-item">
+                <strong>Mars</strong>
+                <span>Brines, ice, deltas, periglacial activity</span>
+              </div>
+
+              <div class="meta-item">
+                <strong>Lab + Field</strong>
+                <span>Simulation integrated with analog observations</span>
+              </div>
+
+              <div class="meta-item">
+                <strong>Remote Sensing</strong>
+                <span>Planetary mapping and orbital interpretation</span>
+              </div>
             </div>
           </div>
-        </article>
 
-        <article class="facility-feature reverse fade-in">
-          <div class="facility-media">
-            <img src="Camera and stage.jpg" alt="Hyperspectral imaging system with stage">
-          </div>
-          <div class="facility-content">
-            <div class="facility-label">
-              <i class="fas fa-camera"></i>
-              Imaging System
+          <div class="hero-visual reveal" aria-label="PGSSL research themes visualization">
+            <div class="dot-field">
+
+              <span class="dot soft" style="--x:13%;--y:31%;--size:11px;--dot-color:#315d6b;--duration:8s;"></span>
+              <span class="dot" style="--x:19%;--y:18%;--size:5px;--dot-color:#6d8376;--duration:7s;--delay:-2s;"></span>
+              <span class="dot" style="--x:29%;--y:11%;--size:7px;--dot-color:#c6a474;--duration:9s;"></span>
+              <span class="dot" style="--x:42%;--y:15%;--size:4px;--dot-color:#78909a;--duration:7.4s;--delay:-1s;"></span>
+              <span class="dot soft" style="--x:59%;--y:12%;--size:9px;--dot-color:#b67864;--duration:9.4s;"></span>
+              <span class="dot" style="--x:72%;--y:18%;--size:5px;--dot-color:#315d6b;--duration:6.8s;"></span>
+              <span class="dot" style="--x:83%;--y:28%;--size:8px;--dot-color:#6d8376;--duration:8.5s;--delay:-1.3s;"></span>
+              <span class="dot" style="--x:90%;--y:43%;--size:4px;--dot-color:#c6a474;--duration:7.2s;"></span>
+              <span class="dot soft" style="--x:86%;--y:61%;--size:10px;--dot-color:#315d6b;--duration:9.8s;--delay:-3s;"></span>
+              <span class="dot" style="--x:77%;--y:76%;--size:5px;--dot-color:#b67864;--duration:7s;"></span>
+              <span class="dot" style="--x:62%;--y:86%;--size:8px;--dot-color:#6d8376;--duration:8.2s;--delay:-2s;"></span>
+              <span class="dot" style="--x:45%;--y:90%;--size:4px;--dot-color:#315d6b;--duration:6.7s;"></span>
+              <span class="dot soft" style="--x:29%;--y:83%;--size:9px;--dot-color:#c6a474;--duration:9.2s;"></span>
+              <span class="dot" style="--x:16%;--y:71%;--size:5px;--dot-color:#78909a;--duration:8s;"></span>
+              <span class="dot" style="--x:8%;--y:52%;--size:7px;--dot-color:#b67864;--duration:7.1s;--delay:-1.5s;"></span>
+
+              <span class="dot" style="--x:27%;--y:38%;--size:4px;--dot-color:#78909a;--duration:6.8s;"></span>
+              <span class="dot" style="--x:36%;--y:29%;--size:7px;--dot-color:#315d6b;--duration:8.2s;--delay:-2s;"></span>
+              <span class="dot" style="--x:51%;--y:25%;--size:5px;--dot-color:#c6a474;--duration:7.3s;"></span>
+              <span class="dot" style="--x:67%;--y:31%;--size:6px;--dot-color:#6d8376;--duration:9s;"></span>
+              <span class="dot" style="--x:73%;--y:47%;--size:4px;--dot-color:#b67864;--duration:7s;"></span>
+              <span class="dot" style="--x:68%;--y:63%;--size:7px;--dot-color:#315d6b;--duration:8.7s;--delay:-1s;"></span>
+              <span class="dot" style="--x:53%;--y:72%;--size:5px;--dot-color:#78909a;--duration:7.8s;"></span>
+              <span class="dot" style="--x:37%;--y:67%;--size:6px;--dot-color:#6d8376;--duration:8.4s;--delay:-2s;"></span>
+              <span class="dot" style="--x:27%;--y:55%;--size:4px;--dot-color:#c6a474;--duration:6.8s;"></span>
+
+              <span class="dot" style="--x:47%;--y:39%;--size:5px;--dot-color:#6d8376;--duration:7.8s;"></span>
+              <span class="dot" style="--x:59%;--y:43%;--size:4px;--dot-color:#315d6b;--duration:6.9s;"></span>
+              <span class="dot" style="--x:60%;--y:56%;--size:6px;--dot-color:#c6a474;--duration:8.2s;"></span>
+              <span class="dot" style="--x:45%;--y:61%;--size:4px;--dot-color:#b67864;--duration:7.1s;"></span>
+              <span class="dot" style="--x:38%;--y:48%;--size:6px;--dot-color:#78909a;--duration:8.7s;"></span>
+
+              <div class="visual-center">
+                <div>
+                  <strong>PGSSL</strong>
+                  <span>Process · Surface · Time</span>
+                </div>
+              </div>
+
+              <div class="orbit-label label-1">
+                <small>Experiment</small>
+                <strong>MISASA Mars Chamber</strong>
+              </div>
+
+              <div class="orbit-label label-2">
+                <small>Observation</small>
+                <strong>VNIR-SWIR Imaging</strong>
+              </div>
+
+              <div class="orbit-label label-3">
+                <small>Planetary Science</small>
+                <strong>Brines · Ice · Deltas</strong>
+              </div>
+
+              <div class="visual-note">
+                Controlled experiments linked directly to planetary observations.
+              </div>
             </div>
-            <h3>Hyperspectral Imaging and Motorized Stage</h3>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section id="about" class="section-soft">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <div class="eyebrow">About the Lab</div>
+          <h2>Planetary surface science with an experimental core.</h2>
+          <p>
+            We investigate the evolution of planetary surfaces by integrating environmental simulation, geomorphic analysis,
+            planetary mapping, field analog studies, and mission-relevant interpretation.
+          </p>
+        </div>
+
+        <div class="about-grid">
+
+          <div class="about-copy reveal">
             <p>
-              The facility includes VNIR and SWIR hyperspectral imaging systems integrated with a motorized scanning stage
-              for detailed spectral characterization of samples, analog materials, and experimental products.
+              The Planetary Geology and Surface Simulation Laboratory, led by <strong>Dr. Trishit Ruj</strong> at the
+              Institute for Planetary Materials, Okayama University, focuses on understanding planetary surfaces,
+              especially Mars, through a combination of geology, experiments, and remote sensing.
             </p>
+
             <p>
-              This allows us to examine hydration-related spectral changes, mineralogical evolution, and comparison between
-              laboratory results and orbital observations from Mars missions.
+              Our research spans Martian brine stability, periglacial activity, paleohydrology, planetary tectonics,
+              surface analog studies, and machine learning applications in planetary mapping.
             </p>
-            <div class="facility-tags">
-              <span>VNIR imaging</span>
-              <span>SWIR imaging</span>
-              <span>Motorized stage scanning</span>
-              <span>Lab to orbit comparison</span>
+
+            <p>
+              By connecting chamber experiments with orbital observations and field analogs, we aim to test process-based
+              hypotheses rather than relying only on visual interpretation.
+            </p>
+          </div>
+
+          <div class="about-principles reveal">
+
+            <div class="principle">
+              <div class="principle-icon"><i class="fas fa-flask"></i></div>
+              <div>
+                <h3>Experimental Simulation</h3>
+                <p>Controlled chamber studies for Mars-relevant surface processes, hydration changes, and material evolution.</p>
+              </div>
             </div>
+
+            <div class="principle">
+              <div class="principle-icon"><i class="fas fa-mountain"></i></div>
+              <div>
+                <h3>Field Analogs</h3>
+                <p>Earth environments used to refine interpretations of planetary sedimentary and geomorphic processes.</p>
+              </div>
+            </div>
+
+            <div class="principle">
+              <div class="principle-icon"><i class="fas fa-satellite"></i></div>
+              <div>
+                <h3>Remote Sensing</h3>
+                <p>Orbital observations and mapping integrated with lab results for process-based planetary interpretation.</p>
+              </div>
+            </div>
+
           </div>
-        </article>
-      </div>
 
-      <div class="facility-grid">
-        <div class="facility-mini fade-in">
-          <i class="fas fa-droplet"></i>
-          <h4>Brine Experiments</h4>
-          <p>Deliquescence, transient liquid formation, evaporation pathways, and water activity under Mars-relevant conditions.</p>
-        </div>
-
-        <div class="facility-mini fade-in">
-          <i class="fas fa-icicles"></i>
-          <h4>Frost and Ice Processes</h4>
-          <p>Frost formation, sublimation, and cold-environment surface modifications relevant to Martian high and mid-latitudes.</p>
-        </div>
-
-        <div class="facility-mini fade-in">
-          <i class="fas fa-mountain-sun"></i>
-          <h4>Surface Process Analysis</h4>
-          <p>Interpretation of chamber results together with field analog observations and planetary geomorphic datasets.</p>
-        </div>
-
-        <div class="facility-mini fade-in">
-          <i class="fas fa-wave-square"></i>
-          <h4>Spectral Comparison</h4>
-          <p>Comparison of laboratory products with planetary orbital spectra and mission observations, especially for Mars.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="team">
-    <div class="container">
-      <div class="section-header fade-in">
-        <div class="section-tag">
-          <i class="fas fa-users"></i>
-          Team
-        </div>
-        <h2>People in the lab</h2>
-        <p>
-          Our group brings together planetary geology, geomorphology, remote sensing, and experimental surface science.
-        </p>
-      </div>
 
-      <div class="team-grid">
-        <div class="team-card fade-in">
-          <div class="team-avatar">
-            <img src="trishit_ruj.jpg" alt="Trishit Ruj">
-          </div>
-          <h3>Trishit Ruj</h3>
-          <div class="team-role">Principal Investigator</div>
-          <p class="team-topic">Associate Professor, Institute for Planetary Materials, Okayama University</p>
+    <section id="research">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <div class="eyebrow">Research</div>
+          <h2>Active investigations across Mars and planetary materials.</h2>
+          <p>
+            Current work in the lab focuses on near-surface activity, environmental thresholds,
+            and reconstructing past planetary environments.
+          </p>
         </div>
 
-        <div class="team-card fade-in">
-          <div class="team-avatar">
-            <img src="Ren.jpg" alt="Ren Kito">
-          </div>
-          <h3>Ren Kito</h3>
-          <div class="team-role">M.Sc Student</div>
-          <p class="team-topic">Delta morphology and reconstruction of Martian global regression</p>
-        </div>
+        <div class="research-grid">
 
-        <div class="team-card fade-in">
-          <div class="team-avatar">
-            <img src="Taka.jpg" alt="Takaki Sako">
-          </div>
-          <h3>Takaki Sako</h3>
-          <div class="team-role">M.Sc Student</div>
-          <p class="team-topic">Polygon morphology and identification of near-surface ice</p>
-        </div>
+          <article class="research-card large reveal" style="--card-wash:#dce9ec;">
+            <div class="research-number">01</div>
+            <div class="research-icon"><i class="fas fa-droplet"></i></div>
+            <h3>Brine Stability Under Martian Conditions</h3>
+            <p>
+              Simulating deliquescence, transient liquid formation, evaporation, and hydration changes
+              under Mars-relevant environmental conditions.
+            </p>
+          </article>
 
-        <div class="team-card fade-in">
-          <div class="team-avatar">
-            <img src="Chijiiwa.jpg" alt="Takumu Chijiiwa">
-          </div>
-          <h3>Takumu Chijiiwa</h3>
-          <div class="team-role">M.Sc Student</div>
-          <p class="team-topic">Present-day water activity in Martian high latitudes</p>
-        </div>
+          <article class="research-card medium reveal" style="--card-wash:#e7eee8;">
+            <div class="research-number">02</div>
+            <div class="research-icon"><i class="fas fa-snowflake"></i></div>
+            <h3>Periglacial Processes on Mars</h3>
+            <p>
+              Investigating polygonal terrain, scalloped depressions, and ground-ice related landforms
+              to understand Martian cold-climate activity.
+            </p>
+          </article>
 
-        <div class="team-card fade-in">
-          <div class="team-avatar">
-            <img src="Hiral.jpg" alt="Hiral Bhatt">
-          </div>
-          <h3>Hiral PB</h3>
-          <div class="team-role">M.Sc Student</div>
-          <p class="team-topic">Water-ice distribution in the Martian subsurface</p>
-        </div>
-      </div>
-    </div>
-  </section>
+          <article class="research-card medium reveal" style="--card-wash:#f1e8da;">
+            <div class="research-number">03</div>
+            <div class="research-icon"><i class="fas fa-water"></i></div>
+            <h3>Delta Morphodynamics</h3>
+            <p>
+              Tank experiments and remote sensing to reconstruct paleolake and paleo-ocean transitions on Mars.
+            </p>
+          </article>
 
-  <section id="projects">
-    <div class="container">
-      <div class="section-header fade-in">
-        <div class="section-tag">
-          <i class="fas fa-image"></i>
-          Projects
-        </div>
-        <h2>Project gallery</h2>
-        <p>
-          A visual snapshot of the lab’s experimental, field, and planetary research activities.
-        </p>
-      </div>
+          <article class="research-card small reveal" style="--card-wash:#e7ecef;">
+            <div class="research-number">04</div>
+            <div class="research-icon"><i class="fas fa-network-wired"></i></div>
+            <h3>AI Planetary Mapping</h3>
+            <p>Deep learning approaches for geomorphic classification and planetary surface analysis.</p>
+          </article>
 
-      <div class="gallery">
-        <div class="gallery-card fade-in">
-          <img src="project1.jpg" alt="Tank experiment">
-          <div class="gallery-caption">
-            <strong>Simulated Martian Delta</strong>
-            <span>Tank experiments for paleohydrologic reconstruction</span>
-          </div>
-        </div>
+          <article class="research-card small reveal" style="--card-wash:#ebe8e3;">
+            <div class="research-number">05</div>
+            <div class="research-icon"><i class="fas fa-moon"></i></div>
+            <h3>Lunar Tectonics</h3>
+            <p>Crustal stresses, tectonic structures, and surface hazards relevant to lunar exploration.</p>
+          </article>
 
-        <div class="gallery-card fade-in">
-          <img src="project2.jpg" alt="Field analog site">
-          <div class="gallery-caption">
-            <strong>Dune Analog Site</strong>
-            <span>Field observations linked to planetary surface processes</span>
-          </div>
-        </div>
+          <article class="research-card wide reveal" style="--card-wash:#dfeae5;">
+            <div class="research-number">06</div>
+            <div class="research-icon"><i class="fas fa-satellite-dish"></i></div>
+            <h3>Lab to Orbit Linking</h3>
+            <p>
+              Connecting experimental observations and spectral data with orbital signatures on planetary surfaces.
+            </p>
+          </article>
 
-        <div class="gallery-card fade-in">
-          <img src="project3.jpg" alt="Simulation chamber setup">
-          <div class="gallery-caption">
-            <strong>Simulation Chamber</strong>
-            <span>Experimental infrastructure for Mars-relevant environments</span>
-          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="news">
-    <div class="container">
-      <div class="section-header fade-in">
-        <div class="section-tag">
-          <i class="fas fa-bolt"></i>
-          News & Updates
+
+    <section id="facilities" class="section-soft">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <div class="eyebrow">Facilities</div>
+          <h2>Experimental infrastructure for planetary surface science.</h2>
+          <p>
+            Our facilities combine environmental simulation and spectral imaging
+            to directly investigate Mars-relevant processes in the laboratory.
+          </p>
         </div>
-        <h2>Recent highlights from the lab</h2>
-        <p>
-          Awards, facility milestones, publications, and conference activities.
-        </p>
+
+        <div class="facility-stack">
+
+          <article class="facility-feature reveal">
+            <div class="facility-media">
+              <img src="Mars Chamber.jpg" alt="Mars chamber facility">
+            </div>
+
+            <div class="facility-content">
+              <div class="facility-index">Core Facility · 01</div>
+
+              <h3>MISASA Mars Surface Simulation Chamber</h3>
+
+              <p>
+                Our Mars chamber is designed to reproduce key near-surface Martian environmental conditions
+                for controlled laboratory experiments on brine formation, evaporation, frost-related activity,
+                desiccation, mineral stability, and regolith-atmosphere interactions.
+              </p>
+
+              <p>
+                It forms the experimental backbone of the lab and allows us to directly test hypotheses derived
+                from orbital datasets, geomorphic interpretation, and field analog studies.
+              </p>
+
+              <div class="facility-tags">
+                <span>Low-pressure simulation</span>
+                <span>Brine and frost experiments</span>
+                <span>Mineral stability</span>
+                <span>Planetary analog studies</span>
+              </div>
+            </div>
+          </article>
+
+
+          <article class="facility-feature reverse reveal">
+            <div class="facility-media">
+              <img src="Camera and stage.jpg" alt="Hyperspectral imaging system with motorized stage">
+            </div>
+
+            <div class="facility-content">
+              <div class="facility-index">Imaging System · 02</div>
+
+              <h3>Hyperspectral Imaging and Motorized Stage</h3>
+
+              <p>
+                The facility includes VNIR and SWIR hyperspectral imaging systems integrated with a motorized scanning stage
+                for detailed spectral characterization of samples, analog materials, and experimental products.
+              </p>
+
+              <p>
+                This allows us to examine hydration-related spectral changes, mineralogical evolution,
+                and comparison between laboratory results and orbital observations from Mars missions.
+              </p>
+
+              <div class="facility-tags">
+                <span>VNIR imaging</span>
+                <span>SWIR imaging</span>
+                <span>Motorized stage scanning</span>
+                <span>Lab to orbit comparison</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+
+        <div class="facility-capabilities reveal">
+
+          <div class="capability">
+            <i class="fas fa-droplet"></i>
+            <h4>Brine Experiments</h4>
+            <p>Deliquescence, transient liquid formation, evaporation pathways, and water activity under Mars-relevant conditions.</p>
+          </div>
+
+          <div class="capability">
+            <i class="fas fa-snowflake"></i>
+            <h4>Frost and Ice Processes</h4>
+            <p>Frost formation, sublimation, and cold-environment surface modifications relevant to Martian high and mid-latitudes.</p>
+          </div>
+
+          <div class="capability">
+            <i class="fas fa-mountain-sun"></i>
+            <h4>Surface Process Analysis</h4>
+            <p>Interpretation of chamber results together with field analog observations and planetary geomorphic datasets.</p>
+          </div>
+
+          <div class="capability">
+            <i class="fas fa-wave-square"></i>
+            <h4>Spectral Comparison</h4>
+            <p>Comparison of laboratory products with planetary orbital spectra and mission observations, especially for Mars.</p>
+          </div>
+
+        </div>
+
       </div>
+    </section>
 
-      <div class="news-shell fade-in">
-        <div class="news-grid">
-          <div class="news-card">
-            <h4>March 2026</h4>
-            <p>🏆 <strong>Takaki Sako</strong> received the <strong>Dean’s Choice Award</strong> at Okayama University.</p>
-          </div>
 
-          <div class="news-card">
-            <h4>December 2025</h4>
-            <p>🎓 <strong>Takumu Chijiiwa</strong> received the <strong>OU-SPRING Fellowship</strong> to begin his PhD at Okayama University.</p>
-          </div>
+    <section id="team">
+      <div class="container">
 
-          <div class="news-card">
-            <h4>November 2025</h4>
-            <p>🧪 The <strong>Planetary Surface Simulation Chamber</strong> was fully installed and became ready for experiments.</p>
-          </div>
+        <div class="section-header reveal">
+          <div class="eyebrow">Team</div>
+          <h2>People in the lab.</h2>
+          <p>
+            Our group brings together planetary geology, geomorphology,
+            remote sensing, and experimental surface science.
+          </p>
+        </div>
 
-          <div class="news-card">
-            <h4>November 2025</h4>
-            <p>📷 Installation completed for the new <strong>Hyperspectral Imaging Systems</strong> covering VNIR and SWIR ranges.</p>
-          </div>
+        <div class="team-grid">
 
-          <div class="news-card">
-            <h4>October 2025</h4>
-            <p>📰 Press coverage on <a href="https://www.eurekalert.org/news-releases/1101270" target="_blank" rel="noopener">EurekAlert</a> featured our <em>Geology</em> study on Martian mid-latitude ice accumulation.</p>
-          </div>
+          <article class="team-card reveal">
+            <div class="team-photo">
+              <img src="trishit_ruj.jpg" alt="Trishit Ruj">
+            </div>
+            <div class="team-info">
+              <h3>Trishit Ruj</h3>
+              <div class="team-role">Principal Investigator</div>
+              <p class="team-topic">Associate Professor, Institute for Planetary Materials, Okayama University</p>
+            </div>
+          </article>
 
-          <div class="news-card">
-            <h4>August 2025</h4>
-            <p>📄 A first-author paper by <strong>Trishit Ruj</strong> was accepted in <em>Geology</em>, presenting new insights into Martian mid-latitude glaciation.</p>
-          </div>
+          <article class="team-card reveal">
+            <div class="team-photo">
+              <img src="Ren.jpg" alt="Ren Kito">
+            </div>
+            <div class="team-info">
+              <h3>Ren Kito</h3>
+              <div class="team-role">M.Sc Student</div>
+              <p class="team-topic">Delta morphology and reconstruction of Martian global regression</p>
+            </div>
+          </article>
 
-          <div class="news-card">
-            <h4>April 2025</h4>
-            <p>🏆 <strong><a href="https://www.inamori-f.or.jp/en/250307" target="_blank" rel="noopener">Trishit Ruj</a></strong> received the <strong>Inamori Foundation Research Grant</strong>.</p>
-          </div>
+          <article class="team-card reveal">
+            <div class="team-photo">
+              <img src="Taka.jpg" alt="Takaki Sako">
+            </div>
+            <div class="team-info">
+              <h3>Takaki Sako</h3>
+              <div class="team-role">M.Sc Student</div>
+              <p class="team-topic">Polygon morphology and identification of near-surface ice</p>
+            </div>
+          </article>
 
-          <div class="news-card">
-            <h4>April 2025</h4>
-            <p>🌏 <strong><a href="https://www.hisf.or.jp/en/scholarship/foreigner/selection-result/" target="_blank" rel="noopener">Hiral PB</a></strong> received the <em>HISF International Scholarship</em>.</p>
-          </div>
+          <article class="team-card reveal">
+            <div class="team-photo">
+              <img src="Chijiiwa.jpg" alt="Takumu Chijiiwa">
+            </div>
+            <div class="team-info">
+              <h3>Takumu Chijiiwa</h3>
+              <div class="team-role">M.Sc Student</div>
+              <p class="team-topic">Present-day water activity in Martian high latitudes</p>
+            </div>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-photo">
+              <img src="Hiral.jpg" alt="Hiral PB">
+            </div>
+            <div class="team-info">
+              <h3>Hiral PB</h3>
+              <div class="team-role">M.Sc Student</div>
+              <p class="team-topic">Water-ice distribution in the Martian subsurface</p>
+            </div>
+          </article>
+
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+
+    <section id="projects" class="section-soft">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <div class="eyebrow">Projects</div>
+          <h2>Research in practice.</h2>
+          <p>
+            A visual snapshot of the lab’s experimental, field, and planetary research activities.
+          </p>
+        </div>
+
+        <div class="gallery">
+
+          <article class="gallery-card reveal">
+            <img src="project1.jpg" alt="Tank experiment">
+            <div class="gallery-caption">
+              <strong>Simulated Martian Delta</strong>
+              <span>Tank experiments for paleohydrologic reconstruction</span>
+            </div>
+          </article>
+
+          <article class="gallery-card reveal">
+            <img src="project2.jpg" alt="Field analog site">
+            <div class="gallery-caption">
+              <strong>Dune Analog Site</strong>
+              <span>Field observations linked to planetary surface processes</span>
+            </div>
+          </article>
+
+          <article class="gallery-card reveal">
+            <img src="project3.jpg" alt="Simulation chamber setup">
+            <div class="gallery-caption">
+              <strong>Simulation Chamber</strong>
+              <span>Experimental infrastructure for Mars-relevant environments</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section id="news">
+      <div class="container">
+
+        <div class="news-layout">
+
+          <div class="news-intro reveal">
+            <div class="eyebrow">News & Updates</div>
+            <h2>Recent highlights from the lab.</h2>
+            <p>
+              Awards, facility milestones, publications, and conference activities.
+            </p>
+          </div>
+
+          <div class="news-list reveal">
+
+            <article class="news-item">
+              <div class="news-date">March 2026</div>
+              <p class="news-text">
+                <strong>Takaki Sako</strong> received the <strong>Dean’s Choice Award</strong> at Okayama University.
+              </p>
+              <div class="news-icon"><i class="fas fa-award"></i></div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">December 2025</div>
+              <p class="news-text">
+                <strong>Takumu Chijiiwa</strong> received the <strong>OU-SPRING Fellowship</strong>
+                to begin his PhD at Okayama University.
+              </p>
+              <div class="news-icon"><i class="fas fa-graduation-cap"></i></div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">November 2025</div>
+              <p class="news-text">
+                The <strong>Planetary Surface Simulation Chamber</strong> was fully installed and became ready for experiments.
+              </p>
+              <div class="news-icon"><i class="fas fa-flask"></i></div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">November 2025</div>
+              <p class="news-text">
+                Installation completed for the new <strong>Hyperspectral Imaging Systems</strong> covering VNIR and SWIR ranges.
+              </p>
+              <div class="news-icon"><i class="fas fa-camera"></i></div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">October 2025</div>
+              <p class="news-text">
+                Press coverage on
+                <a href="https://www.eurekalert.org/news-releases/1101270" target="_blank" rel="noopener">EurekAlert</a>
+                featured our <em>Geology</em> study on Martian mid-latitude ice accumulation.
+              </p>
+              <div class="news-icon"><i class="fas fa-newspaper"></i></div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">August 2025</div>
+              <p class="news-text">
+                A first-author paper by <strong>Trishit Ruj</strong> was accepted in <em>Geology</em>,
+                presenting new insights into Martian mid-latitude glaciation.
+              </p>
+              <div class="news-icon"><i class="fas fa-file-lines"></i></div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">April 2025</div>
+              <p class="news-text">
+                <strong>
+                  <a href="https://www.inamori-f.or.jp/en/250307" target="_blank" rel="noopener">Trishit Ruj</a>
+                </strong>
+                received the <strong>Inamori Foundation Research Grant</strong>.
+              </p>
+              <div class="news-icon"><i class="fas fa-award"></i></div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">April 2025</div>
+              <p class="news-text">
+                <strong>
+                  <a href="https://www.hisf.or.jp/en/scholarship/foreigner/selection-result/" target="_blank" rel="noopener">Hiral PB</a>
+                </strong>
+                received the <em>HISF International Scholarship</em>.
+              </p>
+              <div class="news-icon"><i class="fas fa-globe"></i></div>
+            </article>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
 
   <footer id="footer">
-    <div class="container footer-wrap">
-      <div class="footer-copy">
-        <h3>Planetary Geology & Surface Simulation Laboratory</h3>
-        <p>&copy; 2026 Institute for Planetary Materials, Okayama University</p>
+    <div class="container">
+
+      <div class="footer-main">
+        <div class="footer-copy">
+          <h3>Planetary Geology & Surface Simulation Laboratory</h3>
+          <p>Institute for Planetary Materials, Okayama University</p>
+        </div>
+
+        <div class="social-links">
+          <a
+            href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf"
+            target="_blank"
+            rel="noopener"
+            aria-label="ResearchGate"
+          >
+            <i class="fab fa-researchgate"></i>
+          </a>
+
+          <a
+            href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener"
+            aria-label="Google Scholar"
+          >
+            <i class="fab fa-google-scholar"></i>
+          </a>
+
+          <a
+            href="https://orcid.org/0000-0002-7953-4085"
+            target="_blank"
+            rel="noopener"
+            aria-label="ORCID"
+          >
+            <i class="fab fa-orcid"></i>
+          </a>
+
+          <a
+            href="https://twitter.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Twitter"
+          >
+            <i class="fab fa-x-twitter"></i>
+          </a>
+
+          <a
+            href="https://linkedin.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+          >
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
       </div>
 
-      <div class="social-links">
-        <a href="https://www.researchgate.net/profile/Trishit-Ruj?ev=hdr_xprf" target="_blank" rel="noopener" aria-label="ResearchGate">
-          <i class="fab fa-researchgate"></i>
-        </a>
-        <a href="https://scholar.google.com/citations?user=FMkA4KEAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar">
-          <i class="fab fa-google"></i>
-        </a>
-        <a href="https://orcid.org/0000-0002-7953-4085" target="_blank" rel="noopener" aria-label="ORCID">
-          <i class="fab fa-orcid"></i>
-        </a>
-        <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Institute for Planetary Materials, Okayama University</span>
+        <span>PGSSL · Planetary surface processes from laboratory to orbit</span>
       </div>
+
     </div>
   </footer>
+
 
   <a href="#" class="back-top" id="backTop" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </a>
 
+
   <script>
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    let animationFrame;
+    const header = document.getElementById("site-header");
+    const backTop = document.getElementById("backTop");
+    const menuToggle = document.getElementById("menu-toggle");
+    const siteNav = document.getElementById("site-nav");
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      createStars();
+    function updateHeader() {
+      const scrolled = window.scrollY > 26;
+      header.classList.toggle("scrolled", scrolled);
+      backTop.classList.toggle("show", window.scrollY > 520);
     }
 
-    function createStars() {
-      stars = [];
-      const count = Math.floor((canvas.width * canvas.height) / 9000);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
 
-      for (let i = 0; i < count; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 1.3 + 0.2,
-          a: Math.random() * 0.8 + 0.1,
-          speed: (Math.random() - 0.5) * 0.06
-        });
-      }
-    }
+    menuToggle.addEventListener("click", () => {
+      const isOpen = siteNav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
 
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (const star of stars) {
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${star.a})`;
-        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        ctx.fill();
-
-        star.a += star.speed;
-        if (star.a > 1 || star.a < 0.12) {
-          star.speed *= -1;
-        }
-      }
-
-      animationFrame = requestAnimationFrame(drawStars);
-    }
-
-    resizeCanvas();
-    drawStars();
-    window.addEventListener('resize', resizeCanvas);
-
-    const header = document.getElementById('site-header');
-    const backTop = document.getElementById('backTop');
-    const menuToggle = document.getElementById('menu-toggle');
-    const siteNav = document.getElementById('site-nav');
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
-        header.classList.add('scrolled');
-        backTop.classList.add('show');
-      } else {
-        header.classList.remove('scrolled');
-        backTop.classList.remove('show');
-      }
-    });
-
-    menuToggle.addEventListener('click', () => {
-      siteNav.classList.toggle('open');
-      const icon = menuToggle.querySelector('i');
-      icon.className = siteNav.classList.contains('open') ? 'fas fa-xmark' : 'fas fa-bars';
+      const icon = menuToggle.querySelector("i");
+      icon.className = isOpen ? "fas fa-xmark" : "fas fa-bars";
     });
 
     document.querySelectorAll('nav a[href^="#"]').forEach(link => {
-      link.addEventListener('click', () => {
-        siteNav.classList.remove('open');
-        const icon = menuToggle.querySelector('i');
-        icon.className = 'fas fa-bars';
+      link.addEventListener("click", () => {
+        siteNav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.querySelector("i").className = "fas fa-bars";
       });
     });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+    document.addEventListener("click", event => {
+      if (
+        window.innerWidth <= 980 &&
+        siteNav.classList.contains("open") &&
+        !siteNav.contains(event.target) &&
+        !menuToggle.contains(event.target)
+      ) {
+        siteNav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.querySelector("i").className = "fas fa-bars";
+      }
+    });
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "0px 0px -35px 0px"
         }
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -50px 0px'
-    });
+      );
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    } else {
+      document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
+    }
   </script>
+
 </body>
 </html>
+'''
+
+out = Path("/mnt/data/PGSSL_light_academic_redesign.html")
+out.write_text(html, encoding="utf-8")
+
+print(f"Created: {out}")
+print(f"Lines: {len(html.splitlines())}")
