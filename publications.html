@@ -954,6 +954,152 @@
         grid-template-columns: 1fr;
       }
     }
+    /* Home-page theme alignment */
+    :root {
+      --bg-main: #f5f5f7;
+      --bg-soft: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-strong: #ffffff;
+      --border: rgba(0,0,0,.10);
+      --border-strong: rgba(0,0,0,.14);
+      --text-main: #1d1d1f;
+      --text-soft: #6e6e73;
+      --text-dim: #86868b;
+      --accent: #0071e3;
+      --accent-2: #0071e3;
+      --accent-blue: #0071e3;
+      --glow-orange: transparent;
+      --glow-blue: transparent;
+      --shadow: 0 24px 60px rgba(0,0,0,.08);
+      --shadow-soft: 0 12px 30px rgba(0,0,0,.06);
+    }
+
+    body {
+      background: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    canvas#starfield,
+    .orb {
+      display: none;
+    }
+
+    header,
+    header.scrolled {
+      top: 0;
+      width: 100%;
+      border-radius: 0;
+      border: 0;
+      border-bottom: 1px solid rgba(0,0,0,.05);
+      background: rgba(250,250,252,.86);
+      box-shadow: none;
+    }
+
+    .nav-wrap {
+      min-height: 52px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .brand,
+    nav a,
+    nav a:hover,
+    nav a.active,
+    .menu-toggle {
+      color: var(--text-main);
+    }
+
+    .brand-icon,
+    .nav-cta,
+    .hero-panel,
+    .hero-mini,
+    .featured-paper,
+    .featured-content,
+    .stat-box,
+    .search-box,
+    .filter-btn,
+    .pub-card,
+    .pub-badge,
+    .tag-chip,
+    .pub-link {
+      background: var(--bg-card);
+      border-color: var(--border);
+      color: var(--text-main);
+    }
+
+    .hero {
+      padding-top: 8rem;
+    }
+
+    .hero h1,
+    .section-header h2,
+    .featured-content h3,
+    .stat-value,
+    .pub-title {
+      color: var(--text-main);
+      background: none;
+      -webkit-text-fill-color: currentColor;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      letter-spacing: -.055em;
+    }
+
+    .hero p,
+    .section-header p,
+    .featured-authors,
+    .featured-content p,
+    .pub-authors,
+    .pub-desc,
+    .hero-mini p,
+    .visual-card p {
+      color: var(--text-soft);
+    }
+
+    .hero-kicker,
+    .section-tag,
+    .featured-badge,
+    .pub-journal,
+    .hero-mini i,
+    .visual-card span {
+      color: var(--accent);
+      background: rgba(0,113,227,.08);
+      border-color: rgba(0,113,227,.16);
+    }
+
+    .hero-panel,
+    .featured-visual {
+      background:
+        radial-gradient(circle at 30% 24%, rgba(119,168,197,.22), transparent 24%),
+        radial-gradient(circle at 76% 70%, rgba(207,106,76,.14), transparent 20%),
+        linear-gradient(180deg,#ffffff 0%,#edf3f7 100%);
+    }
+
+    .visual-card {
+      background: rgba(255,255,255,.78);
+    }
+
+    .pill,
+    .filter-btn.active,
+    .filter-btn:hover,
+    .link-btn.primary {
+      background: var(--text-main);
+      border-color: var(--text-main);
+      color: #ffffff;
+      box-shadow: none;
+    }
+
+    .search-box input {
+      color: var(--text-main);
+    }
+
+    .pub-card:hover {
+      border-color: rgba(0,0,0,.18);
+      box-shadow: 0 20px 45px rgba(0,0,0,.10);
+    }
+
+    nav a::after {
+      background: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -1044,7 +1190,7 @@
         </div>
         <h2>Recent highlight</h2>
         <p>
-          A recent study representing a major direction of the lab’s work on Martian climate history and glaciation.
+          A recent study connecting Martian delta morphology, laboratory tank experiments, and the timing of hydrologic change on ancient Mars.
         </p>
       </div>
 
@@ -1054,23 +1200,24 @@
             <i class="fas fa-award"></i>
             Featured Paper
           </div>
-          <h3>Long-term and multi-stage ice accumulation in the martian mid-latitudes during the Amazonian</h3>
-          <div class="featured-authors">Trishit Ruj; Hanaya Okuda; Goro Komatsu; Hitoshi Hasegawa; James W. Head; Tomohiro Usui; Shun Mihira; Makito Kobayashi</div>
+          <h3>Delta morphology reveals timings of early ocean regression and hydrologic shift on ancient Mars</h3>
+          <div class="featured-authors">Ren Kito; Hitoshi Hasegawa; Trishit Ruj; Tetsuji Muto; Gian Gabriele Ori; Goro Komatsu</div>
           <div class="featured-meta">
-            <span class="pill"><i class="fas fa-book"></i> Geology</span>
-            <span class="pill"><i class="fas fa-calendar"></i> 2025</span>
-            <span class="pill"><i class="fas fa-snowflake"></i> Mars Glaciation</span>
+            <span class="pill"><i class="fas fa-book"></i> npj Space Exploration</span>
+            <span class="pill"><i class="fas fa-calendar"></i> 2026</span>
+            <span class="pill"><i class="fas fa-water"></i> Martian Deltas</span>
           </div>
           <p>
-            This work reconstructs long-term and multi-stage ice accumulation in the Martian mid-latitudes
-            and provides new insight into Amazonian climate variability and preservation of near-surface ice.
+            This work combines satellite observations with controlled tank experiments to show how
+            Martian delta forms record falling and rising water levels, helping constrain the shift
+            from an early ocean and regression to younger localized lake systems.
           </p>
           <div class="featured-links">
-            <a class="link-btn primary" href="https://doi.org/10.1130/G53418.1" target="_blank" rel="noopener">
+            <a class="link-btn primary" href="https://doi.org/10.1038/s44453-026-00056-7" target="_blank" rel="noopener">
               <i class="fas fa-arrow-up-right-from-square"></i>
               View Paper
             </a>
-            <a class="link-btn" href="https://doi.org/10.1130/G53418.1" target="_blank" rel="noopener">
+            <a class="link-btn" href="https://doi.org/10.1038/s44453-026-00056-7" target="_blank" rel="noopener">
               <i class="fas fa-link"></i>
               DOI
             </a>
@@ -1084,14 +1231,14 @@
 
           <div class="visual-card v1">
             <span>Focus</span>
-            <strong>Mid-latitude ice history</strong>
-            <p>Long-term accumulation and climatic cycling during the Amazonian.</p>
+            <strong>Ocean regression on Mars</strong>
+            <p>Delta morphology used to read the timing of ancient hydrologic change.</p>
           </div>
 
           <div class="visual-card v2">
             <span>Approach</span>
-            <strong>Geomorphology + chronology</strong>
-            <p>Landform interpretation tied to age constraints and climatic reconstruction.</p>
+            <strong>Tank experiments + orbit</strong>
+            <p>Laboratory deltas compared with Martian landforms observed from spacecraft.</p>
           </div>
         </div>
       </div>
@@ -1166,6 +1313,42 @@
 
   <script>
     const publications = [
+      {
+        year: 2026,
+        title: "Breaching of Valles Marineris led to ~34 m Martian sea level rise",
+        authors: "K.S. Sajinkumar; P.B. Hiral; Sadeeda T. Marjan; Devika Padmakumar; V.R. Rani; A. Rajaneesh; Gowri Giri; Trishit Ruj; Thomas Oommen; V.J. Rajesh",
+        journal: "Icarus",
+        summary: "Investigates how breaching of Valles Marineris may have contributed to an approximately 34 m rise in Martian sea level, linking canyon-scale geomorphic change with broader paleohydrologic evolution.",
+        doi: "https://doi.org/10.1016/j.icarus.2026.117322",
+        tags: ["Mars", "Valles Marineris", "Paleohydrology", "Sea-Level Change", "Geomorphology"]
+      },
+      {
+        year: 2026,
+        title: "Delta morphology reveals timings of early ocean regression and hydrologic shift on ancient Mars",
+        authors: "Ren Kito; Hitoshi Hasegawa; Trishit Ruj; Tetsuji Muto; Gian Gabriele Ori; Goro Komatsu",
+        journal: "npj Space Exploration",
+        summary: "Combines satellite observations and controlled tank experiments to show how Martian delta morphology records falling and rising water levels, constraining a shift from an early ocean and regression to younger localized lake systems.",
+        doi: "https://doi.org/10.1038/s44453-026-00056-7",
+        tags: ["Mars", "Deltas", "Paleohydrology", "Ocean Regression", "Tank Experiments"]
+      },
+      {
+        year: 2026,
+        title: "Surface geology and evolution of asteroid Ryugu: Insights from Hayabusa2 global mapping",
+        authors: "L. M. Vincent; T. Ruj; G. Komatsu; A. Ray; H. Kikuchi; R. Hemmi; et al.",
+        journal: "Journal of Geophysical Research: Planets",
+        summary: "Uses Hayabusa2 global mapping to interpret the surface geology and evolution of asteroid Ryugu, extending the lab's comparative planetary surface work to small bodies.",
+        doi: "https://doi.org/10.1029/2025JE009578",
+        tags: ["Asteroid", "Ryugu", "Hayabusa2", "Geologic Mapping", "Surface Processes"]
+      },
+      {
+        year: 2026,
+        title: "Formation of melanterite from marcasite: Insights into Martian transient wet conditions",
+        authors: "A. Sreejayan; G. Giri; P. B. Hiral; S. Mahin; L. M. Varghese; G. K. Indu; et al.",
+        journal: "Journal of Geophysical Research: Planets",
+        summary: "Examines melanterite formation from marcasite as an analog for Martian transient wet conditions, linking mineral alteration to short-lived aqueous environments.",
+        doi: "https://doi.org/10.1029/2025JE009544",
+        tags: ["Mars", "Mineralogy", "Melanterite", "Marcasite", "Transient Wet Conditions"]
+      },
       {
         year: 2026,
         title: "Boulder populations and orientation trends on asteroid Ryugu: implications for rubble-pile surface processes",
