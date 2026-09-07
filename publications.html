@@ -672,6 +672,25 @@
       gap: 1rem;
     }
 
+    .publication-year-group {
+      grid-column: 1 / -1;
+      display: contents;
+    }
+
+    .year-heading {
+      grid-column: 1 / -1;
+      margin: 1.15rem 0 0.15rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.15rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: var(--text-main);
+    }
+
+    .year-heading:first-child {
+      margin-top: 0;
+    }
+
     .pub-card {
       padding: 1.35rem;
       border-radius: 26px;
@@ -679,6 +698,20 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow-soft);
       transition: var(--transition);
+    }
+
+    .pub-number {
+      display: inline-grid;
+      place-items: center;
+      min-width: 2.15rem;
+      height: 2.15rem;
+      margin-bottom: 0.85rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      font-size: 0.82rem;
+      font-weight: 800;
     }
 
     .pub-card:hover {
@@ -1090,6 +1123,12 @@
 
     .search-box input {
       color: var(--text-main);
+    }
+
+    .pub-number {
+      background: rgba(0,113,227,.08);
+      border-color: rgba(0,113,227,.14);
+      color: var(--accent);
     }
 
     .pub-card:hover {
@@ -1546,11 +1585,12 @@
       });
     }
 
-    function createPublicationCard(pub) {
-      const topBadges = [pub.year, ...pub.tags.slice(0, 2)];
+    function createPublicationCard(pub, index) {
+      const topBadges = pub.tags.slice(0, 2);
 
       return `
         <article class="pub-card fade-in">
+          <span class="pub-number">${index + 1}</span>
           <div class="pub-top">
             ${topBadges.map(item => `<span class="pub-badge">${item}</span>`).join("")}
           </div>
@@ -1592,7 +1632,21 @@
 
       filtered.sort((a, b) => b.year - a.year);
 
-      publicationsGrid.innerHTML = filtered.map(createPublicationCard).join("");
+      const byYear = filtered.reduce((groups, pub) => {
+        const year = String(pub.year);
+        if (!groups[year]) groups[year] = [];
+        groups[year].push(pub);
+        return groups;
+      }, {});
+
+      publicationsGrid.innerHTML = Object.keys(byYear)
+        .sort((a, b) => Number(b) - Number(a))
+        .map(year => `
+          <section class="publication-year-group" aria-labelledby="year-${year}">
+            <h3 class="year-heading" id="year-${year}">${year}</h3>
+            ${byYear[year].map(createPublicationCard).join("")}
+          </section>
+        `).join("");
       emptyState.style.display = filtered.length === 0 ? "block" : "none";
       visibleCount.textContent = filtered.length;
       totalCount.textContent = publications.length;
